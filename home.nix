@@ -70,10 +70,10 @@ in {
     zi
   ];
 
-  #xdg.configFile.nvim = {
-  #  source = ./nvim;
-  #  recursive = true;
-  #};
+  xdg.configFile.nvim = {
+    source = ./nvim;
+    recursive = true;
+  };
 
   accounts.email.accounts = let 
     # Shoutout to getchoo who figured this out for me
