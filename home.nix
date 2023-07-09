@@ -1,6 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
-{
+
+let
+  mainAddress = "hi@pluie.me";
+  realName = "Leah Amelia Chen";
+in {
+  xdg.enable = true;
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "leah";
@@ -15,8 +21,6 @@
   # release notes.
   home.stateVersion = "23.05"; # Please read the comment before changing.
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
   home.packages = with pkgs; [
     # Apps
     _1password-gui
@@ -40,75 +44,108 @@
 
     # Coding utilities
     alejandra
+    black
+    clang_16
     deadnix
+    deno
     mold
     perl
     rbenv
-    temurin-bin-17
-    #temurin-bin-8
+    temurin-bin
     pre-commit
     python3Full
+    nodePackages_latest.nodejs
+    nodePackages_latest.pyright
+    ruff
+    rustup
     statix
     stylua
 
     # Command-line apps
-    exa
-    fzf
-    gh
-    helix
-    hyfetch
     just
     nvimpager
     nethack
-    ripgrep
-    ripgrep-all
     tectonic
+    xclip
     zi
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
+  #xdg.configFile.nvim = {
+  #  source = ./nvim;
+  #  recursive = true;
+  #};
 
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-  };
+  accounts.email.accounts = let 
+    # Shoutout to getchoo who figured this out for me
+    mkEmailAccounts = builtins.mapAttrs (_: account: {
+      imap.host = "imap.migadu.com";
+      smtp.host = "smtp.migadu.com";
+      userName = account.address; # Use the address as the IMAP/SMTP username by default
+      thunderbird.enable = true;
+    } // account);
 
-  # You can also manage environment variables but you will have to manually
-  # source
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/leah/etc/profile.d/hm-session-vars.sh
-  #
-  # if you don't want to manage your shell through Home Manager.
-  home.sessionVariables = {
-    # EDITOR = "emacs";
+  in mkEmailAccounts {
+    main = {
+      inherit realName;
+      primary = true;
+      address = mainAddress;
+    };
+    accounts = {
+      address = "acc@pluie.me";
+      realName = "${realName} [accounts]";
+    };
   };
 
   programs = {
     home-manager.enable = true;
 
+    exa = {
+      enable = true;
+      enableAliases = true;
+      git = true;
+      icons = true;
+    };
     firefox = {
+      enable = true;
+    };
+    fzf.enable = true;
+    gh.enable = true;
+
+    git = {
+      enable = true;
+      extraConfig = {
+        init.defaultBranch = "main";
+        user = {
+          email = mainAddress;
+          name = realName;
+          # Don't worry, this is the public key xD
+          signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC7uJGE2/25M4a3DIVxtnTA5INqWsFGw+49qHXaN/kqy";
+        };
+        # Use 1Password's SSH signer
+        gpg = {
+          format = "ssh";
+          ssh.program = "/etc/profiles/per-user/leah/bin/op-ssh-sign";
+        };
+        commit.gpgsign = true;
+      };
+    };
+    hyfetch.enable = true;
+
+    fish = {
       enable = true;
     };
     neovim = {
       enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
     };
-    zsh = {
+    obs-studio.enable = true;
+    ripgrep.enable = true;
+
+    thunderbird = {
       enable = true;
-      enableAutosuggestions = true;
-      autocd = true;
-      # zplug.enable = true;
+      profiles.leah.isDefault = true;
     };
   };
 }
