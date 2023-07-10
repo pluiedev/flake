@@ -127,14 +127,21 @@ in {
     firefox = {
       enable = true;
 
+      # Janky workaround
+      # https://github.com/nix-community/home-manager/issues/1586
+      package = pkgs.firefox.override {
+        cfg = {
+          enablePlasmaBrowserIntegration = true;
+        };
+      };
+
       profiles.leah = {
         isDefault = true;
         name = "Leah";
 
-        extensions = with pkgs.rycee.firefox-addons; [
+        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           augmented-steam
           auto-tab-discard
-          bypass-paywalls-clean
           darkreader
           decentraleyes
           disconnect
@@ -143,13 +150,14 @@ in {
           onepassword-password-manager
           plasma-integration
           pronoundb
-          protondb
+          protondb-for-steam
           refined-github
           rust-search-extension
           search-by-image
           sponsorblock
           terms-of-service-didnt-read
           ublock-origin
+          unpaywall
           vencord-web
           wayback-machine
           youtube-nonstop

@@ -24,13 +24,11 @@
         nur.nixosModules.nur
         home-manager.nixosModules.home-manager
         {
+          nixpkgs.overlays = [nur.overlay];
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.leah = {
-              imports = [./home.nix];
-              nixpkgs.overlays = [nur.overlay];
-            };
+            users.leah.imports = [./home.nix];
           };
         }
       ];
