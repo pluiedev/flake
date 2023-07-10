@@ -7,23 +7,34 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nur.url = "github:nix-community/NUR";
   };
-  outputs = inputs@{ nixpkgs, home-manager, ... }: {
+  outputs = inputs @ {
+    nixpkgs,
+    nur,
+    home-manager,
+    ...
+  }: {
     nixosConfigurations.tagliatelle = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-      	./configuration.nix
-	      home-manager.nixosModules.home-manager
-	      {
-	        home-manager = {
+        ./configuration.nix
+        ./upgrade-diff.nix
+        nur.nixosModules.nur
+        home-manager.nixosModules.home-manager
+        {
+          home-manager = {
             useGlobalPkgs = true;
-	          useUserPackages = true;
-	          users.leah = import ./home.nix;
+            useUserPackages = true;
+            users.leah = {
+              imports = [./home.nix];
+              nixpkgs.overlays = [nur.overlay];
+            };
           };
-	      }
+        }
       ];
       specialArgs = inputs;
     };
   };
 }
-

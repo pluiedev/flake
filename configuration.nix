@@ -1,14 +1,16 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, nixpkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  nixpkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -96,7 +98,20 @@
   users.users.leah = {
     isNormalUser = true;
     description = "Leah";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel" # `sudo` powers
+    ];
+    shell = pkgs.fish;
+  };
+
+  programs = {
+    fish.enable = true;
+    _1password.enable = true;
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = ["leah"];
+    };
   };
 
   # Allow unfree packages
@@ -105,11 +120,20 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     git
-     gcc
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    git
+    gcc
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
   ];
+
+  # Je suis chinoise
+  i18n.inputMethod = {
+    enabled = "fcitx5";
+    fcitx5.addons = with pkgs; [
+      fcitx5-mozc
+      fcitx5-rime
+    ];
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -146,10 +170,10 @@
     };
     settings = {
       auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = ["nix-command" "flakes"];
 
       # Certainly a China moment
-      substituters = [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" ];
+      substituters = ["https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"];
     };
     registry = let
       nixpkgsRegistry.flake = nixpkgs;
@@ -159,5 +183,3 @@
     };
   };
 }
-
-
