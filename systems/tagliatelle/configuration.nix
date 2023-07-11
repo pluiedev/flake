@@ -94,26 +94,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.leah = {
-    isNormalUser = true;
-    description = "Leah";
-    extraGroups = [
-      "networkmanager"
-      "wheel" # `sudo` powers
-    ];
-    shell = pkgs.fish;
-  };
-
-  programs = {
-    fish.enable = true;
-    _1password.enable = true;
-    _1password-gui = {
-      enable = true;
-      polkitPolicyOwners = ["leah"];
-    };
-  };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -121,15 +101,6 @@
     git
     gcc
   ];
-
-  # Je suis chinoise
-  i18n.inputMethod = {
-    enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      fcitx5-mozc
-      fcitx5-rime
-    ];
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
