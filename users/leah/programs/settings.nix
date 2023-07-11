@@ -40,7 +40,7 @@
         add_newline = true;
       };
     };
-    
+
     obs-studio.enable = true;
     ripgrep.enable = true;
 

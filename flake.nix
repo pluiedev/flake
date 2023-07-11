@@ -22,16 +22,14 @@
       inputs.flake-utils.follows = "flake-utils";
     };
   };
-  outputs = inputs @ {
-    nixpkgs,
-    nur,
-    home-manager,
-    flake-parts,
-    ...
-  }: flake-parts.lib.mkFlake { inherit inputs; } {
-    systems = ["x86_64-linux"];
-    imports = [
-      ./systems/tagliatelle 
-    ];
-  };
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake
+    {inherit inputs;}
+    {
+      systems = ["x86_64-linux"];
+      imports = [
+        ./systems
+        ./utils
+      ];
+    };
 }

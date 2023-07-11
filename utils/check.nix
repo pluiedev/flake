@@ -1,30 +1,32 @@
 {
   inputs,
   self,
-  flake-utils,
-  nixpkgs,
   ...
-}:
-
-#flake-utils.lib.eachDefaultSystem (system:
-let
-  hook = inputs.pre-commit-hooks.lib."x86_64-linux".run {
-    src = self;
-    hooks = {
-      alejandra.enable = true;
-      deadnix.enable = true;
-      nil.enable = true;
-      statix.enable = true;
-      stylua.enable = true;
+}: {
+  perSystem = {
+    #pkgs,
+    system,
+    ...
+  }: let
+    hook = inputs.pre-commit-hooks.lib.${system}.run {
+      src = self;
+      hooks = {
+        alejandra.enable = true;
+        deadnix.enable = true;
+        nil.enable = true;
+        statix.enable = true;
+        stylua.enable = true;
+      };
     };
-  };
-in
-  {
+  in {
     checks.pre-commit-check = hook;
-
-    devShell = nixpkgs.legacyPackages."x86_64-linux".mkShell {
-      inherit (hook) shellHook;
-    };
-  }
+  
+    #devShell = pkgs.mkShell {
+    #  inherit (hook) shellHook;
+    #};
+  };
+}
+#flake-utils.lib.eachDefaultSystem (system:
 
 #)
+

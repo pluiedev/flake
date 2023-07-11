@@ -3,6 +3,6 @@
     ./firefox.nix
     ./nvim
     ./packages.nix
-    ./settings.nix 
+    ./settings.nix
   ];
 }

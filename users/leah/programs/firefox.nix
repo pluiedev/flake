@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   mkParams = params:
     map
     (name: {
@@ -7,8 +6,7 @@ let
       value = builtins.getAttr name params;
     })
     (builtins.attrNames params);
-in 
-{
+in {
   programs.firefox = {
     enable = true;
     # Janky workaround
