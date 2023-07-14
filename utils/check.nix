@@ -4,7 +4,7 @@
   ...
 }: {
   perSystem = {
-    #pkgs,
+    pkgs,
     system,
     ...
   }: let
@@ -21,12 +21,11 @@
   in {
     checks.pre-commit-check = hook;
   
-    #devShell = pkgs.mkShell {
-    #  inherit (hook) shellHook;
-    #};
+    devShells = pkgs.mkShell {
+      inherit (hook) shellHook;
+    };
+
+    formatter = pkgs.alejandra;
   };
 }
-#flake-utils.lib.eachDefaultSystem (system:
-
-#)
 

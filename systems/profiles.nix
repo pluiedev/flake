@@ -3,6 +3,7 @@
     nixpkgs,
     nur,
     home-manager,
+    ragenix,
     ...
   }: {
     system = "x86_64-linux";
@@ -13,6 +14,7 @@
 
       home-manager.nixosModules.home-manager
       nur.nixosModules.nur
+      ragenix.nixosModules.default
 
       ../users/leah
 

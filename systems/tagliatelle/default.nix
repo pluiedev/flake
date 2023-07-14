@@ -71,6 +71,13 @@
   # Audio
   sound.enable = true;
   hardware.pulseaudio.enable = false;
+  hardware.pulseaudio.extraConfig = ''
+    load-module module-null-sink sink_name=V1 sink_properties=device.description=mic+app
+    load-module module-null-sink sink_name=V2 sink_properties=device.description=app
+    load-module module-loopback source=@DEFAULT_SOURCE@ sink=V1
+    load-module module-loopback source=V2.monitor sink=V1
+    load-module module-loopback source=V2.monitor sink=@DEFAULT_SINK@
+  '';
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
