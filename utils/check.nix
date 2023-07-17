@@ -20,7 +20,7 @@
     };
   in {
     checks.pre-commit-check = hook;
-  
+
     devShells = pkgs.mkShell {
       inherit (hook) shellHook;
     };
@@ -28,4 +28,3 @@
     formatter = pkgs.alejandra;
   };
 }
-

@@ -14,23 +14,31 @@
     gimp-with-plugins
     inkscape-with-extensions
     libsForQt5.kcalc
+    libreoffice-qt
     mongodb-compass
     prismlauncher
-    steam
     vlc
 
     # System utilities
     ffmpeg_6
-    pipewire
     zerotierone
+
+    # Fonts
     (nerdfonts.override {fonts = ["Iosevka"];})
+    # Apparently to NixOS, having Old North Arabian support is more important than having Chinese or Japanese fonts. Wow.
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+    lxgw-wenkai
+    lxgw-neoxihei
 
     # Coding utilities
     alejandra
+    any-nix-shell
     black
     clang_16
     deadnix
     deno
+    haskellPackages.haskell-language-server
     lua-language-server
     mold
     perl
@@ -38,6 +46,7 @@
     pre-commit
     python3Full
     nodePackages_latest.nodejs
+    nodePackages_latest.pnpm
     nodePackages_latest.pyright
     ruff
     ruff-lsp
@@ -54,7 +63,6 @@
     starship
     tectonic
     xclip
-    zi
   ];
 
   programs = {
@@ -72,18 +80,7 @@
     };
 
     fzf.enable = true;
-    gh.enable = true;
     hyfetch.enable = true;
-    fish.enable = true;
-
-    starship = {
-      enable = true;
-      enableFishIntegration = true;
-      settings = {
-        add_newline = true;
-      };
-    };
-
     obs-studio.enable = true;
     ripgrep.enable = true;
 

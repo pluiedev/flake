@@ -173,15 +173,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1688731042,
-        "narHash": "sha256-D1p/LLP1SpDYjutt9W+O5Ek+XGdszsjYjvL30ad++OY=",
-        "owner": "nix-community",
+        "lastModified": 1689405134,
+        "narHash": "sha256-1v+s2TodJM7bj7nX2tXa5Hdd5idAKOucw4eu+rC03zk=",
+        "owner": "pluiedev",
         "repo": "home-manager",
-        "rev": "34db2f05219bcb0e41cc85490e4c338e2405546c",
+        "rev": "a2064b073480b569c3da9c9bcf0a4a9761fe9467",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "pluiedev",
+        "ref": "feat/git-ssh-signing",
         "repo": "home-manager",
         "type": "github"
       }
