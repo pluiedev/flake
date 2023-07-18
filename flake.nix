@@ -40,6 +40,7 @@
     {
       imports = [
         ./systems
+        ./templates
         ./utils
       ];
     };
