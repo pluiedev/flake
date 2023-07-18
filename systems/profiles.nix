@@ -1,7 +1,9 @@
 {
-  personal = name: inputs @ {
+  personal = inputs @ {
+    name,
     nixpkgs,
     nur,
+    rust-overlay,
     home-manager,
     ragenix,
     ...
@@ -22,8 +24,14 @@
         networking.hostName = name;
         system.stateVersion = "23.11";
 
+        home-manager = {
+          backupFileExtension = "backup";
+          useGlobalPkgs = true;
+          useUserPackages = true;
+        };
+
         nixpkgs = {
-          overlays = [nur.overlay];
+          overlays = [nur.overlay rust-overlay.overlays.default];
           config.allowUnfree = true;
         };
 

@@ -2,7 +2,8 @@
   profiles = import ./profiles.nix;
 
   mkNixOS = name: spec: let
-    profile = spec.profile name inputs;
+    inputs' = inputs // { inherit name; };
+    profile = spec.profile inputs';
     modules = spec.modules or [];
     system = spec.system or profile.system;
     specialArgs = spec.specialArgs or profile.specialArgs;

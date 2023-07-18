@@ -27,12 +27,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
   outputs = inputs:
     inputs.flake-parts.lib.mkFlake
     {inherit inputs;}
     {
-      systems = ["x86_64-linux"];
       imports = [
         ./systems
         ./utils

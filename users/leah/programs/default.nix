@@ -32,11 +32,9 @@
     lxgw-neoxihei
 
     # Coding utilities
-    alejandra
     any-nix-shell
     black
     clang_16
-    deadnix
     deno
     haskellPackages.haskell-language-server
     lua-language-server
@@ -50,10 +48,17 @@
     nodePackages_latest.pyright
     ruff
     ruff-lsp
-    rustup
-    statix
+    (rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
+      extensions = ["rust-analyzer"];
+    }))
     stylua
     tree-sitter
+
+    # Nix tools
+    alejandra
+    deadnix
+    nil
+    statix
 
     # Command-line apps
     just
