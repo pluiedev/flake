@@ -1,0 +1,16 @@
+[SddmGreeterTheme]
+Name=flutter
+Description=Sddm Theme 
+Author=Adhe
+Copyright=(c) 2019, Adhe
+License=CC-BY-SA
+Type=sddm-theme
+Version=0.1
+Website=https://github.com/adhec/sddm_themes
+Screenshot=preview.png
+MainScript=Main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=translations
+Email=adhemarks@gmail.com
+Theme-Id=ittu_bottom
+Theme-API=2.0

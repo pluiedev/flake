@@ -30,28 +30,31 @@
     noto-fonts-cjk-serif
     lxgw-wenkai
     lxgw-neoxihei
+    rubik
 
     # Coding utilities
     any-nix-shell
     black
     clang_16
     deno
+    haskellPackages.ghc
     haskellPackages.haskell-language-server
+    jetbrains.idea-community
     lua-language-server
     mold
     perl
     temurin-bin
     pre-commit
+    prettierd
     python3Full
     nodePackages_latest.nodejs
     nodePackages_latest.pnpm
     nodePackages_latest.pyright
     ruff
     ruff-lsp
-    (rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
-      extensions = ["rust-analyzer"];
-    }))
+    shfmt
     stylua
+    taplo
     tree-sitter
 
     # Nix tools

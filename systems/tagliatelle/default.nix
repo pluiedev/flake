@@ -19,7 +19,6 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  time.timeZone = "Asia/Shanghai";
 
   # X configs
   services.xserver = {

@@ -24,6 +24,8 @@
     };
   };
 
+  time.timeZone = "Asia/Shanghai";
+
   # Je suis chinoise
   i18n.inputMethod = {
     enabled = "fcitx5";
@@ -48,8 +50,6 @@
   };
 
   home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
     users.leah.imports = [
       ./home.nix
     ];
