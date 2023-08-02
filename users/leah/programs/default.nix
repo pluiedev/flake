@@ -3,6 +3,7 @@
     ./firefox.nix
     ./git.nix
     ./nvim
+    ./rust.nix
   ];
 
   home.packages = with pkgs; [
@@ -14,6 +15,7 @@
     gimp-with-plugins
     inkscape-with-extensions
     libsForQt5.kcalc
+    libsForQt5.plasma-disks
     libreoffice-qt
     mongodb-compass
     prismlauncher

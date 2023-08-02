@@ -14,6 +14,13 @@ return {
     end,
   },
 
+  --{
+  --  "jose-elias-alvares/null-ls.nvim",
+  --  ft = {"nix", "python"},
+  --  opts = function ()
+  --    return require "custom.configs.null-ls"
+  --  end
+  --},
   {
     "simrat39/rust-tools.nvim",
     ft = "rust",

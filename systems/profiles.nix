@@ -19,6 +19,7 @@
       ragenix.nixosModules.default
 
       ../users/leah
+      ./fix-246195.nix
 
       {
         networking.hostName = name;

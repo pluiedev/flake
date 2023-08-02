@@ -16,7 +16,7 @@ require("format-on-save").setup {
 
     --fish = { require("formatter.filetypes.fish").fishindent },
     lua = formatters.stylua,
-    nix = formatters.shell { cmd = { "alejandra", "%" } },
+    nix = formatters.shell { cmd = { "alejandra", "-qq", "-" } },
     python = formatters.black,
     sh = formatters.shfmt,
   },

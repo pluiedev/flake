@@ -10,20 +10,27 @@
     };
   };
 
-  outputs = { self, nixpkgs, rust-overlay, flake-utils }: 
-    utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-      in 
-      {
-        devShell = with pkgs; mkShell {
-          buildInputs = with pkgs; [
-            rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
-              extensions = ["rust-analyzer"];
-            })
-            pre-commit
-          ]
-        }
+  outputs = {
+    self,
+    nixpkgs,
+    rust-overlay,
+    flake-utils,
+  }:
+    flake-utils.lib.eachDefaultSystem (
+      system: let
+        pkgs = import nixpkgs {inherit system;};
+      in {
+        devShell = with pkgs;
+          mkShell {
+            buildInputs = with pkgs; [
+              rust-bin.selectLatestNightlyWith
+              (toolchain:
+                toolchain.default.override {
+                  extensions = ["rust-analyzer"];
+                })
+              pre-commit
+            ];
+          };
       }
-    )
+    );
 }

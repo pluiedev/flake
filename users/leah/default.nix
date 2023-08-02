@@ -22,6 +22,7 @@
       enable = true;
       remotePlay.openFirewall = true;
     };
+    xwayland.enable = true;
   };
 
   time.timeZone = "Asia/Shanghai";

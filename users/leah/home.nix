@@ -1,6 +1,4 @@
-{
-  ...
-}: let
+{...}: let
   username = "leah";
 in {
   imports = [
