@@ -1,7 +1,11 @@
-{lib, ...}: {
+{
+  lib,
+  user,
+  ...
+}: {
   accounts.email.accounts = let
-    inherit (builtins) match listToAttrs mapAttrs;
-    inherit (lib) zipListsWith filterAttrs;
+    inherit (builtins) mapAttrs;
+    inherit (lib) filterAttrs;
     # Shoutout to getchoo who figured this out for me
     mkEmailAccounts = mapAttrs (name: account:
       rec {
@@ -29,11 +33,11 @@
       hi = {
         primary = true;
 
-        realName = "Leah Amelia Chen";
+        inherit (user) realName;
         _1passItemId = "fjutji565zipohkgsowe3c3nqq";
       };
       acc = {
-        realName = "Leah Amelia Chen [accounts]";
+        realName = "${user.realName} [accounts]";
         _1passItemId = "s6b5a7cf236jmpthkbdc4yzacu";
       };
     };

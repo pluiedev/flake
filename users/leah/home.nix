@@ -1,15 +1,12 @@
-{...}: let
-  username = "leah";
-in {
+{user, ...}: {
   imports = [
     ./programs
     ./accounts.nix
+    ./ime.nix
   ];
-
   home = {
-    inherit username;
-
-    homeDirectory = "/home/${username}";
+    username = user.name;
+    homeDirectory = "/home/${user.name}";
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
@@ -22,6 +19,5 @@ in {
   };
 
   programs.home-manager.enable = true;
-
   xdg.enable = true;
 }

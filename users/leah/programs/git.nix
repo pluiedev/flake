@@ -1,7 +1,11 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  user,
+  ...
+}: {
   programs.git = {
     enable = true;
-    userName = "Leah Amelia Chen";
+    userName = user.fullName;
     userEmail = "hi@pluie.me";
 
     signing = {
@@ -14,9 +18,7 @@
       program = "${pkgs._1password-gui}/bin/op-ssh-sign";
     };
 
-    extraConfig = {
-      init.defaultBranch = "main";
-    };
+    extraConfig.init.defaultBranch = "main";
   };
 
   programs.gh = {

@@ -41,7 +41,9 @@
       imports = [
         ./systems
         ./templates
-        ./utils
+      ];
+      systems = [
+        "x86_64-linux"
       ];
     };
 }

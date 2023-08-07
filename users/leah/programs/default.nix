@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  user,
+  ...
+}: {
   imports = [
     ./firefox.nix
     ./git.nix
@@ -15,7 +19,6 @@
     gimp-with-plugins
     inkscape-with-extensions
     libsForQt5.kcalc
-    libsForQt5.plasma-disks
     libreoffice-qt
     mongodb-compass
     prismlauncher
@@ -24,15 +27,6 @@
     # System utilities
     ffmpeg_6
     zerotierone
-
-    # Fonts
-    (nerdfonts.override {fonts = ["Iosevka"];})
-    # Apparently to NixOS, having Old North Arabian support is more important than having Chinese or Japanese fonts. Wow.
-    noto-fonts-cjk-sans
-    noto-fonts-cjk-serif
-    lxgw-wenkai
-    lxgw-neoxihei
-    rubik
 
     # Coding utilities
     any-nix-shell
@@ -70,7 +64,6 @@
     nethack
     nvd
     nvimpager
-    starship
     tectonic
     xclip
   ];
@@ -96,7 +89,7 @@
 
     thunderbird = {
       enable = true;
-      profiles.leah.isDefault = true;
+      profiles.${user.name}.isDefault = true;
     };
   };
 }

@@ -1,4 +1,18 @@
-{
+{inputs}: rec {
+  mkNixOS = name: spec: let
+    inputs' = inputs // {inherit name;};
+    profile = spec.profile inputs';
+    modules = spec.modules or [];
+    system = spec.system or profile.system;
+    specialArgs = spec.specialArgs or profile.specialArgs;
+  in
+    profile.builder {
+      inherit specialArgs system;
+      modules = profile.modules ++ modules;
+    };
+
+  mkNixOSes = builtins.mapAttrs mkNixOS;
+
   personal = inputs @ {
     name,
     nixpkgs,
@@ -19,7 +33,7 @@
       ragenix.nixosModules.default
 
       ../users/leah
-      ./fix-246195.nix
+      ../modules
 
       {
         networking.hostName = name;
@@ -34,27 +48,6 @@
         nixpkgs = {
           overlays = [nur.overlay rust-overlay.overlays.default];
           config.allowUnfree = true;
-        };
-
-        nix = {
-          registry = let
-            nixpkgsRegistry.flake = nixpkgs;
-          in {
-            nixpkgs = nixpkgsRegistry;
-            n = nixpkgsRegistry;
-          };
-          gc = {
-            automatic = true;
-            dates = "3d";
-            options = "-d";
-          };
-          settings = {
-            auto-optimise-store = true;
-            experimental-features = ["nix-command" "flakes"];
-
-            # Certainly a China moment
-            substituters = ["https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"];
-          };
         };
       }
     ];

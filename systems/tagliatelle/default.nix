@@ -1,9 +1,5 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 {pkgs, ...}: {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
@@ -11,54 +7,30 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # X configs
-  services.xserver = {
-    enable = true;
-
-    # We use KDE in this household
-    desktopManager.plasma5.enable = true;
-    displayManager.sddm.enable = true;
-
-    # NVIDIA? More like :novideo:
-    videoDrivers = ["nvidia"];
-  };
-
-  hardware = {
-    opengl = {
+  pluie = {
+    hardware.nvidia.enable = true;
+    locales.chinese.enable = true;
+    desktop = {
       enable = true;
-      driSupport32Bit = true; # Steam apparently requires this to work
+      plasma.enable = true;
     };
-    nvidia = {
-      # Modesetting is needed for most Wayland compositors
-      modesetting.enable = true;
-    };
+    patch.fix-246195 = true;
   };
 
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+  # My old crusty Seagate hard drive
+  fileSystems."/mnt/hdd" = {
+    device = "/dev/disk/by-uuid/a7ce57bd-de6f-420f-96b2-60a9581ccf9a";
+    fsType = "ext4";
+  };
+
+  # Fedora
+  fileSystems."/mnt/fedora" = {
+    device = "/dev/disk/by-uuid/7350ad79-2a8c-4475-99f1-7721699b5a41";
+    fsType = "btrfs";
   };
 
   # Printing
   services.printing.enable = true;
-
-  # Audio
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-    wireplumber.enable = true;
-  };
 
   environment.systemPackages = with pkgs; [
     git

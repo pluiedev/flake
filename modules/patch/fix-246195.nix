@@ -6,43 +6,42 @@
 }:
 with lib; let
   cfg = config.boot.loader.systemd-boot;
-  efi = config.boot.loader.efi;
   python3 = pkgs.python3.withPackages (ps: [ps.packaging]);
+
   systemdBootBuilder = pkgs.substituteAll {
     src = ./systemd-boot-builder.py;
+
     isExecutable = true;
     inherit python3;
     systemd = config.systemd.package;
     nix = config.nix.package.out;
     timeout = optionalString (config.boot.loader.timeout != null) config.boot.loader.timeout;
-    editor =
-      if cfg.editor
+    editor = if cfg.editor
       then "True"
       else "False";
-    configurationLimit =
-      if cfg.configurationLimit == null
-      then 0
-      else cfg.configurationLimit;
+    configurationLimit = if cfg.configurationLimit != null 
+      then cfg.configurationLimit
+      else 0;
 
     inherit (cfg) consoleMode graceful;
-    inherit (efi) efiSysMountPoint canTouchEfiVariables;
+    inherit (config.boot.loader.efi) efiSysMountPoint canTouchEfiVariables;
     inherit (config.system.nixos) distroName;
 
     memtest86 = optionalString cfg.memtest86.enable pkgs.memtest86-efi;
     netbootxyz = optionalString cfg.netbootxyz.enable pkgs.netbootxyz-efi;
 
     copyExtraFiles = pkgs.writeShellScript "copy-extra-files" ''      
-            empty_file=$(${pkgs.coreutils}/bin/mktemp)
+      empty_file=$(${pkgs.coreutils}/bin/mktemp)
 
-            ${concatStrings (mapAttrsToList (n: v: ''
-          ${pkgs.coreutils}/bin/install -Dp "${v}" "${efi.efiSysMountPoint}/"${escapeShellArg n}
-          ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/"${escapeShellArg n}
+      ${concatStrings (mapAttrsToList (n: v: ''
+          ${pkgs.coreutils}/bin/install -Dp "${v}" "${efiSysMountPoint}/"${escapeShellArg n}
+          ${pkgs.coreutils}/bin/install -D $empty_file "${efiSysMountPoint}/efi/nixos/.extra-files/"${escapeShellArg n}
         '')
         cfg.extraFiles)}
 
-            ${concatStrings (mapAttrsToList (n: v: ''
-          ${pkgs.coreutils}/bin/install -Dp "${pkgs.writeText n v}" "${efi.efiSysMountPoint}/loader/entries/"${escapeShellArg n}
-          ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/loader/entries/"${escapeShellArg n}
+      ${concatStrings (mapAttrsToList (n: v: ''
+          ${pkgs.coreutils}/bin/install -Dp "${pkgs.writeText n v}" "${efiSysMountPoint}/loader/entries/"${escapeShellArg n}
+          ${pkgs.coreutils}/bin/install -D $empty_file "${efiSysMountPoint}/efi/nixos/.extra-files/loader/entries/"${escapeShellArg n}
         '')
         cfg.extraEntries)}
     '';
@@ -66,5 +65,9 @@ with lib; let
     ${cfg.extraInstallCommands}
   '';
 in {
-  system.build.installBootLoader = lib.mkForce finalSystemdBootBuilder;
+  options.pluie.patch.fix-246195 = lib.mkEnableOption "temporary fix for issue #246195";
+
+  config = lib.mkIf config.pluie.patch.fix-246195 {
+    system.build.installBootLoader = lib.mkForce finalSystemdBootBuilder;
+  };
 }

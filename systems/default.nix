@@ -1,23 +1,9 @@
 {inputs, ...}: let
-  profiles = import ./profiles.nix;
-
-  mkNixOS = name: spec: let
-    inputs' = inputs // {inherit name;};
-    profile = spec.profile inputs';
-    modules = spec.modules or [];
-    system = spec.system or profile.system;
-    specialArgs = spec.specialArgs or profile.specialArgs;
-  in
-    profile.builder {
-      inherit specialArgs system;
-      modules = profile.modules ++ modules;
-    };
-
-  mkNixOSes = builtins.mapAttrs mkNixOS;
+  inherit (import ./profiles.nix {inherit inputs;}) mkNixOSes personal;
 in {
   flake.nixosConfigurations = mkNixOSes {
     tagliatelle = {
-      profile = profiles.personal;
+      profile = personal;
     };
   };
 }
