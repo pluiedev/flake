@@ -1,5 +1,6 @@
 _: {
   imports = [
+    ./hm-shim.nix
     ./desktop
     ./hardware
     ./locales

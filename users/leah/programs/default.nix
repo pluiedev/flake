@@ -18,6 +18,7 @@
     })
     gimp-with-plugins
     inkscape-with-extensions
+    kdenlive
     libsForQt5.kcalc
     libreoffice-qt
     mongodb-compass

@@ -16,10 +16,12 @@ with lib; let
     systemd = config.systemd.package;
     nix = config.nix.package.out;
     timeout = optionalString (config.boot.loader.timeout != null) config.boot.loader.timeout;
-    editor = if cfg.editor
+    editor =
+      if cfg.editor
       then "True"
       else "False";
-    configurationLimit = if cfg.configurationLimit != null 
+    configurationLimit =
+      if cfg.configurationLimit != null
       then cfg.configurationLimit
       else 0;
 
@@ -30,7 +32,7 @@ with lib; let
     memtest86 = optionalString cfg.memtest86.enable pkgs.memtest86-efi;
     netbootxyz = optionalString cfg.netbootxyz.enable pkgs.netbootxyz-efi;
 
-    copyExtraFiles = pkgs.writeShellScript "copy-extra-files" ''      
+    copyExtraFiles = pkgs.writeShellScript "copy-extra-files" ''
       empty_file=$(${pkgs.coreutils}/bin/mktemp)
 
       ${concatStrings (mapAttrsToList (n: v: ''

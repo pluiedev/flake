@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.pluie.desktop.plasma;
@@ -9,6 +10,7 @@ in {
   options.pluie.desktop.plasma.enable = mkEnableOption "Plasma";
 
   config = mkIf cfg.enable {
+    environment.systemPackages = [pkgs.sddm-theme-flutter];
     services.xserver = {
       displayManager.sddm = {
         enable = true;

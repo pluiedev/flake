@@ -1,7 +1,17 @@
-{lib, ...}: let
+{
+  lib,
+  nixpkgs,
+  ...
+}: let
   inherit (lib) mkDefault;
 in {
   nix = {
+    registry = let
+      nixpkgsRegistry.flake = nixpkgs;
+    in {
+      nixpkgs = nixpkgsRegistry;
+      n = nixpkgsRegistry;
+    };
     gc = {
       automatic = mkDefault true;
       dates = mkDefault "weekly";

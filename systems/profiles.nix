@@ -26,12 +26,11 @@
     builder = nixpkgs.lib.nixosSystem;
 
     modules = [
-      ./${name}
-
       home-manager.nixosModules.home-manager
       nur.nixosModules.nur
       ragenix.nixosModules.default
 
+      ./${name}
       ../users/leah
       ../modules
 
@@ -46,7 +45,7 @@
         };
 
         nixpkgs = {
-          overlays = [nur.overlay rust-overlay.overlays.default];
+          overlays = [nur.overlay rust-overlay.overlays.default (import ../nixpkgs/overlay.nix)];
           config.allowUnfree = true;
         };
       }

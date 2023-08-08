@@ -1,15 +1,14 @@
-_: let
+{pkgs, ...}: let
   user = {
     name = "leah";
     realName = "Leah";
     fullName = "Leah Amelia Chen";
+    modules = [
+      ./accounts.nix
+      ./programs
+    ];
   };
 in {
-  imports = [
-    ./shell.nix
-  ];
-  _module.args = {inherit user;};
-
   users.users.${user.name} = {
     isNormalUser = true;
     description = user.realName;
@@ -17,6 +16,7 @@ in {
       "networkmanager"
       "wheel" # `sudo` powers
     ];
+    shell = pkgs.fish;
   };
 
   programs = {
@@ -25,14 +25,19 @@ in {
       enable = true;
       polkitPolicyOwners = [user.name];
     };
+
     steam = {
       enable = true;
       remotePlay.openFirewall = true;
     };
+
+    fish.enable = true;
+
+    starship = {
+      enable = true;
+      settings = builtins.fromTOML (builtins.readFile ./starship.toml);
+    };
   };
 
-  home-manager.users.${user.name} = {
-    imports = [./home.nix];
-    _module.args = {inherit user;};
-  };
+  pluie.user = user;
 }

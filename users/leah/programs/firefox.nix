@@ -1,4 +1,9 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  user,
+  config,
+  ...
+}: let
   mkParams = params:
     map
     (name: {
@@ -15,9 +20,9 @@ in {
       cfg.enablePlasmaBrowserIntegration = true;
     };
 
-    profiles.leah = {
+    profiles.${user.name} = {
       isDefault = true;
-      name = "Leah";
+      name = user.realName;
 
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         augmented-steam
@@ -43,25 +48,35 @@ in {
         youtube-nonstop
       ];
 
-      search = {
+      search = let
+        nixosSearch = path: aliases: {
+          urls = [
+            {
+              template = "https://search.nixos.org/${path}";
+              params = mkParams {
+                type = "packages";
+                channel = "unstable";
+                sort = "relevance";
+                query = "{searchTerms}";
+              };
+            }
+          ];
+          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+          definedAliases = aliases;
+        };
+      in {
         default = "DuckDuckGo";
         force = true;
         engines = {
-          "Nix Packages" = {
+          "Nix Packages" = nixosSearch "packages" ["@np"];
+          "NixOS Settings" = nixosSearch "options" ["@no"];
+          "NixOS Wiki" = {
             urls = [
               {
-                template = "https://search.nixos.org/packages";
-                params = mkParams {
-                  type = "packages";
-                  query = "{searchTerms}";
-                };
+                template = "https://nixos.wiki/index.php";
+                params = mkParams {search = "{searchTerms}";};
               }
             ];
-            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-            definedAliases = ["@np"];
-          };
-          "NixOS Wiki" = {
-            urls = [{template = "https://nixos.wiki/index.php?search={searchTerms}";}];
             iconUpdateURL = "https://nixos.wiki/favicon.png";
             updateInterval = 24 * 60 * 60 * 1000; # every day
             definedAliases = ["@nw"];
@@ -74,7 +89,7 @@ in {
               }
             ];
             icon = "https://en.wiktionary.org/favicon.ico";
-            definedAliases = ["@nw"];
+            definedAliases = ["@wkt"];
           };
         };
       };
