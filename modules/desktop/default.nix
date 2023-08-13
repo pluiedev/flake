@@ -11,7 +11,6 @@ in {
     ./fonts.nix
     ./plasma.nix
     ./wayland.nix
-    ./ime.nix
   ];
 
   options.pluie.desktop.enable = mkEnableOption "desktop module";
@@ -21,7 +20,6 @@ in {
       audio.enable = mkDefault true;
       fonts.enable = mkDefault true;
       wayland.enable = mkDefault true;
-      ime.enable = mkDefault true;
     };
 
     programs.dconf.enable = true;

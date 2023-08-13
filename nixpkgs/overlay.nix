@@ -1,3 +1,3 @@
-self: _: {
-  sddm-theme-flutter = self.callPackage ./pkgs/sddm-flutter.nix {};
+final: prev: {
+  sddm-theme-flutter = final.callPackage ./pkgs/sddm-flutter.nix {};
 }

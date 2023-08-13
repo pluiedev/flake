@@ -23,4 +23,6 @@ in {
       experimental-features = ["nix-command" "flakes" "auto-allocate-uids" "repl-flake"];
     };
   };
+
+  nixpkgs.config.allowUnfree = true;
 }

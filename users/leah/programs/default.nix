@@ -7,7 +7,6 @@
     ./firefox.nix
     ./git.nix
     ./nvim
-    ./rust.nix
   ];
 
   home.packages = with pkgs; [

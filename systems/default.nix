@@ -2,8 +2,7 @@
   inherit (import ./profiles.nix {inherit inputs;}) mkNixOSes personal;
 in {
   flake.nixosConfigurations = mkNixOSes {
-    tagliatelle = {
-      profile = personal;
-    };
+    tagliatelle = {profile = personal;};
+    fettuccini = {profile = personal;};
   };
 }

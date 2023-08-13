@@ -1,14 +1,43 @@
 {pkgs, ...}: let
-  user = {
+  user = rec {
     name = "leah";
     realName = "Leah";
     fullName = "Leah Amelia Chen";
     modules = [
-      ./accounts.nix
       ./programs
     ];
+    email = {
+      enable = true;
+
+      host = {
+        imap = {
+          host = "imap.migadu.com";
+          port = 993;
+        };
+        smtp = {
+          host = "smtp.migadu.com";
+          port = 465;
+        };
+      };
+      accounts = {
+        "hi@pluie.me" = {
+          primary = true;
+          realName = fullName;
+          _1passItemId = "fjutji565zipohkgsowe3c3nqq";
+        };
+        "acc@pluie.me" = {
+          realName = "${fullName} [accounts]";
+          _1passItemId = "s6b5a7cf236jmpthkbdc4yzacu";
+        };
+      };
+    };
   };
 in {
+  pluie = {
+    inherit user;
+    tools.rust.enable = true;
+  };
+
   users.users.${user.name} = {
     isNormalUser = true;
     description = user.realName;
@@ -38,6 +67,4 @@ in {
       settings = builtins.fromTOML (builtins.readFile ./starship.toml);
     };
   };
-
-  pluie.user = user;
 }

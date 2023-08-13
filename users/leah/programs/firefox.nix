@@ -1,16 +1,10 @@
 {
+  lib,
   pkgs,
   user,
-  config,
   ...
 }: let
-  mkParams = params:
-    map
-    (name: {
-      inherit name;
-      value = builtins.getAttr name params;
-    })
-    (builtins.attrNames params);
+  mkParams = lib.mapAttrsToList lib.nameValuePair;
 in {
   programs.firefox = {
     enable = true;

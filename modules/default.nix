@@ -1,10 +1,12 @@
 _: {
   imports = [
-    ./hm-shim.nix
+    ./user
+    ./locales
+    ./tools
     ./desktop
     ./hardware
-    ./locales
     ./patch
+
     ./nix.nix
     ./upgrade-diff.nix
   ];
