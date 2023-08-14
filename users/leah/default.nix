@@ -59,12 +59,6 @@ in {
       enable = true;
       remotePlay.openFirewall = true;
     };
-
     fish.enable = true;
-
-    starship = {
-      enable = true;
-      settings = builtins.fromTOML (builtins.readFile ./starship.toml);
-    };
   };
 }
