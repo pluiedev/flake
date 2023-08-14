@@ -25,4 +25,10 @@
     enable = true;
     settings.git_protocol = "ssh";
   };
+
+  # Configure 1Password's SSH signer
+  home.file.".ssh/config".text = ''
+    Host *
+      IdentityAgent ~/.1password/agent.sock
+  '';
 }
