@@ -16,6 +16,7 @@
   personal = inputs @ {
     name,
     nixpkgs,
+    pkgs,
     nur,
     rust-overlay,
     home-manager,
@@ -37,6 +38,11 @@
       {
         networking.hostName = name;
         system.stateVersion = "23.11";
+
+        boot.loader.systemd-boot.enable = true;
+        boot.loader.efi.canTouchEfiVariables = true;
+
+        environment.systemPackages = [pkgs.git];
 
         nixpkgs.overlays = [
           nur.overlay

@@ -1,11 +1,5 @@
-{pkgs, ...}: {
-  imports = [
-    ./hardware-configuration.nix
-  ];
-
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+_: {
+  imports = [./hardware-configuration.nix];
 
   pluie = {
     hardware.nvidia.enable = true;
@@ -17,11 +11,8 @@
     patch.fix-246195 = true;
   };
 
+  hardware.bluetooth.enable = true;
+
   # Printing
   services.printing.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    git
-    gcc
-  ];
 }
