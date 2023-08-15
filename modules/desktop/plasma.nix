@@ -25,6 +25,10 @@ in {
       enable = true;
       theme = mkIf (cfg.sddmTheme != null) cfg.sddmTheme.themeName;
     };
+    services.xserver.desktopManager.plasma5 = {
+      enable = true;
+      useQtScaling = true;
+    };
 
     xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-kde];
 
