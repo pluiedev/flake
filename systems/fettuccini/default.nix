@@ -19,8 +19,6 @@
     patch.fix-246195 = true;
   };
 
-  networking.networkmanager.enable = true;
-
   hardware.bluetooth.enable = true;
 
   hardware.nvidia = {
@@ -31,7 +29,4 @@
       nvidiaBusId = "PCI:1:0:0";
     };
   };
-
-  # Printing
-  services.printing.enable = true;
 }

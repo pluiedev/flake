@@ -35,7 +35,7 @@ in {
     pluie.tools.rust = {
       rust-bin = pkgs.rust-bin // {distRoot = "https://mirror.sjtu.edu.cn/rust-static/dist";};
 
-      sources = {
+      settings.source = {
         crates-io.replace-with = "sjtu";
 
         tuna.registry = "sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/";

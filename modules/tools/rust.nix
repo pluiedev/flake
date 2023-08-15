@@ -35,14 +35,15 @@ in {
       description = "Linker to use when linking compiled Rust code";
     };
 
-    sources = mkOption {
+    settings = mkOption {
       type = types.attrsOf types.anything;
       default = {};
       example = {
-        crates-io.replace-with = "tuna";
-        tuna.registry = "sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/";
+        source = {
+          crates-io.replace-with = "tuna";
+          tuna.registry = "sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/";
+        };
       };
-      description = "An attribute set containing the sources Cargo should use";
     };
   };
 
@@ -52,14 +53,13 @@ in {
 
       xdg.configFile."rustfmt/rustfmt.toml".source = ../../templates/rust/rustfmt.toml;
 
-      home.file.".cargo/config.toml".source = toTOMLFile.generate "config.toml" {
-        target.${pkgs.rust.toRustTarget pkgs.hostPlatform} = {
-          linker = "clang";
-          rustflags = ["-C" "link-arg=-fuse-ld=${cfg.linker}"];
-        };
-
-        source = cfg.sources;
-      };
+      home.file.".cargo/config.toml".source = toTOMLFile.generate "config.toml" ({
+          target.${pkgs.rust.toRustTarget pkgs.hostPlatform} = {
+            linker = "clang";
+            rustflags = ["-C" "link-arg=-fuse-ld=${cfg.linker}"];
+          };
+        }
+        // cfg.settings);
     };
   };
 }

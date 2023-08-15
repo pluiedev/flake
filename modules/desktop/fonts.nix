@@ -15,13 +15,9 @@ in {
 
       packages = with pkgs; [
         (nerdfonts.override {fonts = ["Iosevka"];})
-        # Apparently to NixOS, having Old North Arabian support out-of-the-box
-        # is more important than having Chinese or Japanese fonts. Wow.
         noto-fonts
         noto-fonts-extra
         noto-fonts-emoji
-        noto-fonts-cjk-sans
-        noto-fonts-cjk-serif
         lxgw-wenkai
         lxgw-neoxihei
         rubik
@@ -30,10 +26,10 @@ in {
       fontconfig = {
         enable = true;
         defaultFonts = {
-          serif = ["Noto Serif"];
-          sansSerif = ["Rubik"];
+          serif = ["LXGW WenKai" "Noto Serif"];
+          sansSerif = ["LXGW Neo XiHei" "Rubik"];
           emoji = ["Noto Color Emoji"];
-          monospace = ["Iosevka Nerd Font"];
+          monospace = ["LXGW Neo XiHei" "Iosevka Nerd Font"];
         };
       };
     };

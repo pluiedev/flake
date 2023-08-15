@@ -32,5 +32,8 @@ in {
       layout = "us";
       xkbVariant = "";
     };
+
+    # Printing
+    services.printing.enable = true;
   };
 }
