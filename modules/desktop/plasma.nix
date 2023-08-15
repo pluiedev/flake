@@ -5,16 +5,25 @@
   ...
 }: let
   cfg = config.pluie.desktop.plasma;
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkOption mkIf types optional;
 in {
-  options.pluie.desktop.plasma.enable = mkEnableOption "Plasma";
+  options.pluie.desktop.plasma = {
+    enable = mkEnableOption "Plasma";
+
+    sddmTheme = mkOption {
+      type = types.nullOr types.package;
+      default = pkgs.sddm-theme-flutter;
+      description = "SDDM theme to use.";
+    };
+  };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [pkgs.sddm-theme-flutter];
+    environment.systemPackages = optional (cfg.sddmTheme != null) cfg.sddmTheme;
+
     services.xserver = {
       displayManager.sddm = {
         enable = true;
-        theme = "flutter";
+        theme = mkIf (cfg.sddmTheme != null) cfg.sddmTheme.themeName;
       };
       desktopManager.plasma5 = {
         enable = true;
