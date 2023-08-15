@@ -29,7 +29,7 @@ in {
           serif = ["LXGW WenKai" "Noto Serif"];
           sansSerif = ["LXGW Neo XiHei" "Rubik"];
           emoji = ["Noto Color Emoji"];
-          monospace = ["LXGW Neo XiHei" "Iosevka Nerd Font"];
+          monospace = ["Iosevka Nerd Font" "LXGW Neo XiHei"];
         };
       };
     };
