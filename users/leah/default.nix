@@ -4,6 +4,7 @@ _: {
       name = "leah";
       realName = "Leah";
       fullName = "Leah Amelia Chen";
+      canSudo = true;
       modules = [./programs];
       email = {
         enable = true;
