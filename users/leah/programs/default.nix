@@ -1,6 +1,6 @@
 {
-  pkgs,
   user,
+  pkgs,
   ...
 }: {
   imports = [
@@ -24,28 +24,23 @@
     prismlauncher
     vlc
 
-    # System utilities
-    ffmpeg_6
-    zerotierone
-
     # Coding utilities
+    alejandra
     any-nix-shell
     black
     clang_16
-    deno
-    haskellPackages.ghc
-    haskellPackages.haskell-language-server
-    jetbrains.idea-community
+    (ghc.withPackages (hs:
+      with hs; [
+        haskell-language-server
+      ]))
     lua-language-server
     mold
-    perl
-    temurin-bin
-    pre-commit
-    prettierd
-    python3Full
+    nil
     nodePackages_latest.nodejs
     nodePackages_latest.pnpm
     nodePackages_latest.pyright
+    prettierd
+    python3Full
     ruff
     ruff-lsp
     shfmt
@@ -53,18 +48,11 @@
     taplo
     tree-sitter
 
-    # Nix tools
-    alejandra
-    deadnix
-    nil
-    statix
-
     # Command-line apps
     just
-    nethack
+    neovide
     nvd
     nvimpager
-    tectonic
     xclip
   ];
 
@@ -77,13 +65,19 @@
     };
     direnv = {
       enable = true;
-      nix-direnv = {
-        enable = true;
+      nix-direnv.enable = true;
+    };
+
+    hyfetch = {
+      enable = true;
+      settings = {
+        preset = "lesbian";
+        mode = "rgb";
+        lightness = 0.60;
+        color_align.mode = "horizontal";
       };
     };
 
-    fzf.enable = true;
-    hyfetch.enable = true;
     obs-studio.enable = true;
     ripgrep.enable = true;
 
@@ -96,7 +90,7 @@
 
     starship = {
       enable = true;
-      settings = builtins.fromTOML (builtins.readFile ../starship.toml);
+      settings = builtins.fromTOML (builtins.readFile ./starship.toml);
     };
 
     nix-index = {

@@ -1,7 +1,7 @@
 {
+  user,
   lib,
   pkgs,
-  user,
   ...
 }: let
   mkParams = lib.mapAttrsToList lib.nameValuePair;
@@ -63,7 +63,7 @@ in {
         force = true;
         engines = {
           "Nix Packages" = nixosSearch "packages" ["@np"];
-          "NixOS Settings" = nixosSearch "options" ["@no"];
+          "NixOS Settings" = nixosSearch "options" ["@ns"];
           "NixOS Wiki" = {
             urls = [
               {

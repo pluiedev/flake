@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  plasma-manager,
   ...
 }: let
   cfg = config.pluie.desktop.plasma;
@@ -20,14 +21,17 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = optional (cfg.sddmTheme != null) cfg.sddmTheme;
 
-    services.xserver = {
-      displayManager.sddm = {
+    services.xserver.displayManager.sddm = {
+      enable = true;
+      theme = mkIf (cfg.sddmTheme != null) cfg.sddmTheme.themeName;
+    };
+
+    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-kde];
+
+    pluie.user = {
+      modules = [plasma-manager.homeManagerModules.plasma-manager];
+      config.programs.plasma = {
         enable = true;
-        theme = mkIf (cfg.sddmTheme != null) cfg.sddmTheme.themeName;
-      };
-      desktopManager.plasma5 = {
-        enable = true;
-        useQtScaling = true;
       };
     };
   };

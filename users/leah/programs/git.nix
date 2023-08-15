@@ -1,12 +1,15 @@
 {
-  pkgs,
   user,
+  lib,
+  pkgs,
   ...
-}: {
+}: let
+  primaryEmail = builtins.attrNames (lib.filterAttrs (_: v: v.primary) user.email.accounts);
+in {
   programs.git = {
     enable = true;
     userName = user.fullName;
-    userEmail = "hi@pluie.me";
+    userEmail = lib.mkIf (primaryEmail != []) (builtins.head primaryEmail);
 
     signing = {
       signByDefault = true;
