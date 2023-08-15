@@ -17,7 +17,6 @@ for k, v in pairs {
   pyright = default,
   rubocop = default,
   ruff_lsp = default,
-  statix = default,
   taplo = default,
 } do
   lspconfig[k].setup(v)
