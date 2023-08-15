@@ -5,11 +5,12 @@
   ...
 }: let
   cfg = config.pluie.user.ime;
-  inherit (lib) mkEnableOption mkOption mkIf mapAttrs' nameValuePair types;
+  inherit (lib) mkEnableOption mkOption mkIf mkMerge mapAttrs' nameValuePair types;
 
-  toYAML = builtins.toJSON; # YAML is a superset of JSON anyway
-
-  mkRimeCfgs = mapAttrs' (n: v: nameValuePair "${cfg.backend}/rime/${n}.custom.yaml" {text = toYAML v;});
+  mkRimeCfgs = let
+    toYAML = lib.generators.toYAML {};
+  in
+    mapAttrs' (n: v: nameValuePair "${cfg.backend}/rime/${n}.custom.yaml" {text = toYAML v;});
 
   rimeCfgs = mkRimeCfgs rec {
     default = {
@@ -34,6 +35,52 @@
     };
     luna_pinyin_simp = luna_pinyin;
   };
+
+  mkFcitx5Cfg = {
+    groups,
+    groupOrder ? builtins.catAttrs "name" groups,
+  }: let
+    inherit (builtins) listToAttrs removeAttrs;
+    inherit (lib) flatten imap0 nameValuePair;
+
+    toINI = lib.generators.toINI {};
+
+    mkItems = i: g: imap0 (n: nameValuePair "Group/${i}/Items/${n}") g.items;
+
+    mkGroups = gs:
+      flatten (imap0 (i: g:
+        [(nameValuePair "Group/${i}" (removeAttrs g ["items"]))]
+        ++ mkItems i g)
+      gs);
+
+    mkGroupOrder = imap0 (i: nameValuePair "${i}");
+  in
+    toINI (listToAttrs (mkGroups groups ++ mkGroupOrder groupOrder));
+  /*
+  fcitx5Cfgs."fcitx5/profile".text = mkFcitx5Cfg {
+    groups = [
+      {
+        Name = "Default";
+        "Default Layout" = "us";
+        DefaultIM = "keyboard-us";
+        items = [
+          {
+            Name = "keyboard-us";
+            Layout = "";
+          }
+          {
+            Name = "rime";
+            Layout = "us";
+          }
+          {
+            Name = "mozc";
+            Layout = "us";
+          }
+        ];
+      }
+    ];
+  };
+*/
 in {
   options.pluie.user.ime = {
     enable = mkEnableOption "IMEs";
@@ -53,6 +100,7 @@ in {
       fcitx5.addons = mkIf (cfg.backend == "fcitx5") (with pkgs; [
         fcitx5-mozc
         fcitx5-rime
+        fcitx5-sayura
       ]);
 
       ibus.engines = mkIf (cfg.backend == "ibus") (with pkgs.ibus-engines; [
@@ -63,7 +111,10 @@ in {
 
     pluie.user.config = {
       xdg.dataFile = mkIf (cfg.backend == "fcitx5") rimeCfgs;
-      xdg.configFile = mkIf (cfg.backend == "ibus") rimeCfgs;
+      xdg.configFile = mkMerge [
+        #(mkIf (cfg.backend == "fcitx5") fcitx5Cfgs)
+        (mkIf (cfg.backend == "ibus") rimeCfgs)
+      ];
     };
   };
 }

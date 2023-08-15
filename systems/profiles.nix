@@ -16,7 +16,6 @@
   personal = inputs @ {
     name,
     nixpkgs,
-    pkgs,
     nur,
     rust-overlay,
     home-manager,
@@ -41,8 +40,6 @@
 
         boot.loader.systemd-boot.enable = true;
         boot.loader.efi.canTouchEfiVariables = true;
-
-        environment.systemPackages = [pkgs.git];
 
         nixpkgs.overlays = [
           nur.overlay

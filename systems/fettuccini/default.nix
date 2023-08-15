@@ -2,7 +2,7 @@ _: {
   imports = [./hardware-configuration.nix];
 
   pluie = {
-    hardware.nvidia.enable = true;
+    #hardware.nvidia.enable = true;
     locales.chinese.enable = true;
     desktop = {
       enable = true;
@@ -10,6 +10,7 @@ _: {
     };
     patch.fix-246195 = true;
   };
+  networking.networkmanager.enable = true;
 
   hardware.bluetooth.enable = true;
 
