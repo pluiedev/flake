@@ -10,8 +10,6 @@ in {
   options.pluie.hardware.nvidia.enable = mkEnableOption "NVIDIA drivers";
 
   config = mkIf cfg.enable {
-    services.xserver.videoDrivers = ["nvidia"];
-
     hardware = {
       opengl = {
         enable = true;

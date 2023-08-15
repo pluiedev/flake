@@ -80,7 +80,7 @@
       }
     ];
   };
-*/
+  */
 in {
   options.pluie.user.ime = {
     enable = mkEnableOption "IMEs";
@@ -100,7 +100,6 @@ in {
       fcitx5.addons = mkIf (cfg.backend == "fcitx5") (with pkgs; [
         fcitx5-mozc
         fcitx5-rime
-        fcitx5-sayura
       ]);
 
       ibus.engines = mkIf (cfg.backend == "ibus") (with pkgs.ibus-engines; [
