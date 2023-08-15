@@ -24,6 +24,12 @@ in {
       type = types.nullOr types.str;
       description = "The user's full name";
     };
+    canSudo = mkOption {
+      type = types.bool;
+      default = false;
+      example = true;
+      description = "Whether the user can run sudo.";
+    };
     config = mkOption {
       type = types.attrsOf types.anything;
       default = {};
@@ -53,6 +59,12 @@ in {
       };
     }
     (mkIf (user.name != null) {
+      users.users.${user.name} = {
+        isNormalUser = true;
+        description = user.realName;
+        extraGroups = lib.optional user.canSudo "wheel";
+      };
+
       home-manager = {
         backupFileExtension = "backup";
         useGlobalPkgs = true;

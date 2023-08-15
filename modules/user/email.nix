@@ -42,10 +42,6 @@
       type = types.str;
       example = "Leah";
     };
-    _1passItemId = mkOption {
-      type = types.str;
-      example = "fjutji565zipohkgsowe3c3nqq";
-    };
   };
 in {
   options.pluie.user.email = {
@@ -67,11 +63,6 @@ in {
         inherit (cfg.host) imap smtp;
         inherit address;
         userName = address; # Use the address as the IMAP/SMTP username by default
-
-        passwordCommand =
-          mkIf (account._1passItemId != null)
-          "/run/wrappers/bin/op item get --fields label=password ${account._1passItemId}";
-
         thunderbird.enable = true;
       })
       cfg.accounts;

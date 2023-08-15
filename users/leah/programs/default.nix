@@ -5,7 +5,6 @@
 }: {
   imports = [
     ./firefox.nix
-    ./git.nix
     ./nvim
   ];
 
@@ -84,18 +83,6 @@
     thunderbird = {
       enable = true;
       profiles.${user.name}.isDefault = true;
-    };
-
-    fish.enable = true;
-
-    starship = {
-      enable = true;
-      settings = builtins.fromTOML (builtins.readFile ./starship.toml);
-    };
-
-    nix-index = {
-      enable = true;
-      enableFishIntegration = true;
     };
   };
 }

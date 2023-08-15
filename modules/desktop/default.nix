@@ -7,6 +7,7 @@
   inherit (lib) mkDefault mkEnableOption mkIf;
 in {
   imports = [
+    ./1password.nix
     ./audio.nix
     ./fonts.nix
     ./plasma.nix
@@ -29,6 +30,8 @@ in {
     xdg.portal.enable = true;
 
     networking.networkmanager.enable = true;
+    users.users.${config.pluie.user.name}.extraGroups = ["networkmanager"];
+
     services.zerotierone.enable = true;
 
     services.xserver = {
