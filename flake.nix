@@ -1,6 +1,12 @@
 {
   description = "Leah's NixOS configuration";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://cache.garnix.io"
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
 
