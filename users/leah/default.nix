@@ -1,6 +1,10 @@
-_: {
-  pluie = {
-    user = rec {
+{
+  pkgs,
+  lib,
+  ...
+}: {
+  pluie = rec {
+    user = {
       name = "leah";
       realName = "Leah";
       fullName = "Leah Amelia Chen";
@@ -22,9 +26,9 @@ _: {
         accounts = {
           "hi@pluie.me" = {
             primary = true;
-            realName = fullName;
+            realName = user.fullName;
           };
-          "acc@pluie.me".realName = "${fullName} [accounts]";
+          "acc@pluie.me".realName = "${user.fullName} [accounts]";
         };
       };
     };
@@ -32,7 +36,13 @@ _: {
     desktop._1password.enable = true;
     tools = {
       fish.enable = true;
-      rust.enable = true;
+      rust = {
+        enable = true;
+        settings = {
+          build.rustc-wrapper = "${lib.getExe pkgs.sccache}";
+          build.target-dir = "/home/${user.name}/.cargo/target";
+        };
+      };
     };
   };
 
