@@ -1,20 +1,24 @@
 {inputs}: rec {
-  mkNixOS = name: spec: let
-    inputs' = inputs // {inherit name;};
-    profile = spec.profile inputs';
-    modules = spec.modules or [];
-    system = spec.system or profile.system;
-    specialArgs = spec.specialArgs or profile.specialArgs;
+  mkNixOS = name: {
+    profile,
+    system ? null,
+    modules ? [],
+    specialArgs ? {},
+  }: let
+    profile' = profile name inputs;
   in
-    profile.builder {
-      inherit specialArgs system;
-      modules = profile.modules ++ modules;
+    profile'.builder {
+      system =
+        if (system != null)
+        then system
+        else profile'.system;
+      specialArgs = profile'.specialArgs // specialArgs;
+      modules = profile'.modules ++ modules;
     };
 
   mkNixOSes = builtins.mapAttrs mkNixOS;
 
-  personal = inputs @ {
-    name,
+  personal = name: inputs @ {
     nixpkgs,
     nur,
     rust-overlay,
@@ -38,9 +42,6 @@
       {
         networking.hostName = name;
         system.stateVersion = "23.11";
-
-        boot.loader.systemd-boot.enable = true;
-        boot.loader.efi.canTouchEfiVariables = true;
 
         nixpkgs.overlays = [
           nur.overlay

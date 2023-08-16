@@ -3,6 +3,6 @@
 in {
   flake.nixosConfigurations = mkNixOSes {
     tagliatelle = {profile = personal;};
-    fettuccini = {profile = personal;};
+    fettuccine = {profile = personal;};
   };
 }
