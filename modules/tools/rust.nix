@@ -45,13 +45,23 @@ in {
         };
       };
     };
+
+    rustfmtSettings = mkOption {
+      type = types.attrsOf types.anything;
+      default = {};
+      example = {
+        hard_tabs = true;
+        tab_spaces = 4;
+        newline_style = "Unix";
+      };
+    };
   };
 
   config = mkIf cfg.enable {
     pluie.user.config = {
       home.packages = [cfg.package];
 
-      xdg.configFile."rustfmt/rustfmt.toml".source = ../../templates/rust/rustfmt.toml;
+      xdg.configFile."rustfmt/rustfmt.toml".source = toTOMLFile.generate "rustfmt.toml" cfg.rustfmtSettings;
 
       home.file.".cargo/config.toml".source = toTOMLFile.generate "config.toml" ({
           target.${pkgs.rust.toRustTarget pkgs.hostPlatform} = {
