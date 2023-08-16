@@ -1,7 +1,13 @@
 add_newline = true
 
+[git_status]
+deleted = '[✘ ](gray)'
+ahead = '[⇡ ${count}](green)'
+diverged = '⇕ [⇡ ${ahead_count}](green)[⇣ ${behind_count}](red)'
+behind = '[⇣ ${count}](red)'
+
 [aws]
-symbol = "  "
+symbol = " "
 
 [buf]
 symbol = " "
@@ -16,7 +22,7 @@ symbol = " "
 symbol = " "
 
 [directory]
-read_only = " 󰌾"
+read_only = "󰌾 "
 
 [docker_context]
 symbol = " "
@@ -91,8 +97,8 @@ Fedora = " "
 FreeBSD = " "
 Garuda = "󰛓 "
 Gentoo = " "
-HardenedBSD = "󰞌 "
-Illumos = "󰈸 "
+HardenedBSD = "󰞌"
+Illumos = "󰈸"
 Linux = " "
 Mabox = " "
 Macos = " "
@@ -135,4 +141,4 @@ symbol = " "
 symbol = " "
 
 [scala]
-symbol = " "
+symbol = ""
