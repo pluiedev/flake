@@ -1,9 +1,12 @@
 {
+  config,
   pkgs,
   lib,
   ...
-}: {
-  pluie = rec {
+}: let
+  user = config.pluie.user;
+in {
+  pluie = {
     user = {
       name = "leah";
       realName = "Leah";
@@ -39,8 +42,8 @@
       rust = {
         enable = true;
         settings = {
-          build.rustc-wrapper = "${lib.getExe pkgs.sccache}";
-          build.target-dir = "/home/${user.name}/.cargo/target";
+          build.rustc-wrapper = lib.getExe' pkgs.sccache "sccache";
+          build.target-dir = "${user.homeDirectory}/.cargo/target";
         };
         rustfmtSettings = {
           edition = "2021"; # In rare circumstances where rustfmt can't detect Cargo settings

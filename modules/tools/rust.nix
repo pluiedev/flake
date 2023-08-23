@@ -30,8 +30,8 @@ in {
 
     linker = mkOption {
       type = types.pathInStore;
-      default = lib.getExe pkgs.mold;
-      example = "\${lib.getExe pkgs.lld}";
+      default = lib.getExe' pkgs.mold "mold";
+      example = "lib.getExe' pkgs.lld \"lld\"";
       description = "Linker to use when linking compiled Rust code";
     };
 

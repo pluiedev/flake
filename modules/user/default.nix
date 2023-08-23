@@ -14,15 +14,26 @@ in {
   options.pluie.user = {
     name = mkOption {
       type = types.nullOr types.str;
+      default = null;
       description = "The user's name.";
     };
     realName = mkOption {
       type = types.nullOr types.str;
+      default = null;
       description = "The user's real name.";
     };
     fullName = mkOption {
       type = types.nullOr types.str;
+      default = null;
       description = "The user's full name";
+    };
+    homeDirectory = mkOption {
+      type = types.nullOr types.str;
+      default =
+        if (user.name != null)
+        then "/home/${user.name}"
+        else null;
+      description = "The user's home directory.";
     };
     canSudo = mkOption {
       type = types.bool;
@@ -76,7 +87,10 @@ in {
             _module.args = {inherit user;};
 
             home.username = user.name;
-            home.homeDirectory = "/home/${user.name}";
+            home.homeDirectory =
+              if (user.name != null)
+              then "/home/${user.name}"
+              else null;
 
             # This value determines the Home Manager release that your configuration is
             # compatible with. This helps avoid breakage when a new Home Manager release
