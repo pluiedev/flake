@@ -12,10 +12,19 @@ local default = {
 }
 
 for k, v in pairs {
+  cssls = default,
+  html = default,
+  jsonls = default,
+
+  denols = default,
+  diagnosticls = default,
+  graphql = default,
+  ltex = default,
+  marksman = default,
   hls = default,
-  nil_ls = default,
+  nixd = default,
   pyright = default,
-  rubocop = default,
+  quick_lint_js = default,
   ruff_lsp = default,
   taplo = default,
 } do

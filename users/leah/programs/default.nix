@@ -20,6 +20,7 @@
     # Coding utilities
     any-nix-shell
     clang_16
+    deno
     (ghc.withPackages (hs:
       with hs; [
         haskell-language-server

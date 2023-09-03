@@ -12,19 +12,27 @@
   };
 
   home.packages = with pkgs; [
+    # language servers
+    lua-language-server
+    ltex-ls
+    marksman
+    nixd
+    nodePackages_latest.diagnostic-languageserver
+    nodePackages_latest.pyright
+    nodePackages_latest.graphql-language-service-cli
+    quick-lint-js
+    ruff-lsp
+    taplo
+    vscode-langservers-extracted
+
+    # formatters
     alejandra
     black
-    lua-language-server
-    nil
-    nodePackages_latest.pyright
     prettierd
-    ruff
-    ruff-lsp
     shfmt
     stylua
-    taplo
-    tree-sitter
 
+    tree-sitter
     neovide
     nvimpager
   ];
