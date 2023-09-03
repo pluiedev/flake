@@ -52,7 +52,7 @@
     specialArgs = inputs;
   };
 
-  personal-mac = name: inputs @ {nix-darwin}: {
+  personal-mac = name: inputs @ {nix-darwin, ...}: {
     system = "x86_64-darwin";
     builder = nix-darwin.lib.darwinSystem;
     modules = [
