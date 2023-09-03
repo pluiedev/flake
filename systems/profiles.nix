@@ -1,5 +1,5 @@
 {inputs}: rec {
-  mkNixOS = name: {
+  mkSystem = name: {
     profile,
     system ? null,
     modules ? [],
@@ -15,6 +15,7 @@
       specialArgs = profile'.specialArgs // specialArgs;
       modules = profile'.modules ++ modules;
     };
+  mkSystems = builtins.mapAttrs mkSystem;
 
   personal = name: inputs @ {
     nixpkgs,
