@@ -25,7 +25,7 @@
     plasma-manager,
     ragenix,
     ...
-  }: {
+  }: rec {
     system = "x86_64-linux";
     builder = nixpkgs.lib.nixosSystem;
 
@@ -41,6 +41,7 @@
       {
         networking.hostName = name;
         system.stateVersion = "23.11";
+        nixpkgs.hostPlatform = system;
 
         nixpkgs.overlays = [
           nur.overlay
@@ -52,12 +53,25 @@
     specialArgs = inputs;
   };
 
-  personal-mac = name: inputs @ {nix-darwin, ...}: {
+  personal-mac = name: inputs @ {
+    nix-darwin,
+    home-manager,
+    ...
+  }: rec {
     system = "x86_64-darwin";
     builder = nix-darwin.lib.darwinSystem;
     modules = [
+      home-manager.darwinModules.home-manager
+
       ./${name}
+      ../users/leah
       ../modules/darwin
+
+      {
+        networking.hostName = name;
+        system.stateVersion = 4;
+        nixpkgs.hostPlatform = system;
+      }
     ];
     specialArgs = inputs;
   };
