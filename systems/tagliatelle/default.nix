@@ -1,12 +1,12 @@
 {nixos-hardware, ...}: {
-  imports = [
+  imports = with nixos-hardware.nixosModules; [
     ./hardware-configuration.nix
 
-    nixos-hardware.nixosModules.common-pc
-    nixos-hardware.nixosModules.common-pc-ssd
-    nixos-hardware.nixosModules.common-hidpi
-    nixos-hardware.nixosModules.common-cpu-amd
-    nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
+    common-pc
+    common-pc-ssd
+    common-hidpi
+    common-cpu-amd
+    common-gpu-nvidia-nonprime
   ];
 
   pluie = {

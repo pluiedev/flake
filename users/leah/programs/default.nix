@@ -25,12 +25,10 @@
         haskell-language-server
       ]))
     nodePackages_latest.nodejs
-    nodePackages_latest.pnpm
     python3Full
 
     # Command-line apps
     just
-    nvd
     xclip
   ];
 

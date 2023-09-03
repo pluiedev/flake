@@ -2,9 +2,6 @@
 
 alias b := build
 alias c := check
-alias f := fmt
-alias l := lint
-alias p := pre-commit
 alias sw := switch
 alias t := test
 
@@ -14,6 +11,7 @@ default:
 [linux]
 build:
     nixos-rebuild build --flake .
+    nvd diff /run/current-system/ result/
 
 [macos]
 build:
@@ -21,15 +19,6 @@ build:
 
 check:
     nix flake check
-
-fmt:
-    pre-commit run alejandra && pre-commit run stylua
-
-lint:
-    pre-commit run statix && pre-commit run deadnix
-
-pre-commit:
-    pre-commit run
 
 [linux]
 switch:
