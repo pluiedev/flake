@@ -11,7 +11,7 @@ default:
 [linux]
 build:
     nixos-rebuild build --flake .
-    nvd diff /run/current-system/ result/
+    nix run n#nvd -- diff /run/current-system/ result/
 
 [macos]
 build:

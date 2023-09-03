@@ -1,12 +1,8 @@
 _: {
   imports = [
-    ./user
-
     ./locales
     ./tools
-    ./desktop
-    ./hardware
-    ./patch
+    ./user
 
     ./nix.nix
     ./upgrade-diff.nix

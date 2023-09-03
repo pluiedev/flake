@@ -15,12 +15,13 @@ in {
   options.pluie.user.ime = {
     enabled = mkOption {
       type = types.nullOr (types.enum ["fcitx5" "ibus"]);
+      default = "fcitx5";
       example = "fcitx5";
       description = "The IME backend to use.";
     };
     engines = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = ["rime" "mozc"];
       example = ["rime"];
       description = ''
         List of engines to use. Must be available for all supported IME backends.

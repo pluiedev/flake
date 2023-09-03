@@ -92,7 +92,16 @@ in {
   options.pluie.user.ime.fcitx5 = {
     profile = mkOption {
       type = types.nullOr (types.submodule fcitx5ProfileModule);
-      default = null;
+      default = {
+        groups = [
+          {
+            name = "Default";
+            defaultLayout = "us";
+            defaultIM = "keyboard-us";
+            items = map (name: {inherit name;}) (["keyboard-us"] ++ cfg.engines);
+          }
+        ];
+      };
     };
   };
 

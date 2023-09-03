@@ -30,6 +30,7 @@
 
     # Command-line apps
     just
+    nvd
     xclip
   ];
 

@@ -35,7 +35,7 @@
 
       ./${name}
       ../users/leah
-      ../modules
+      ../modules/nixos
 
       {
         networking.hostName = name;
@@ -56,7 +56,7 @@
     builder = nix-darwin.lib.darwinSystem;
     modules = [
       ./${name}
-      ../modules
+      ../modules/darwin
     ];
     specialArgs = inputs;
   };
