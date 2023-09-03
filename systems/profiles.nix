@@ -16,8 +16,6 @@
       modules = profile'.modules ++ modules;
     };
 
-  mkNixOSes = builtins.mapAttrs mkNixOS;
-
   personal = name: inputs @ {
     nixpkgs,
     nur,
@@ -49,6 +47,16 @@
           (import ../nixpkgs/overlay.nix)
         ];
       }
+    ];
+    specialArgs = inputs;
+  };
+
+  personal-mac = name: inputs @ {nix-darwin}: {
+    system = "x86_64-darwin";
+    builder = nix-darwin.lib.darwinSystem;
+    modules = [
+      ./${name}
+      ../modules
     ];
     specialArgs = inputs;
   };

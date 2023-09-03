@@ -15,6 +15,12 @@
     };
 
     nur.url = "github:nix-community/NUR";
+
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     plasma-manager = {
