@@ -1,10 +1,9 @@
-_: {
+{lib, ...}: {
   imports = [
-    ./locales
-    ./tools
-    ./user
-
+    ./desktop
     ./nix.nix
     ./upgrade-diff.nix
   ];
+
+  options.pluie.enableChineseMirrors = lib.mkEnableOption "Chinese mirror sites to speed up downloads in Mainland China";
 }

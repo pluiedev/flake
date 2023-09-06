@@ -21,22 +21,24 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = optional (cfg.sddmTheme != null) cfg.sddmTheme;
 
-    services.xserver.displayManager.sddm = {
-      enable = true;
-      theme = mkIf (cfg.sddmTheme != null) cfg.sddmTheme.themeName;
-    };
-    services.xserver.desktopManager.plasma5 = {
-      enable = true;
-      useQtScaling = true;
+    services.xserver = {
+      displayManager.sddm = {
+        enable = true;
+        theme = mkIf (cfg.sddmTheme != null) cfg.sddmTheme.themeName;
+      };
+      desktopManager.plasma5 = {
+        enable = true;
+        useQtScaling = true;
+      };
     };
 
     xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-kde];
 
-    pluie.user = {
-      modules = [plasma-manager.homeManagerModules.plasma-manager];
-      config.programs.plasma = {
-        enable = true;
-      };
-    };
+    pluie.user.modules = [
+      plasma-manager.homeManagerModules.plasma-manager
+      {
+        programs.plasma.enable = true;
+      }
+    ];
   };
 }

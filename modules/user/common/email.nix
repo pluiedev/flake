@@ -42,14 +42,14 @@
       type = types.str;
       example = "Leah";
     };
+    host = mkOption {
+      type = types.submodule hostModule;
+    };
   };
 in {
   options.pluie.user.email = {
     enable = mkEnableOption "E-Mail configurations";
 
-    host = mkOption {
-      type = types.submodule hostModule;
-    };
     accounts = mkOption {
       type = types.attrsOf (types.submodule emailModule);
       default = {};
@@ -57,13 +57,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    pluie.user.config.accounts.email.accounts =
+    accounts.email.accounts =
       builtins.mapAttrs (address: account: rec {
         inherit (account) primary realName;
-        inherit (cfg.host) imap smtp;
+        inherit (account.host) imap smtp;
         inherit address;
         userName = address; # Use the address as the IMAP/SMTP username by default
-        thunderbird.enable = true;
       })
       cfg.accounts;
   };

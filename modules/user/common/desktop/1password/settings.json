@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "security.authenticatedUnlock.enabled": true,
+  "sshAgent.storeKeyTitles": true,
+  "sshAgent.storeSshKeyTitlesResponseGiven": true,
+  "sshAgent.enabled": true,
+  "developers.cliSharedLockState.enabled": true,
+  "app.useHardwareAcceleration": true,
+  "privacy.checkHibp": true,
+  "sshAgent.commitSigningBannerDismissed": true,
+  "advanced.EnableDebuggingTools": true,
+  "passwordGenerator.includeSymbols": true,
+  "sshAgent.sshAuthorizatonModel": "application"
+}

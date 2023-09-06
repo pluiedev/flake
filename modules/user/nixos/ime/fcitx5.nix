@@ -108,7 +108,7 @@ in {
   config = mkIf (cfg.enabled == "fcitx5") {
     i18n.inputMethod.fcitx5.addons = map (x: pkgs.${"fcitx5-${x}"}) cfg.engines;
 
-    pluie.user.config.xdg.configFile."fcitx5/profile".text =
+    xdg.configFile."fcitx5/profile".text =
       mkIf
       (cfg.fcitx5.profile != null)
       (mkFcitx5Cfg cfg.fcitx5.profile);

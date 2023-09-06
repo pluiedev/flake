@@ -1,0 +1,9 @@
+/* bleh new member */
+
+.newMemberBadge-3PdStX {
+  content: url(https://cdn.discordapp.com/emojis/1032974662122098698.webp);
+}
+
+* {
+  --font-primary: Rubik Light, system-ui, sans-serif;
+}

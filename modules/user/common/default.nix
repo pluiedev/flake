@@ -6,10 +6,6 @@
   inherit (lib) mkOption mkIf mkMerge types;
   user = config.pluie.user;
 in {
-  imports = [
-    ./email.nix
-  ];
-
   options.pluie.user = {
     name = mkOption {
       type = types.nullOr types.str;
@@ -66,17 +62,22 @@ in {
 
       users.${user.name} = lib.mkMerge [
         {
-          imports = user.modules;
+          imports =
+            [
+              ./desktop
+              ./email.nix
+              ./locales
+              ./tools
+            ]
+            ++ user.modules;
           _module.args = {inherit user;};
 
           home.username = user.name;
-          home.homeDirectory =
-            if (user.name != null)
-            then "/home/${user.name}"
-            else null;
+          home.homeDirectory = user.homeDirectory;
           home.stateVersion = "23.05";
 
           programs.home-manager.enable = true;
+          xdg.enable = true;
         }
         user.config
       ];

@@ -1,20 +1,21 @@
 {
+  osConfig,
   lib,
   pkgs,
   config,
   ...
 }: let
-  cfg = config.pluie.tools.rust;
+  cfg = config.pluie.user.tools.rust;
   inherit (lib) mkIf mkOption mkEnableOption types;
 
   toTOMLFile = pkgs.formats.toml {};
 in {
-  options.pluie.tools.rust = {
+  options.pluie.user.tools.rust = {
     enable = mkEnableOption "Rust";
 
     rust-bin = mkOption {
       type = types.attrsOf types.anything;
-      default = pkgs.rust-bin;
+      default = pkgs.rust-bin // lib.optionalAttrs osConfig.pluie.enableChineseMirrors {distRoot = "https://mirror.sjtu.edu.cn/rust-static/dist";};
       example = pkgs.rust-bin // {distRoot = "some-root";};
     };
 
@@ -37,7 +38,15 @@ in {
 
     settings = mkOption {
       type = types.attrsOf types.anything;
-      default = {};
+      default = lib.optionalAttrs osConfig.pluie.enableChineseMirrors {
+        source = {
+          crates-io.replace-with = "sjtu";
+
+          tuna.registry = "sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/";
+          ustc.registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/";
+          sjtu.registry = "sparse+https://mirrors.sjtug.sjtu.edu.cn/crates.io-index/";
+        };
+      };
       example = {
         source = {
           crates-io.replace-with = "tuna";
@@ -58,18 +67,16 @@ in {
   };
 
   config = mkIf cfg.enable {
-    pluie.user.config = {
-      home.packages = [cfg.package];
+    home.packages = [cfg.package];
 
-      xdg.configFile."rustfmt/rustfmt.toml".source = toTOMLFile.generate "rustfmt.toml" cfg.rustfmtSettings;
+    xdg.configFile."rustfmt/rustfmt.toml".source = toTOMLFile.generate "rustfmt.toml" cfg.rustfmtSettings;
 
-      home.file.".cargo/config.toml".source = toTOMLFile.generate "config.toml" ({
-          target.${pkgs.rust.toRustTarget pkgs.hostPlatform} = {
-            linker = "clang";
-            rustflags = ["-C" "link-arg=-fuse-ld=${cfg.linker}"];
-          };
-        }
-        // cfg.settings);
-    };
+    home.file.".cargo/config.toml".source = toTOMLFile.generate "config.toml" ({
+        target.${pkgs.rust.toRustTarget pkgs.hostPlatform} = {
+          linker = "clang";
+          rustflags = ["-C" "link-arg=-fuse-ld=${cfg.linker}"];
+        };
+      }
+      // cfg.settings);
   };
 }

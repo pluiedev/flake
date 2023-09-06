@@ -5,10 +5,8 @@
   ...
 }: let
   cfg = config.pluie.desktop.fonts;
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkIf;
 in {
-  options.pluie.desktop.fonts.enable = mkEnableOption "default fonts";
-
   config = mkIf cfg.enable {
     fonts = {
       enableDefaultPackages = true;

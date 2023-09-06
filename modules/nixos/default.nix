@@ -1,11 +1,12 @@
 _: {
   imports = [
     ../common
+    ../user/common
 
-    ./user
     ./desktop
     ./hardware
-    ./locales
     ./patch
   ];
+
+  config.pluie.user.modules = [../user/nixos];
 }

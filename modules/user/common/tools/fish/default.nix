@@ -6,16 +6,15 @@
 }: let
   inherit (builtins) fromTOML readFile;
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.pluie.tools.fish;
+  cfg = config.pluie.user.tools.fish;
 in {
-  options.pluie.tools.fish.enable = mkEnableOption "Fish shell";
+  options.pluie.user.tools.fish.enable = mkEnableOption "Fish shell";
 
   config = mkIf cfg.enable {
-    programs.fish.enable = true;
+    programs = {
+      # we have login shells at home
+      bash.initExtra = "exec ${lib.getExe config.programs.fish.package}";
 
-    users.users.${config.pluie.user.name}.shell = pkgs.fish;
-
-    pluie.user.config.programs = {
       fish.enable = true;
 
       starship = {

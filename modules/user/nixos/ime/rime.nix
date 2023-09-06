@@ -32,9 +32,6 @@
   };
 in {
   config = mkIf (builtins.elem "rime" cfg.engines) {
-    pluie.user.config = {
-      xdg.dataFile = mkIf (cfg.enabled == "fcitx5") rimeCfgs;
-      xdg.configFile = mkIf (cfg.enabled == "ibus") rimeCfgs;
-    };
+    xdg.dataFile = mkIf (cfg.enabled == "fcitx5") rimeCfgs;
   };
 }

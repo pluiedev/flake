@@ -5,5 +5,5 @@
     ./rust.nix
   ];
 
-  config.pluie.tools.git.enable = lib.mkDefault true;
+  config.pluie.user.tools.git.enable = lib.mkDefault true;
 }

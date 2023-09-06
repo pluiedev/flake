@@ -42,12 +42,6 @@
         networking.hostName = name;
         system.stateVersion = "23.11";
         nixpkgs.hostPlatform = system;
-
-        nixpkgs.overlays = [
-          nur.overlay
-          rust-overlay.overlays.default
-          (import ../nixpkgs/overlay.nix)
-        ];
       }
     ];
     specialArgs = inputs;

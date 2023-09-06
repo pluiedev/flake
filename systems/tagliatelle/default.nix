@@ -11,7 +11,6 @@
 
   pluie = {
     hardware.nvidia.enable = true;
-    locales.chinese.enable = true;
     desktop = {
       enable = true;
       plasma.enable = true;

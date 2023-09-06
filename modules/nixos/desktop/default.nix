@@ -26,7 +26,6 @@ in {
     programs.dconf.enable = true;
     services.xserver.enable = true;
 
-    pluie.user.config.xdg.enable = true;
     xdg.portal.enable = true;
 
     networking.networkmanager.enable = true;
