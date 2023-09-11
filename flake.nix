@@ -10,7 +10,7 @@
     };
 
     home-manager = {
-      url = "github:pluiedev/home-manager?ref=feat/git-ssh-signing";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

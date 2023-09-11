@@ -40,12 +40,15 @@ in {
 
       signing = {
         signByDefault = true;
-        format = "ssh";
         key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC7uJGE2/25M4a3DIVxtnTA5INqWsFGw+49qHXaN/kqy";
-        program = mkIf (cfg.signer != null) cfg.signer;
       };
 
-      extraConfig.init.defaultBranch = "main";
+      extraConfig = {
+        gpg.format = "ssh";
+        gpg.ssh.program = mkIf (cfg.signer != null) cfg.signer;
+
+        init.defaultBranch = "main";
+      };
     };
 
     programs.gh = {

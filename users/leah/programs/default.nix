@@ -117,7 +117,7 @@
   };
 
   programs = {
-    exa = {
+    eza = {
       enable = true;
       enableAliases = true;
       git = true;

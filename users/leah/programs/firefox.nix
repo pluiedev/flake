@@ -37,7 +37,6 @@ in {
         terms-of-service-didnt-read
         ublock-origin
         unpaywall
-        vencord-web
         wayback-machine
         youtube-nonstop
       ];
