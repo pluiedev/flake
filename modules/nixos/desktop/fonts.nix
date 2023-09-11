@@ -24,8 +24,8 @@ in {
       fontconfig = {
         enable = true;
         defaultFonts = {
-          serif = ["LXGW WenKai" "Noto Serif"];
-          sansSerif = ["LXGW Neo XiHei" "Rubik"];
+          serif = ["Noto Serif" "LXGW WenKai"];
+          sansSerif = ["Rubik" "LXGW Neo XiHei"];
           emoji = ["Noto Color Emoji"];
           monospace = ["Iosevka Nerd Font" "LXGW Neo XiHei"];
         };

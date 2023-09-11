@@ -13,6 +13,8 @@ in {
       fullName = "Leah Amelia Chen";
       canSudo = true;
       modules = [./programs];
+
+      settings.shell = pkgs.fish;
     };
 
     desktop._1password.enable = true;

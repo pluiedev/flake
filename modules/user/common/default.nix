@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) mkOption mkIf mkMerge types;
@@ -36,10 +37,11 @@ in {
       example = true;
       description = "Whether the user can run sudo.";
     };
-    config = mkOption {
+    settings = mkOption {
       type = types.attrsOf types.anything;
       default = {};
-      description = "The user's configs.";
+      example = {shell = pkgs.fish;};
+      description = "Extra settings for the user.";
     };
     modules = mkOption {
       type = types.listOf types.anything;
@@ -49,11 +51,13 @@ in {
   };
 
   config = mkIf (user.name != null) {
-    users.users.${user.name} = {
-      isNormalUser = true;
-      description = user.realName;
-      extraGroups = lib.optional user.canSudo "wheel";
-    };
+    users.users.${user.name} =
+      {
+        isNormalUser = true;
+        description = user.realName;
+        extraGroups = lib.optional user.canSudo "wheel";
+      }
+      // user.settings;
 
     home-manager = {
       backupFileExtension = "backup";
@@ -79,7 +83,6 @@ in {
           programs.home-manager.enable = true;
           xdg.enable = true;
         }
-        user.config
       ];
     };
   };

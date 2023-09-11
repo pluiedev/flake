@@ -16,6 +16,7 @@
       plasma.enable = true;
     };
     patch.fix-246195 = true;
+    enableChineseMirrors = true;
   };
 
   hardware.bluetooth.enable = true;
