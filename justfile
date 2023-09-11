@@ -22,11 +22,11 @@ check:
 
 [linux]
 switch:
-    sudo nixos-rebuild switch --flake .
+    sudo nixos-rebuild switch --flake . --keep-going
 
 [macos]
 switch:
-    darwin-rebuild switch --flake .
+    darwin-rebuild switch --flake . --keep-going
 
 [linux]
 test:
@@ -38,7 +38,3 @@ test:
 
 update:
     nix flake update
-
-update-nixpkgs:
-    nix flake lock \
-    	--update-input nixpkgs --update-input nixpkgs-stable
