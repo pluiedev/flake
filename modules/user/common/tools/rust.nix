@@ -21,7 +21,7 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = cfg.rust-bin.selectLatestNightlyWith (toolchain:
+      default = builtins.trace cfg.rust-bin.distRoot cfg.rust-bin.selectLatestNightlyWith (toolchain:
         toolchain.default.override {
           extensions = ["rust-analyzer"];
         });

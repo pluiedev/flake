@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./programs
+    ./desktop
   ];
 
   pluie.user = {
@@ -42,7 +43,6 @@
         openAsar.enable = true;
         vencord.enable = true;
       };
-      plasma.enable = true;
     };
 
     locales.chinese.enable = true;
