@@ -25,7 +25,11 @@
   hardware.bluetooth.enable = true;
 
   hardware.nvidia = {
-    powerManagement.enable = true;
+    powerManagement = {
+      enable = true;
+      finegrained = true;
+    };
+    dynamicBoost.enable = true;
 
     prime = {
       offload = {
