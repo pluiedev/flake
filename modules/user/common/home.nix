@@ -1,12 +1,10 @@
 {user, ...}: {
-  imports =
-    [
-      ./desktop
-      ./email.nix
-      ./locales
-      ./tools
-    ]
-    ++ user.modules;
+  imports = [
+    ./desktop
+    ./email.nix
+    ./locales
+    ./tools
+  ];
 
   home = {
     inherit (user) homeDirectory;
