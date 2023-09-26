@@ -21,7 +21,7 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = builtins.trace cfg.rust-bin.distRoot cfg.rust-bin.selectLatestNightlyWith (toolchain:
+      default = cfg.rust-bin.selectLatestNightlyWith (toolchain:
         toolchain.default.override {
           extensions = ["rust-analyzer"];
         });
@@ -30,7 +30,7 @@ in {
     };
 
     linker = mkOption {
-      type = types.pathInStore;
+      type = types.nullOr types.pathInStore;
       default = lib.getExe' pkgs.mold "mold";
       example = "lib.getExe' pkgs.lld \"lld\"";
       description = "Linker to use when linking compiled Rust code";
@@ -55,7 +55,7 @@ in {
       };
     };
 
-    rustfmtSettings = mkOption {
+    rustfmt.settings = mkOption {
       type = types.attrsOf types.anything;
       default = {};
       example = {
@@ -69,14 +69,16 @@ in {
   config = mkIf cfg.enable {
     home.packages = [cfg.package];
 
-    xdg.configFile."rustfmt/rustfmt.toml".source = toTOMLFile.generate "rustfmt.toml" cfg.rustfmtSettings;
+    xdg.configFile."rustfmt/rustfmt.toml".source = toTOMLFile.generate "rustfmt.toml" cfg.rustfmt.settings;
 
-    home.file.".cargo/config.toml".source = toTOMLFile.generate "config.toml" ({
+    home.file.".cargo/config.toml".source = toTOMLFile.generate "config.toml" (
+      (lib.optionalAttrs (cfg.linker != null) {
         target.${pkgs.rust.toRustTarget pkgs.hostPlatform} = {
           linker = "clang";
           rustflags = ["-C" "link-arg=-fuse-ld=${cfg.linker}"];
         };
-      }
-      // cfg.settings);
+      })
+      // cfg.settings
+    );
   };
 }

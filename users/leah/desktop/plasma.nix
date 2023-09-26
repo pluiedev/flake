@@ -1,5 +1,5 @@
 {
-  pluie.user.desktop.plasma = {
+  programs.plasma = {
     enable = true;
 
     configFile = {
@@ -20,6 +20,8 @@
         Mode = "Times";
         TransitionTime = 120;
       };
+      # Make KRunner appear in the center of the screen, like macOS Spotlight
+      krunnerrc.General.FreeFloating = true;
       plasmarc.Theme.name = "breeze-dark";
       kxkbrc.Layout.Options = "terminate:ctrl_alt_bksp,compose:ralt";
     };

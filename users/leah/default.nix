@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  plasma-manager,
   ...
 }: let
   user = config.pluie.user;
@@ -12,7 +13,10 @@ in {
       realName = "Leah";
       fullName = "Leah Amelia Chen";
       canSudo = true;
-      modules = [./programs];
+      modules = [
+        ./home.nix
+        plasma-manager.homeManagerModules.plasma-manager
+      ];
 
       settings.shell = pkgs.fish;
     };

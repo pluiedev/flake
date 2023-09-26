@@ -22,7 +22,6 @@
     nur,
     rust-overlay,
     home-manager,
-    plasma-manager,
     ragenix,
     ...
   }: rec {

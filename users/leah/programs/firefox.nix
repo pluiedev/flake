@@ -2,10 +2,9 @@
   user,
   lib,
   pkgs,
+  osConfig,
   ...
-}: let
-  mkParams = lib.mapAttrsToList lib.nameValuePair;
-in {
+}: {
   programs.firefox = {
     enable = true;
     # Janky workaround
@@ -18,30 +17,31 @@ in {
       isDefault = true;
       name = user.realName;
 
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-        augmented-steam
-        auto-tab-discard
-        darkreader
-        decentraleyes
-        disconnect
-        furiganaize
-        languagetool
-        onepassword-password-manager
-        plasma-integration
-        pronoundb
-        protondb-for-steam
-        refined-github
-        rust-search-extension
-        search-by-image
-        sponsorblock
-        terms-of-service-didnt-read
-        ublock-origin
-        unpaywall
-        wayback-machine
-        youtube-nonstop
-      ];
+      extensions = with pkgs.nur.repos.rycee.firefox-addons; ([
+          augmented-steam
+          auto-tab-discard
+          darkreader
+          decentraleyes
+          disconnect
+          furiganaize
+          languagetool
+          onepassword-password-manager
+          pronoundb
+          protondb-for-steam
+          refined-github
+          rust-search-extension
+          search-by-image
+          sponsorblock
+          terms-of-service-didnt-read
+          ublock-origin
+          unpaywall
+          wayback-machine
+          youtube-nonstop
+        ]
+        ++ lib.optional osConfig.services.xserver.desktopManager.plasma5.enable plasma-integration);
 
       search = let
+        mkParams = lib.mapAttrsToList lib.nameValuePair;
         nixosSearch = path: aliases: {
           urls = [
             {

@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  plasma-manager,
   ...
 }: let
   cfg = config.pluie.desktop.plasma;
@@ -33,12 +32,5 @@ in {
     };
 
     xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-kde];
-
-    pluie.user.modules = [
-      plasma-manager.homeManagerModules.plasma-manager
-      {
-        programs.plasma.enable = true;
-      }
-    ];
   };
 }

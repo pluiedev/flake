@@ -55,7 +55,7 @@
           build.rustc-wrapper = lib.getExe' pkgs.sccache "sccache";
           build.target-dir = "${user.homeDirectory}/.cargo/target";
         };
-        rustfmtSettings = {
+        rustfmt.settings = {
           edition = "2021"; # In rare circumstances where rustfmt can't detect Cargo settings
           version = "Two";
 
@@ -84,7 +84,6 @@
           normalize_doc_attributes = true;
           overflow_delimited_expr = true;
           reorder_impl_items = true;
-          trailing_comma = "Always";
           use_field_init_shorthand = true;
         };
       };

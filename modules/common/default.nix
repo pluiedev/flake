@@ -6,4 +6,6 @@
   ];
 
   options.pluie.enableChineseMirrors = lib.mkEnableOption "Chinese mirror sites to speed up downloads in Mainland China";
+
+  config.i18n.supportedLocales = ["all"];
 }
