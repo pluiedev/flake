@@ -24,21 +24,21 @@ in {
     };
 
     programs.dconf.enable = true;
-    services.xserver.enable = true;
-
     xdg.portal.enable = true;
 
     networking.networkmanager.enable = true;
     users.users.${config.pluie.user.name}.extraGroups = ["networkmanager"];
 
-    services.zerotierone.enable = true;
+    services = {
+      zerotierone.enable = true;
 
-    services.xserver = {
-      layout = "us";
-      xkbVariant = "";
+      xserver = {
+        enable = true;
+        layout = "us";
+        xkbVariant = "";
+      };
+
+      printing.enable = true;
     };
-
-    # Printing
-    services.printing.enable = true;
   };
 }

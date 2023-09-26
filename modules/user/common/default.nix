@@ -4,8 +4,8 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkOption mkIf mkMerge types;
-  user = config.pluie.user;
+  inherit (lib) mkOption mkIf types;
+  inherit (config.pluie) user;
 in {
   options.pluie.user = {
     name = mkOption {
@@ -67,21 +67,10 @@ in {
       users.${user.name} = lib.mkMerge [
         {
           imports =
-            [
-              ./desktop
-              ./email.nix
-              ./locales
-              ./tools
-            ]
+            [./home.nix]
             ++ user.modules;
+
           _module.args = {inherit user;};
-
-          home.username = user.name;
-          home.homeDirectory = user.homeDirectory;
-          home.stateVersion = "23.05";
-
-          programs.home-manager.enable = true;
-          xdg.enable = true;
         }
       ];
     };

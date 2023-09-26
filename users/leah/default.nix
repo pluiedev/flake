@@ -5,7 +5,7 @@
   plasma-manager,
   ...
 }: let
-  user = config.pluie.user;
+  inherit (config.pluie) user;
 in {
   pluie = {
     user = {
