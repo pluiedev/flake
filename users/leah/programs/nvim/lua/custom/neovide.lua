@@ -7,7 +7,7 @@ if vim.g.neovide then
   -- and causes a HUGE stutter with Neovide. The recommended fix is to set the
   -- refresh rate to the lowest denominator (60fps).
   -- I can't wait to switch to wayland.
-  vim.g.neovide_refresh_rate = 60
+  vim.g.neovide_refresh_rate = 165
 
   vim.g.neovide_hide_mouse_when_typing = false
   vim.g.neovide_remember_window_size = true

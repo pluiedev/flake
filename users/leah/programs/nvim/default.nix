@@ -16,7 +16,7 @@
     lua-language-server
     ltex-ls
     marksman
-    nixd
+    nil
     nodePackages_latest.diagnostic-languageserver
     nodePackages_latest.pyright
     nodePackages_latest.graphql-language-service-cli

@@ -14,7 +14,6 @@ require("format-on-save").setup {
     typescriptreact = formatters.prettierd,
     yaml = formatters.prettierd,
 
-    --fish = { require("formatter.filetypes.fish").fishindent },
     lua = formatters.stylua,
     nix = formatters.shell { cmd = { "alejandra", "-qq", "-" } },
     python = formatters.black,
