@@ -3,6 +3,7 @@
   lib,
   pkgs,
   config,
+  rust-overlay,
   ...
 }: let
   cfg = config.pluie.user.tools.rust;
