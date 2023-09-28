@@ -1,12 +1,9 @@
 {
-  config,
   pkgs,
-  lib,
   plasma-manager,
+  krunner-nix,
   ...
-}: let
-  inherit (config.pluie) user;
-in {
+}: {
   pluie = {
     user = {
       name = "leah";
@@ -29,4 +26,6 @@ in {
     enable = true;
     remotePlay.openFirewall = true;
   };
+
+  nixpkgs.overlays = [krunner-nix.overlays.default];
 }

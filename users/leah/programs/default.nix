@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  user,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./firefox.nix
     ./nvim
@@ -33,6 +28,9 @@
     just
     nvd
     xclip
+
+    # Misc
+    krunner-nix
 
     (pkgs.makeAutostartItem {
       name = "1password";

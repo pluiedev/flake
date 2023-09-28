@@ -186,6 +186,26 @@
         "type": "github"
       }
     },
+    "krunner-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1695898702,
+        "narHash": "sha256-Bj4xEYzOb5uLVI7JhjkU88965kRJsQPfCh9FjAdYHc8=",
+        "owner": "pluiedev",
+        "repo": "krunner-nix",
+        "rev": "ec817c31d76a262276029f701bbb9e9633ec0364",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pluiedev",
+        "repo": "krunner-nix",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -348,6 +368,7 @@
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "krunner-nix": "krunner-nix",
         "nix-darwin": "nix-darwin",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
