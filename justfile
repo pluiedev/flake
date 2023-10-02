@@ -9,8 +9,8 @@ default:
     @just --choose
 
 [linux]
-build:
-    nixos-rebuild build --flake .
+build *args:
+    nixos-rebuild build --flake . {{args}}
     nix run n#nvd -- diff /run/current-system/ result/
 
 [macos]
@@ -36,5 +36,5 @@ test:
 test:
     darwin-rebuild test --flake .
 
-update:
-    nix flake update
+update: (build "--recreate-lock-file")
+    nix-index

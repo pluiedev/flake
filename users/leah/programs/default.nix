@@ -13,18 +13,8 @@
     prismlauncher
     vlc
 
-    # Coding utilities
-    any-nix-shell
-    clang_16
-    deno
-    (ghc.withPackages (hs:
-      with hs; [
-        haskell-language-server
-      ]))
-    nodePackages_latest.nodejs
-    python3Full
-
     # Command-line apps
+    any-nix-shell
     just
     nvd
     xclip
