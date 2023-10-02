@@ -1,12 +1,10 @@
 {
   inputs = {
     nixpkgs.url = "nixpkgs";
-    flake-utils.url = "github:numtide/flake-utils";
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
@@ -14,23 +12,20 @@
     self,
     nixpkgs,
     rust-overlay,
-    flake-utils,
-  }:
-    flake-utils.lib.eachDefaultSystem (
-      system: let
-        pkgs = import nixpkgs {inherit system;};
-      in {
-        devShell = with pkgs;
-          mkShell {
-            buildInputs = with pkgs; [
-              rust-bin.selectLatestNightlyWith
-              (toolchain:
-                toolchain.default.override {
-                  extensions = ["rust-analyzer"];
-                })
-              pre-commit
-            ];
-          };
-      }
-    );
+  }: let
+    systems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
+    forAllSystems = f: nixpkgs.lib.genAttrs systems (sys: f nixpkgs.legacyPackages.${sys});
+  in {
+    devShell = forAllSystems (pkgs:
+      with pkgs;
+        mkShell {
+          buildInputs = [
+            rust-bin.selectLatestNightlyWith
+            (toolchain:
+              toolchain.default.override {
+                extensions = ["rust-analyzer"];
+              })
+          ];
+        });
+  };
 }
