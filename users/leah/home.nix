@@ -69,7 +69,7 @@
 
           # Imports
           imports_layout = "HorizontalVertical";
-          imports_granularity = "Module";
+          imports_granularity = "Crate";
           group_imports = "StdExternalCrate";
 
           # Enable formatting things that aren't usually formatted
