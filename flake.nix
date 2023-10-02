@@ -1,5 +1,5 @@
 {
-  description = "Leah's NixOS configuration";
+  description = "Leah's NixOS configurations + more";
 
   nixConfig = {
     extra-substituters = ["https://cache.garnix.io"];
