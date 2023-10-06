@@ -75,7 +75,7 @@ in {
     home.file.".cargo/config.toml".source = toTOMLFile.generate "config.toml" (
       (lib.optionalAttrs (cfg.linker != null) {
         target.${pkgs.rust.toRustTarget pkgs.hostPlatform} = {
-          linker = "clang";
+          linker = "${lib.getExe pkgs.clang_16}";
           rustflags = ["-C" "link-arg=-fuse-ld=${cfg.linker}"];
         };
       })
