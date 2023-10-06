@@ -21,12 +21,12 @@ check:
     nix flake check
 
 [linux]
-switch:
-    sudo nixos-rebuild switch --flake . --keep-going
+switch *args:
+    sudo nixos-rebuild switch --flake . --keep-going {{args}}
 
 [macos]
-switch:
-    darwin-rebuild switch --flake . --keep-going
+switch *args:
+    darwin-rebuild switch --flake . --keep-going {{args}}
 
 [linux]
 test:
@@ -36,5 +36,5 @@ test:
 test:
     darwin-rebuild test --flake .
 
-update: (build "--recreate-lock-file")
+update: (switch "--recreate-lock-file")
     nix-index

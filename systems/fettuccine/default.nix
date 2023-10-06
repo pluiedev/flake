@@ -1,8 +1,4 @@
-{
-  lib,
-  nixos-hardware,
-  ...
-}: {
+{nixos-hardware, ...}: {
   imports = with nixos-hardware.nixosModules; [
     ./hardware-configuration.nix
 
@@ -12,6 +8,10 @@
     common-cpu-intel
     common-gpu-nvidia
   ];
+
+  boot.extraModprobeConfig = ''
+    options nvidia NVreg_PreserveVideoMemoryAllocations=1 NVreg_TemporaryFilePath=/var/tmp
+  '';
 
   pluie = {
     hardware.nvidia.enable = true;

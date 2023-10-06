@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  system,
+  osConfig,
+  ...
+}: {
   imports = [
     ./firefox.nix
     ./nvim
@@ -24,9 +29,13 @@
 
     (pkgs.makeAutostartItem {
       name = "1password";
-      package = pkgs._1password-gui;
+      inherit (osConfig.programs._1password-gui) package;
     })
   ];
+
+  # Use the 1Password Cargo plugin
+  home.sessionVariables.OP_PLUGIN_ALIASES_SOURCED = "1";
+  programs.fish.shellAliases.cargo = "op plugin run -- cargo";
 
   programs = {
     eza = {

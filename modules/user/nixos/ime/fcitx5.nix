@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  cfg = config.pluie.user.ime;
   inherit (lib) mkIf mkOption types;
 
+  cfg = config.pluie.user.ime;
   mkFcitx5Cfg = {
     groups ? [],
     groupOrder ? builtins.catAttrs "name" groups,
