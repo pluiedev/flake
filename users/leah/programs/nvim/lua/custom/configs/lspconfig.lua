@@ -26,6 +26,9 @@ for k, v in pairs {
   quick_lint_js = default,
   ruff_lsp = default,
   taplo = default,
+  tsserver = vim.tbl_extend("force", default, {
+    cmd = { "tsserver", "--stdio" },
+  }),
 } do
   lspconfig[k].setup(v)
 end

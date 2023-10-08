@@ -23,6 +23,7 @@
     quick-lint-js
     ruff-lsp
     taplo
+    typescript
     vscode-langservers-extracted
 
     # formatters
