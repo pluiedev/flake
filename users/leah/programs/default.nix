@@ -33,9 +33,12 @@
     })
   ];
 
-  # Use the 1Password Cargo plugin
+  # Use the 1Password CLI plugins
   home.sessionVariables.OP_PLUGIN_ALIASES_SOURCED = "1";
-  programs.fish.shellAliases.cargo = "op plugin run -- cargo";
+  programs.fish.shellAliases = {
+    cargo = "op plugin run -- cargo";
+    gh = "op plugin run -- gh";
+  };
 
   programs = {
     eza = {
