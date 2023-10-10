@@ -48,6 +48,7 @@ in {
         gpg.ssh.program = mkIf (cfg.signer != null) cfg.signer;
 
         init.defaultBranch = "main";
+        push.autoSetupRemote = true;
       };
     };
 
