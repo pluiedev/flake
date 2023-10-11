@@ -23,6 +23,7 @@ check:
 [linux]
 switch *args:
     sudo nixos-rebuild switch --flake . --keep-going {{args}}
+    rm ~/.config/fcitx5/profile.backup # This keeps tripping up HM for some reason
 
 [macos]
 switch *args:
