@@ -27,5 +27,14 @@
     remotePlay.openFirewall = true;
   };
 
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = ["eats"];
+    authentication = ''
+      #type database  DBuser auth-method
+      local all       all    trust
+    '';
+  };
+
   nixpkgs.overlays = [krunner-nix.overlays.default];
 }
