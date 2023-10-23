@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  osConfig,
   ...
 }: let
   inherit (lib) mkEnableOption mkOption mkIf types;
@@ -30,21 +31,44 @@
 in {
   options.pluie.user.desktop._1password = {
     enable = mkEnableOption "1Password";
+    autostart = mkEnableOption "autostarting 1Password";
 
     settings = mkOption {
       type = types.attrsOf types.anything;
       default = {};
     };
+
+    enableSshAgent = mkOption {
+      type = types.bool;
+      default = cfg.settings.sshAgent.enabled or false;
+    };
   };
 
-  config = mkIf cfg.enable {
-    pluie.user.tools.git.signer = "${pkgs._1password-gui}/bin/op-ssh-sign";
+  config = let
+    inherit (osConfig.programs._1password-gui) package;
+  in
+    mkIf cfg.enable {
+      assertions = [
+        {
+          assertion = osConfig.pluie.desktop._1password.enable;
+          message = "1Password must be enabled system-wide first";
+        }
+      ];
 
-    home.file.".ssh/config".text = ''
-      Host *
-        IdentityAgent ~/.1password/agent.sock
-    '';
+      home.packages = mkIf cfg.autostart [
+        (pkgs.makeAutostartItem {
+          name = "1password";
+          inherit package;
+        })
+      ];
 
-    xdg.configFile."1Password/settings/settings.json".text = builtins.toJSON (pathify ({version = 1;} // cfg.settings));
-  };
+      pluie.user.tools.git.signer = "${package}/bin/op-ssh-sign";
+
+      home.file.".ssh/config".text = mkIf cfg.enableSshAgent ''
+        Host *
+          IdentityAgent ~/.1password/agent.sock
+      '';
+
+      xdg.configFile."1Password/settings/settings.json".text = builtins.toJSON (pathify ({version = 1;} // cfg.settings));
+    };
 }

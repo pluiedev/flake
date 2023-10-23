@@ -1,6 +1,5 @@
 {lib, ...}: {
   imports = [
-    ./fish
     ./git.nix
     ./rust.nix
   ];

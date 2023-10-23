@@ -43,4 +43,6 @@
   };
 
   time.timeZone = "Europe/Berlin";
+
+  virtualisation.docker.enable = true;
 }

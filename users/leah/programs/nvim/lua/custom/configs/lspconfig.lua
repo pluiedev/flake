@@ -15,7 +15,7 @@ for k, v in pairs {
   html = default,
   jsonls = default,
 
-  denols = default,
+  --denols = default,
   diagnosticls = default,
   graphql = default,
   ltex = default,
@@ -25,6 +25,7 @@ for k, v in pairs {
   pyright = default,
   quick_lint_js = default,
   ruff_lsp = default,
+  svelte = default,
   taplo = default,
   tsserver = vim.tbl_extend("force", default, {
     cmd = { "tsserver", "--stdio" },

@@ -1,11 +1,12 @@
-{
-  pkgs,
-  osConfig,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
-    ./firefox.nix
+    ./_1password
+    ./discord
+    ./fish
+    ./firefox
     ./nvim
+    ./plasma
+    ./rust
   ];
 
   home.packages = with pkgs; [
@@ -20,25 +21,11 @@
     # Command-line apps
     any-nix-shell
     just
-    nvd
     xclip
 
     # Misc
     krunner-nix
-
-    (pkgs.makeAutostartItem {
-      name = "1password";
-      inherit (osConfig.programs._1password-gui) package;
-    })
   ];
-
-  # Use the 1Password CLI plugins
-  home.sessionVariables.OP_PLUGIN_ALIASES_SOURCED = "1";
-  programs.fish.shellAliases = {
-    cargo = "op plugin run -- cargo";
-    gh = "op plugin run -- gh";
-  };
-
   programs = {
     eza = {
       enable = true;
