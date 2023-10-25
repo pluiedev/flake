@@ -27,7 +27,7 @@
       winNativeTitleBar = false;
 
       plugins = {
-        BadgeAPI. enabled = true;
+        BadgeAPI.enabled = true;
         CommandsAPI.enabled = true;
         ContextMenuAPI.enabled = true;
         MemberListDecoratorsAPI.enabled = true;

@@ -19,13 +19,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "vesktop";
-  version = "0.4.0";
+  version = "0.4.1";
 
   src = fetchFromGitHub {
     owner = "Vencord";
     repo = "Vesktop";
     rev = "v${version}";
-    hash = "sha256-c/Z1BX3LnxNYl14FnUpR3e7U5/5RuseIkZP67bPCsV8=";
+    hash = "sha256-jSGad3qMhAdiGdwomQO6BIyHIbKrGLRGniGrJN97gN8=";
   };
 
   pnpm-deps = stdenvNoCC.mkDerivation {
