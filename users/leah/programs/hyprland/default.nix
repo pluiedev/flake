@@ -2,11 +2,15 @@
   pkgs,
   lib,
   user,
+  config,
+  osConfig,
   ...
 }: {
   imports = [
     ./fuzzel.nix
     ./kitty.nix
+    ./mako.nix
+    ./theming.nix
     ./waybar
   ];
 
@@ -14,31 +18,10 @@
     hyprpicker
     font-awesome
     networkmanagerapplet # necessary for icons
+    qt5.qtwayland
+    dolphin
+    breeze-icons
   ];
-
-  gtk = {
-    enable = true;
-    font = {
-      name = "Rubik";
-      size = 11;
-      package = pkgs.rubik;
-    };
-    cursorTheme = {
-      name = "Catppuccin-Mocha-Maroon";
-      package = pkgs.catppuccin-cursors.mochaMaroon;
-      size = 24;
-    };
-    theme = {
-      name = "Catppuccin-Mocha-Compact-Maroon-Dark";
-
-      package = pkgs.catppuccin-gtk.override {
-        variant = "mocha";
-        tweaks = ["rimless"];
-        size = "compact";
-        accents = ["maroon"];
-      };
-    };
-  };
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -65,7 +48,7 @@
           "WLR_DRM_DEVICES,/dev/dri/card0" # Use iGPU
 
           # Fcitx5
-          "GTK_IM_MODULE,fcitx"
+          "GTK_IM_MODULE,wayland"
           "QT_IM_MODULE,fcitx"
           "XMODIFIERS,@im=fcitx"
           "INPUT_METHOD,fcitx"
@@ -74,13 +57,15 @@
           "GRIMBLAST_EDITOR,${getExe swappy} -f"
         ];
 
-        exec-once = [
-          ''${getExe bash} -c "while true; do (${getExe waybar} &); $inotifywait -e create,modify ${user.homeDirectory}/.config/waybar/*; pkill waybar; done"''
-          (getExe networkmanagerapplet)
-          (getExe' blueman "blueman-applet")
-          "${getExe' fcitx5 "fcitx5"} -d --replace &"
-          "${polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
-        ];
+        exec-once =
+          [
+            ''${getExe bash} -c "while true; do (${getExe waybar} &); $inotifywait -e create,modify ${user.homeDirectory}/.config/waybar/*; pkill waybar; done"''
+            "${polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
+          ]
+          ++ lib.optional osConfig.hardware.bluetooth.enable (getExe' blueman "blueman-applet")
+          ++ lib.optional config.pluie.user.desktop._1password.autostart (getExe osConfig.programs._1password-gui.package)
+          ++ lib.optional osConfig.networking.networkmanager.enable (getExe networkmanagerapplet)
+          ++ lib.optional (config.pluie.user.ime.enabled == "fcitx5") "${getExe' fcitx5 "fcitx5"} -d --replace &";
 
         input = {
           kb_layout = "us";

@@ -1,8 +1,4 @@
-{
-  user,
-  pkgs,
-  ...
-}: {
+{user, ...}: {
   imports = [./programs];
 
   pluie.user = {

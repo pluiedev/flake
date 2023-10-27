@@ -6,7 +6,7 @@
     ./firefox
     ./hyprland
     ./nvim
-    ./plasma
+    #./plasma
     ./rust
   ];
 

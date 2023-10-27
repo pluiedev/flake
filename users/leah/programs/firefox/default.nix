@@ -17,6 +17,9 @@
       isDefault = true;
       name = user.realName;
 
+      # HiDPI shenanigans
+      settings."layout.css.devPixelsPerPx" = 2;
+
       extensions = with pkgs.nur.repos.rycee.firefox-addons; ([
           augmented-steam
           auto-tab-discard

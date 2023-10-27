@@ -1,6 +1,5 @@
 {
   pkgs,
-  plasma-manager,
   krunner-nix,
   ...
 }: {
@@ -10,15 +9,18 @@
       realName = "Leah";
       fullName = "Leah Amelia Chen";
       canSudo = true;
-      modules = [
-        ./home.nix
-        plasma-manager.homeManagerModules.plasma-manager
-      ];
+      modules = [./home.nix];
 
       settings.shell = pkgs.fish;
     };
 
-    desktop._1password.enable = true;
+    desktop = {
+      _1password.enable = true;
+      sddm = {
+        enable = true;
+        theme = pkgs.sddm-theme-flutter;
+      };
+    };
   };
 
   programs.fish.enable = true;

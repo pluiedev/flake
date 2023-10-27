@@ -110,7 +110,7 @@
         };
 
         cpu = {
-          format = " {}%";
+          format = " {:.1f}%";
         };
         "custom/gpu" = {
           exec = "${lib.getExe' osConfig.hardware.nvidia.package "nvidia-smi"} --query-gpu=utilization.gpu --format=csv,noheader,nounits";

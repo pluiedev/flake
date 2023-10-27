@@ -17,7 +17,7 @@
     hardware.nvidia.enable = true;
     desktop = {
       enable = true;
-      plasma.enable = true;
+      #plasma.enable = true;
     };
     patch.fix-246195 = true;
   };

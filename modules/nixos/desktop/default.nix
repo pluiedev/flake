@@ -11,6 +11,7 @@ in {
     ./audio.nix
     ./fonts.nix
     ./plasma.nix
+    ./sddm.nix
     ./wayland.nix
   ];
 
@@ -30,8 +31,6 @@ in {
     users.users.${config.pluie.user.name}.extraGroups = ["networkmanager"];
 
     services = {
-      zerotierone.enable = true;
-
       xserver = {
         enable = true;
         layout = "us";
