@@ -63,7 +63,7 @@
             "${polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
           ]
           ++ lib.optional osConfig.hardware.bluetooth.enable (getExe' blueman "blueman-applet")
-          ++ lib.optional config.pluie.user.desktop._1password.autostart (getExe osConfig.programs._1password-gui.package)
+          ++ lib.optional config.pluie.user.desktop._1password.autostart "${getExe osConfig.programs._1password-gui.package} --enable-features=UseOzonePlatform --ozone-platform-hint=wayland"
           ++ lib.optional osConfig.networking.networkmanager.enable (getExe networkmanagerapplet)
           ++ lib.optional (config.pluie.user.ime.enabled == "fcitx5") "${getExe' fcitx5 "fcitx5"} -d --replace &";
 
