@@ -17,7 +17,7 @@
       autoUpdate = false;
       autoUpdateNotification = true;
       useQuickCss = true;
-      themeLinks = [];
+      themeLinks = ["https://catppuccin.github.io/discord/dist/catppuccin-mocha-maroon.theme.css"];
       enableReactDevtools = true;
       frameless = false;
       transparent = false;
@@ -272,11 +272,6 @@
         position = "bottom-right";
         useNative = "not-focused";
         logLimit = 50;
-      };
-      cloud = {
-        authenticated = true;
-        url = "https://api.vencord.dev/";
-        settingsSync = true;
       };
     };
   };

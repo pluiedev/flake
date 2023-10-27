@@ -4,6 +4,7 @@
     ./discord
     ./fish
     ./firefox
+    ./hyprland
     ./nvim
     ./plasma
     ./rust

@@ -28,5 +28,13 @@
   };
   programs.nix-ld.enable = true;
 
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+    enableNvidiaPatches = true;
+  };
+
+  services.blueman.enable = true;
+
   nixpkgs.overlays = [krunner-nix.overlays.default];
 }

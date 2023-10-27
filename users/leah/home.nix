@@ -1,4 +1,8 @@
-{user, ...}: {
+{
+  user,
+  pkgs,
+  ...
+}: {
   imports = [./programs];
 
   pluie.user = {
@@ -30,4 +34,6 @@
 
     locales.chinese.enable = true;
   };
+
+  services.blueman-applet.enable = true;
 }

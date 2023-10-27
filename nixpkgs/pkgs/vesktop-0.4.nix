@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
 
   pnpm-deps = stdenvNoCC.mkDerivation {
     pname = "${pname}-pnpm-deps";
-    inherit src version patches ELECTRON_SKIP_BINARY_DOWNLOAD;
+    #inherit src version patches ELECTRON_SKIP_BINARY_DOWNLOAD;
+    inherit src version ELECTRON_SKIP_BINARY_DOWNLOAD;
 
     nativeBuildInputs = [
       jq
@@ -64,12 +65,13 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  patches = [
-    (substituteAll {
-      inherit vencord;
-      src = ./use_system_vencord.patch;
-    })
-  ];
+  # TODO: system vencord is one week out of date. add this patch back when that is fixed
+  # patches = [
+  # (substituteAll {
+  #   inherit vencord;
+  #   src = ./use_system_vencord.patch;
+  # })
+  # ];
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
 

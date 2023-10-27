@@ -1,0 +1,65 @@
+* {
+  font-family: "Iosevka Nerd Font";
+  font-size: 14px;
+}
+
+window#waybar {
+  background-color: #11111b;
+}
+
+widget label {
+  padding: 0.5rem 0.75rem;
+}
+
+tooltip {
+  border: 1px solid;
+}
+tooltip label {
+  padding: 0.5rem;
+}
+
+#cpu {
+  color: #fab387;
+}
+#custom-gpu {
+  color: #b4befe;
+}
+#memory {
+  color: #a6e3a1;
+}
+
+#bluetooth {
+  color: #89b4fa;
+}
+#network.disabled,
+#network.disconnected {
+  color: #f38ba8;
+}
+#network.ethernet {
+  color: #a6e3a1;
+}
+#network.wifi {
+  color: #89b4fa;
+}
+#battery.full {
+  color: #a6e3a1;
+}
+#battery.not-quite-full {
+  color: #f9e2af;
+}
+#battery.warning {
+  color: #fab387;
+}
+#battery.critical {
+  color: #f38ba8;
+}
+#battery.charging {
+  color: #a6e3a1;
+}
+
+#tray {
+  margin-left: 0.5rem;
+}
+#custom-wlogout {
+  margin-right: 0.5rem;
+}

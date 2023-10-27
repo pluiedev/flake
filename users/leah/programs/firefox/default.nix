@@ -23,6 +23,7 @@
           darkreader
           decentraleyes
           disconnect
+          firefox-color
           furiganaize
           languagetool
           onepassword-password-manager
