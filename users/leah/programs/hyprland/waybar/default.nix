@@ -16,7 +16,7 @@
 
         modules-left = ["tray"];
         modules-center = ["wlr/taskbar"];
-        modules-right = ["pulseaudio" "battery" "bluetooth" "network"];
+        modules-right = ["pulseaudio" "backlight" "battery" "bluetooth" "network"];
 
         tray = {
           icon-size = 20;
@@ -30,8 +30,10 @@
           ignore-list = ["kitty"];
         };
         pulseaudio = {
-          format = "{icon} {volume}%";
+          format = "{icon} {volume}%   {format_source}";
           format-muted = "󰝟";
+          format-source = "󰍬 {volume}%";
+          format-source-muted = "󰍭";
           reverse-scrolling = true;
           on-click = lib.getExe pkgs.pavucontrol;
           format-icons = {
@@ -43,6 +45,11 @@
             car = "";
             default = ["󰕿" "" "󰕾"];
           };
+        };
+        backlight = {
+          device = "intel_backlight";
+          format = "{icon} {percent}%";
+          format-icons = ["󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨"];
         };
         battery = {
           interval = 1;
@@ -87,7 +94,7 @@
           interval = 1;
           timezones = ["Europe/Berlin" "Asia/Shanghai"];
           format = "{:<span color='#7f849c'><span color='#f38ba8'>%R</span> | <span color='#fab387'>%a</span> <span color='#f9e2af'>%d</span>.<span color='#a6e3a1'>%m</span>.<span color='#89dceb'>%y</span> | <span color='#b4befe'>%z</span></span>}";
-          tooltip-format = "<tt><span color='#7f849c'>{:<span color='#f38ba8'>%T</span> | <span color='#fab387'>%A</span>; <span color='#f9e2af'>%e</span> <span color='#a6e3a1'>%b</span> <span color='#89dceb'>%Y</span> | <span color='#b4befe'>UTC%Ez (%Z)</span>}</span></tt>\n\n<tt><small>{calendar}</small></tt>";
+          tooltip-format = "<tt><span color='#7f849c'>{:<span color='#f38ba8'>%T</span> | <span color='#fab387'>%A</span>, <span color='#f9e2af'>%e</span> <span color='#a6e3a1'>%b</span> <span color='#89dceb'>%Y</span> | <span color='#b4befe'>UTC%Ez (%Z)</span>}</span></tt>\n\n<tt><small>{calendar}</small></tt>";
 
           calendar = {
             mode = "year";

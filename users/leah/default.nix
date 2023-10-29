@@ -38,5 +38,10 @@
 
   services.blueman.enable = true;
 
+  qt = {
+    enable = true;
+    platformTheme = "qt5ct";
+  };
+
   nixpkgs.overlays = [krunner-nix.overlays.default];
 }

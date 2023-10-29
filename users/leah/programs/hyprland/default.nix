@@ -16,12 +16,15 @@
 
   home.packages = with pkgs; [
     hyprpicker
+    swaybg
     font-awesome
     networkmanagerapplet # necessary for icons
     qt5.qtwayland
     dolphin
     breeze-icons
   ];
+
+  services.cliphist.enable = true;
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -35,16 +38,14 @@
         "$mod" = "SUPER";
         "$grimblast" = getExe grimblast;
         "$inotifywait" = getExe' inotify-tools "inotifywait";
-        "$pactl" = getExe' pulseaudio "pactl";
         "$pamixer" = getExe pamixer;
         "$brightnessctl" = getExe brightnessctl;
+        "$wl-paste" = getExe' wl-clipboard "wl-paste";
 
         monitor = ",2560x1600@165,0x0,1.25";
 
         env = [
           "XCURSOR_SIZE,24"
-          "QT_QPA_PLATFORM,wayland;xcb"
-          "QT_QPA_PLATFORMTHEME,qt5ct"
           "WLR_DRM_DEVICES,/dev/dri/card0" # Use iGPU
 
           # Fcitx5
@@ -61,11 +62,18 @@
           [
             ''${getExe bash} -c "while true; do (${getExe waybar} &); $inotifywait -e create,modify ${user.homeDirectory}/.config/waybar/*; pkill waybar; done"''
             "${polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
+
+            "$wl-paste  --type text --watch ${getExe cliphist} store"
+            "$wl-paste --type image --watch ${getExe cliphist} store"
           ]
-          ++ lib.optional osConfig.hardware.bluetooth.enable (getExe' blueman "blueman-applet")
-          ++ lib.optional config.pluie.user.desktop._1password.autostart "${getExe osConfig.programs._1password-gui.package} --enable-features=UseOzonePlatform --ozone-platform-hint=wayland"
-          ++ lib.optional osConfig.networking.networkmanager.enable (getExe networkmanagerapplet)
-          ++ lib.optional (config.pluie.user.ime.enabled == "fcitx5") "${getExe' fcitx5 "fcitx5"} -d --replace &";
+          ++ lib.optional osConfig.hardware.bluetooth.enable
+          (getExe' blueman "blueman-applet")
+          ++ lib.optional config.pluie.user.desktop._1password.autostart
+          "[workspace 2 silent] ${getExe osConfig.programs._1password-gui.package} --enable-features=UseOzonePlatform --ozone-platform-hint=wayland"
+          ++ lib.optional osConfig.networking.networkmanager.enable
+          (getExe networkmanagerapplet)
+          ++ lib.optional (config.pluie.user.ime.enabled == "fcitx5")
+          "${getExe' fcitx5 "fcitx5"} -d --replace &";
 
         input = {
           kb_layout = "us";
@@ -168,8 +176,8 @@
             "CTRL SUPER SHIFT, S, exec, $grimblast edit output"
             "ALT SUPER SHIFT, S, exec, $grimblast edit active"
 
-            ", XF86AudioMute, exec, $pactl set-sink-mute @DEFAULT_SINK@ toggle"
-            ", XF86AudioMicMute, exec, $pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+            ", XF86AudioMute, exec, $pamixer -t"
+            ", XF86AudioMicMute, exec, $pamixer --default-source -t"
 
             # Move focus with mod + arrow keys
             "$mod, left, movefocus, l"

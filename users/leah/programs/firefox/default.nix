@@ -9,9 +9,9 @@
     enable = true;
     # Janky workaround
     # https://github.com/nix-community/home-manager/issues/1586
-    package = pkgs.firefox.override {
-      cfg.enablePlasmaBrowserIntegration = true;
-    };
+    package = lib.mkIf osConfig.services.xserver.desktopManager.plasma5.enable (pkgs.firefox.override {
+      cfg.nativeMessagingHosts.packages = [pkgs.plasma5Packages.plasma-browser-integration];
+    });
 
     profiles.${user.name} = {
       isDefault = true;
@@ -20,29 +20,28 @@
       # HiDPI shenanigans
       settings."layout.css.devPixelsPerPx" = 2;
 
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; ([
-          augmented-steam
-          auto-tab-discard
-          darkreader
-          decentraleyes
-          disconnect
-          firefox-color
-          furiganaize
-          languagetool
-          onepassword-password-manager
-          pronoundb
-          protondb-for-steam
-          refined-github
-          rust-search-extension
-          search-by-image
-          sponsorblock
-          terms-of-service-didnt-read
-          ublock-origin
-          unpaywall
-          wayback-machine
-          youtube-nonstop
-        ]
-        ++ lib.optional osConfig.services.xserver.desktopManager.plasma5.enable plasma-integration);
+      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        augmented-steam
+        auto-tab-discard
+        darkreader
+        decentraleyes
+        disconnect
+        firefox-color
+        furiganaize
+        languagetool
+        onepassword-password-manager
+        pronoundb
+        protondb-for-steam
+        refined-github
+        rust-search-extension
+        search-by-image
+        sponsorblock
+        terms-of-service-didnt-read
+        ublock-origin
+        unpaywall
+        wayback-machine
+        youtube-nonstop
+      ];
 
       search = let
         mkParams = lib.mapAttrsToList lib.nameValuePair;

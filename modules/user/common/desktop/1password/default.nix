@@ -64,10 +64,12 @@ in {
 
       pluie.user.tools.git.signer = "${package}/bin/op-ssh-sign";
 
-      home.file.".ssh/config".text = mkIf cfg.enableSshAgent ''
-        Host *
-          IdentityAgent ~/.1password/agent.sock
-      '';
+      home.file.".ssh/config" = mkIf cfg.enableSshAgent {
+        text = ''
+          Host *
+            IdentityAgent ~/.1password/agent.sock
+        '';
+      };
 
       xdg.configFile."1Password/settings/settings.json".text = builtins.toJSON (pathify ({version = 1;} // cfg.settings));
     };
