@@ -10,7 +10,6 @@
     ./fuzzel.nix
     ./kitty.nix
     ./mako.nix
-    ./theming.nix
     ./waybar
   ];
 

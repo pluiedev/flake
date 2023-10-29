@@ -4,9 +4,11 @@
     ./discord
     ./fish
     ./firefox
+    ./gtk
     ./hyprland
     ./nvim
     #./plasma
+    ./qt
     ./rust
   ];
 

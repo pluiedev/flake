@@ -14,13 +14,7 @@
       settings.shell = pkgs.fish;
     };
 
-    desktop = {
-      _1password.enable = true;
-      sddm = {
-        enable = true;
-        theme = pkgs.sddm-theme-flutter;
-      };
-    };
+    desktop._1password.enable = true;
   };
 
   programs.fish.enable = true;
@@ -36,7 +30,10 @@
     enableNvidiaPatches = true;
   };
 
-  services.blueman.enable = true;
+  services = {
+    blueman.enable = true;
+    udisks2.enable = true;
+  };
 
   qt = {
     enable = true;
