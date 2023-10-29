@@ -68,7 +68,7 @@
           ++ lib.optional osConfig.hardware.bluetooth.enable
           (getExe' blueman "blueman-applet")
           ++ lib.optional config.pluie.user.desktop._1password.autostart
-          "[workspace 2 silent] ${getExe osConfig.programs._1password-gui.package} --enable-features=UseOzonePlatform --ozone-platform-hint=wayland"
+          "[workspace 2 silent] ${getExe osConfig.programs._1password-gui.package} --enable-features=UseOzonePlatform --ozone-platform-hint=x11"
           ++ lib.optional osConfig.networking.networkmanager.enable
           (getExe networkmanagerapplet)
           ++ lib.optional (config.pluie.user.ime.enabled == "fcitx5")
