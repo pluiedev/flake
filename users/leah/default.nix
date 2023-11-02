@@ -1,44 +1,105 @@
 {
+  config,
   pkgs,
-  krunner-nix,
   ...
 }: {
-  pluie = {
-    user = {
-      name = "leah";
+  imports = [
+    ./1password
+    ./discord
+    ./fcitx5
+    ./firefox
+    ./hyprland
+    ./nvim
+    #./plasma
+    ./rust
+
+    ./programs.nix
+  ];
+
+  roles = {
+    base = {
+      username = "leah";
       realName = "Leah";
       fullName = "Leah Amelia Chen";
       canSudo = true;
-      modules = [./home.nix];
-
-      settings.shell = pkgs.fish;
     };
 
-    desktop._1password.enable = true;
+    catppuccin = {
+      enable = true;
+      variant = "mocha";
+      accent = "maroon";
+    };
+    dolphin.enable = true;
+
+    email = let
+      migadu = {
+        imap = {
+          host = "imap.migadu.com";
+          port = 993;
+        };
+        smtp = {
+          host = "smtp.migadu.com";
+          port = 465;
+        };
+      };
+    in {
+      enable = true;
+      accounts = {
+        "hi@pluie.me" = {
+          primary = true;
+          realName = config.roles.base.fullName;
+          host = migadu;
+        };
+        "acc@pluie.me" = {
+          realName = "${config.roles.base.fullName} [accounts]";
+          host = migadu;
+        };
+      };
+    };
+
+    fonts = {
+      enable = true;
+      packages = with pkgs; [
+        (nerdfonts.override {fonts = ["Iosevka"];})
+        noto-fonts
+        noto-fonts-extra
+        noto-fonts-emoji
+        lxgw-wenkai
+        lxgw-neoxihei
+        rubik
+      ];
+
+      defaults = {
+        serif = ["Noto Serif" "LXGW WenKai"];
+        sansSerif = ["Rubik" "LXGW Neo XiHei"];
+        emoji = ["Noto Color Emoji"];
+        monospace = ["Iosevka Nerd Font" "LXGW Neo XiHei"];
+      };
+    };
+
+    fish = {
+      enable = true;
+      defaultShell = true;
+    };
+    git = {
+      enable = true;
+      signing.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC7uJGE2/25M4a3DIVxtnTA5INqWsFGw+49qHXaN/kqy";
+    };
   };
 
-  programs.fish.enable = true;
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
+  programs = {
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+    };
+    nix-ld.enable = true;
   };
-  programs.nix-ld.enable = true;
+  hm.programs = {
+    starship = {
+      enable = true;
+      settings = builtins.fromTOML (builtins.readFile ./starship.toml);
+    };
 
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-    enableNvidiaPatches = true;
+    nix-index.enable = true;
   };
-
-  services = {
-    blueman.enable = true;
-    udisks2.enable = true;
-  };
-
-  qt = {
-    enable = true;
-    platformTheme = "qt5ct";
-  };
-
-  nixpkgs.overlays = [krunner-nix.overlays.default];
 }

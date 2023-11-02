@@ -9,26 +9,13 @@
     common-gpu-nvidia
   ];
 
-  boot.extraModprobeConfig = ''
-    options nvidia NVreg_PreserveVideoMemoryAllocations=1 NVreg_TemporaryFilePath=/var/tmp
-  '';
-
-  pluie = {
-    hardware.nvidia.enable = true;
-    desktop = {
-      enable = true;
-      #plasma.enable = true;
-    };
-    patch.fix-246195 = true;
+  roles = {
+    bluetooth.enable = true;
+    nvidia.enable = true;
+    #patch.fix-246195 = true;
   };
 
-  hardware.bluetooth.enable = true;
-
   hardware.nvidia = {
-    powerManagement = {
-      enable = true;
-      finegrained = true;
-    };
     dynamicBoost.enable = true;
 
     prime = {
@@ -43,6 +30,4 @@
   };
 
   time.timeZone = "Europe/Berlin";
-
-  virtualisation.docker.enable = true;
 }

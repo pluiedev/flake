@@ -9,14 +9,10 @@
     common-gpu-nvidia-nonprime
   ];
 
-  pluie = {
-    hardware.nvidia.enable = true;
-    desktop = {
-      enable = true;
-      plasma.enable = true;
-    };
+  roles = {
+    nvidia.enable = true;
     patch.fix-246195 = true;
-    enableChineseMirrors = true;
+    mirrors.chinese.enable = true;
   };
 
   # My old crusty Seagate hard drive
