@@ -75,8 +75,6 @@
           "[workspace 1] ${getExe kitty}"
           "[workspace 2] ${getExe firefox}"
 
-          # Vesktop raises an annoying popup when it can't access GitHub
-          "[workspace 2] ${getExe' networkmanager "nm-online"} && ${getExe vesktop}"
           # FIXME: GTK 3 crashes with wayland IM module enabled right now.
           # Somehow using native wayland doesn't fix this, gonna do this for now
           "[workspace 3 silent] GTK_IM_MODULE= ${getExe _1password-gui}"
