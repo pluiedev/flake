@@ -1,6 +1,8 @@
-{
+{pkgs, ...}: {
   roles.fcitx5 = {
     enable = true;
+
+    addons = [pkgs.fcitx5-mozc];
 
     settings.groups = [
       {

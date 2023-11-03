@@ -38,13 +38,13 @@
     mkItems = i: g:
       imap0 (
         n: item:
-          nameValuePair "Group/${toString i}/Items/${toString n}" (mapItem item)
+          nameValuePair "Groups/${toString i}/Items/${toString n}" (mapItem item)
       )
       g.items;
 
     mkGroups = gs:
       flatten (imap0 (i: g:
-        [(nameValuePair "Group/${toString i}" (mapGroup g))]
+        [(nameValuePair "Groups/${toString i}" (mapGroup g))]
         ++ mkItems i g)
       gs);
 
@@ -57,9 +57,9 @@ in {
   config = mkIf cfg.enable {
     hm = {
       i18n.inputMethod.enabled = "fcitx5";
-      xdg.configFile."fcitx5/profile" = mkIf (cfg.settings != null) {
+      xdg.configFile."fcitx5/profile" = builtins.trace (mkFcitx5Cfg cfg.settings) (mkIf (cfg.settings != null) {
         text = mkFcitx5Cfg cfg.settings;
-      };
+      });
     };
 
     roles.hyprland.settings.exec-once = [

@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{lib, ...}: let
   inherit (lib) mkEnableOption mkOption types;
 
   settingsModule.options = let
