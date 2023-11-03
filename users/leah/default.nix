@@ -16,6 +16,9 @@
     ./programs.nix
   ];
 
+  # Makes testing aarch64 packaging a lot easier
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
+
   roles = {
     base = {
       username = "leah";

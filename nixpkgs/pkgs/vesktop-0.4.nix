@@ -55,7 +55,14 @@ stdenv.mkDerivation rec {
 
     dontFixup = true;
     outputHashMode = "recursive";
-    outputHash = "sha256-R5/2MSH/jXHrj2x1Ap2OoOFLBLQp3Sq91o01uW8hWOw=";
+
+    outputHash =
+      {
+        "aarch64-linux" = "sha256-OcAQbUi+wpBAumncYxP3qtTzjyxiHL69kbQefwaeBfg=";
+        "x86_64-linux" = "sha256-R5/2MSH/jXHrj2x1Ap2OoOFLBLQp3Sq91o01uW8hWOw=";
+      }
+      .${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
   nativeBuildInputs = [
@@ -145,6 +152,5 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [getchoo Scrumplex vgskye];
     platforms = ["x86_64-linux" "aarch64-linux"];
     mainProgram = "vencorddesktop";
-    broken = stdenv.hostPlatform.isAarch64;
   };
 }
