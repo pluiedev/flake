@@ -80,6 +80,10 @@
           "[workspace 3 silent] GTK_IM_MODULE= ${getExe _1password-gui}"
         ];
 
+        windowrulev2 = [
+          "float,class:(org.kde.polkit-kde-authentication-agent-1)"
+        ];
+
         workspace = [
           "2,default:true"
         ];
