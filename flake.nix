@@ -20,6 +20,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ctp-nix = {
+      url = "github:pluiedev/ctp-nix/feat/cursors";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     krunner-nix = {
       url = "github:pluiedev/krunner-nix";
       inputs.nixpkgs.follows = "nixpkgs";

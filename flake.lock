@@ -52,6 +52,30 @@
         "type": "github"
       }
     },
+    "ctp-nix": {
+      "inputs": {
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1699043720,
+        "narHash": "sha256-q4n3yjk++9l2vMxAtWAWTnc4mcJlYnBUcfs3GUj/DIk=",
+        "owner": "pluiedev",
+        "repo": "ctp-nix",
+        "rev": "74bbcb57c0971c774999ac01dc78bb8749992dcc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pluiedev",
+        "ref": "feat/cursors",
+        "repo": "ctp-nix",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -286,6 +310,7 @@
     },
     "root": {
       "inputs": {
+        "ctp-nix": "ctp-nix",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",

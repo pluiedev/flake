@@ -27,11 +27,12 @@ in {
     openAsar.enable = mkEnableOption "OpenASAR";
 
     vencord = {
-      enable = mkOption {
-        type = types.bool;
-        default = cfg.vesktop.enable;
-        description = "Whether to enable Vencord.";
-      };
+      enable =
+        mkEnableOption "Vencord"
+        // {
+          default = cfg.vesktop.enable;
+        };
+
       settings = mkOption {
         type = types.attrsOf types.anything;
         default = {};

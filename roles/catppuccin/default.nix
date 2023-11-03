@@ -4,7 +4,7 @@ in {
   options.roles.catppuccin = {
     enable = mkEnableOption "Catppuccin";
 
-    variant = mkOption {
+    flavour = mkOption {
       type = types.enum ["latte" "frappe" "macchiato" "mocha"];
       example = "mocha";
     };

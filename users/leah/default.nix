@@ -29,7 +29,7 @@
 
     catppuccin = {
       enable = true;
-      variant = "mocha";
+      flavour = "mocha";
       accent = "maroon";
     };
     dolphin.enable = true;
