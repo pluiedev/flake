@@ -38,7 +38,9 @@ in {
       };
 
       roles.hyprland.settings.exec-once = mkIf cfg.autostart [
-        "[workspace 2 silent] ${getExe pkgs._1password-gui}"
+        # FIXME: GTK 3 crashes with wayland IM module enabled right now.
+        # Somehow using native wayland doesn't fix this, gonna do this for now
+        "[workspace 2 silent] GTK_IM_MODULE= ${getExe pkgs._1password-gui}"
       ];
 
       hm = {
