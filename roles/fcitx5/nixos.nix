@@ -63,7 +63,7 @@ in {
     };
 
     roles.hyprland.settings.exec-once = [
-      "${getExe' pkgs.fcitx5 "fcitx5"} -d --replace &"
+      "${getExe' pkgs.fcitx5 "fcitx5"} -dr -s 5 &"
     ];
   };
 }
