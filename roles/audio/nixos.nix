@@ -11,6 +11,8 @@ in {
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
 
+    roles.base.user.extraGroups = ["rtkit"];
+
     services.pipewire = {
       enable = true;
       wireplumber.enable = true;
