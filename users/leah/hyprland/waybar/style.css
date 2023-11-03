@@ -11,6 +11,10 @@ widget label {
   padding: 0.5rem 0.75rem;
 }
 
+#tray label {
+  padding: 0;
+}
+
 tooltip {
   border: 1px solid;
 }

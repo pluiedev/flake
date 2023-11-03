@@ -68,8 +68,20 @@
           ''${getExe bash} -c "while true; do (${getExe waybar} &); $inotifywait -e create,modify ~/.config/waybar/*; pkill waybar; done"''
           "${polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
 
-          "$wl-paste  --type text --watch ${getExe cliphist} store"
+          "$wl-paste --type  text --watch ${getExe cliphist} store"
           "$wl-paste --type image --watch ${getExe cliphist} store"
+
+          "[workspace 1] ${getExe' neovide "neovide"}"
+          "[workspace 1] ${getExe kitty}"
+          "[workspace 2] ${getExe firefox}"
+          "[workspace 2] ${getExe vesktop}"
+          # FIXME: GTK 3 crashes with wayland IM module enabled right now.
+          # Somehow using native wayland doesn't fix this, gonna do this for now
+          "[workspace 3 silent] GTK_IM_MODULE= ${getExe _1password-gui}"
+        ];
+
+        workspace = [
+          "2,default:true"
         ];
 
         input = {
