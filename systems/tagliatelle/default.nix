@@ -11,7 +11,7 @@
 
   roles = {
     nvidia.enable = true;
-    patch.fix-246195 = true;
+    boot.patch.fix-246195.enable = true;
     mirrors.chinese.enable = true;
   };
 

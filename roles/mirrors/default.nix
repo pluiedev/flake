@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) mkEnableOption mkIf mkOption types;
@@ -11,7 +12,7 @@ in {
     enable = mkEnableOption "Chinese mirror sites to speed up downloads in Mainland China";
 
     defaultSite = mkOption {
-      type = types.str // {check = builtins.hasAttr cfg.chinese.sites;};
+      type = types.str // {check = lib.flip builtins.hasAttr cfg.chinese.sites;};
 
       default = "sjtu";
     };
@@ -19,20 +20,18 @@ in {
     sites = mkOption {
       description = "A list of Chinese mirror sites to use.";
       type = types.attrsOf types.str;
-      default = [
-        {
-          sjtu = "https://mirrors.sjtug.sjtu.edu.cn";
-          tuna = "https://mirrors.tuna.tsinghua.edu.cn";
-          ustc = "https://mirrors.ustc.edu.cn";
-        }
-      ];
+      default = {
+        sjtu = "https://mirrors.sjtug.sjtu.edu.cn";
+        tuna = "https://mirrors.tuna.tsinghua.edu.cn";
+        ustc = "https://mirrors.ustc.edu.cn";
+      };
     };
   };
 
   config = mkIf cfg.chinese.enable {
     roles.rust = {
       rust-bin =
-        config.roles.rust.rust-bin
+        pkgs.rust-bin
         // {
           distRoot = "${defaultSite}/rust-static/dist";
         };
