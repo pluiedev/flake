@@ -95,8 +95,8 @@
           gaps_in = 0;
           gaps_out = 0;
           border_size = 2;
-          "col.active_border" = "rgba(f5e0dcee) rgba(f38ba8ee) 45deg";
-          "col.inactive_border" = "rgba(11111baa)";
+          "col.active_border" = "rgba($rosewaterAlphaee) rgba($redAlphaee) 45deg";
+          "col.inactive_border" = "rgba($crustAlphaaa)";
           resize_on_border = true;
           layout = "dwindle";
         };
@@ -111,7 +111,7 @@
           drop_shadow = true;
           shadow_range = 4;
           shadow_render_power = 3;
-          "col.shadow" = "rgba(11111bee)";
+          "col.shadow" = "rgba($crustAlphaee)";
         };
 
         animations = {
