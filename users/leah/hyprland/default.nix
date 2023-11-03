@@ -10,6 +10,10 @@
 
   roles.hyprland.enable = true;
 
+  # Chromium-based apps are segfaulting hard on XWayland rn...
+  # *sighs*
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   hm = {
     home.packages = with pkgs; [
       hyprpicker

@@ -38,7 +38,7 @@ in {
       };
 
       roles.hyprland.settings.exec-once = mkIf cfg.autostart [
-        "[workspace 2 silent] ${getExe pkgs._1password-gui} --enable-features=UseOzonePlatform --ozone-platform-hint=x11"
+        "[workspace 2 silent] ${getExe pkgs._1password-gui}"
       ];
 
       hm = {
