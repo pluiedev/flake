@@ -61,7 +61,7 @@
         default = "DuckDuckGo";
         force = true;
         engines = {
-          "Nix Packages" = nixosSearch "packages" ["@np"];
+          "Nixpkgs" = nixosSearch "packages" ["@np"];
           "NixOS Settings" = nixosSearch "options" ["@ns"];
           "NixOS Wiki" = {
             urls = [
@@ -70,9 +70,29 @@
                 params = mkParams {search = "{searchTerms}";};
               }
             ];
-            iconUpdateURL = "https://nixos.wiki/favicon.png";
-            updateInterval = 24 * 60 * 60 * 1000; # every day
+            icon = "https://nixos.wiki/favicon.png";
             definedAliases = ["@nw"];
+          };
+          "Nixpkgs PR Tracker" = {
+            urls = [
+              {
+                template = "https://nixpk.gs/pr-tracker.html";
+                params = mkParams {pr = "{searchTerms}";};
+              }
+            ];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = ["@npr"];
+          };
+          "Home Manager Settings" = {
+            urls = [
+              {
+                template = "https://mipmip.github.io/home-manager-option-search/";
+                params = mkParams {query = "{searchTerms}";};
+              }
+            ];
+
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = ["@hm"];
           };
           "Wiktionary" = {
             urls = [
