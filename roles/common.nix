@@ -22,5 +22,6 @@
     ./plasma
     ./qt
     ./rust
+    ./xdg
   ];
 }

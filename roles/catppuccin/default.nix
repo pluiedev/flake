@@ -29,8 +29,6 @@ in {
 
       imports = [ctp-nix.homeManagerModules.catppuccin];
 
-      xdg.enable = true;
-
       programs = {
         fish.catppuccin.enable = true;
         kitty.catppuccin.enable = true;
