@@ -71,13 +71,13 @@
           "$wl-paste --type  text --watch ${getExe cliphist} store"
           "$wl-paste --type image --watch ${getExe cliphist} store"
 
-          "[workspace 1] ${getExe' neovide "neovide"}"
-          "[workspace 1] ${getExe kitty}"
-          "[workspace 2] ${getExe firefox}"
+          "[workspace 1] ${getExe firefox}"
 
           # FIXME: GTK 3 crashes with wayland IM module enabled right now.
           # Somehow using native wayland doesn't fix this, gonna do this for now
-          "[workspace 3 silent] GTK_IM_MODULE= ${getExe _1password-gui}"
+          "[workspace 1 silent; float] GTK_IM_MODULE= ${getExe _1password-gui}"
+          "[workspace 2] ${getExe' neovide "neovide"}"
+          "[workspace 2] ${getExe kitty}"
         ];
 
         windowrulev2 = [
@@ -85,7 +85,7 @@
         ];
 
         workspace = [
-          "2,default:true"
+          "1,default:true"
         ];
 
         input = {
