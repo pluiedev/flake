@@ -2,3 +2,4 @@ builds:
   exclude: []
   include:
     - "nixosConfigurations.*"
+    - "packages.*"
