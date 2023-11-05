@@ -218,8 +218,8 @@
 
         # Media keys
         binde = [
-          ", XF86AudioLowerVolume, exec, $pamixer -d 5"
-          ", XF86AudioRaiseVolume, exec, $pamixer -i 5"
+          ", XF86AudioLowerVolume, exec, $pamixer -ud 5"
+          ", XF86AudioRaiseVolume, exec, $pamixer -ui 5"
           ", XF86MonBrightnessDown, exec, $brightnessctl --device=intel_backlight set 5%-"
           ", XF86MonBrightnessUp, exec, $brightnessctl --device=intel_backlight set +5%"
           ", XF86KbdBrightnessDown, exec, $brightnessctl --device=asus::kbd_backlight set 1-"
