@@ -9,6 +9,9 @@
     libreoffice-qt
     prismlauncher
     vlc
+    (blender.override {
+      cudaSupport = true;
+    })
 
     # Command-line apps
     any-nix-shell
