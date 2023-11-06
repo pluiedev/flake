@@ -43,7 +43,6 @@
       with pkgs; {
         "$mod" = "SUPER";
         "$grimblast" = getExe grimblast;
-        "$inotifywait" = getExe' inotify-tools "inotifywait";
         "$pamixer" = getExe pamixer;
         "$brightnessctl" = getExe brightnessctl;
         "$wl-paste" = getExe' wl-clipboard "wl-paste";
@@ -65,7 +64,7 @@
         ];
 
         exec-once = [
-          ''${getExe bash} -c "while true; do (${getExe waybar} &); $inotifywait -e create,modify ~/.config/waybar/*; pkill waybar; done"''
+          "${getExe waybar}"
           "${polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
 
           "$wl-paste --type  text --watch ${getExe cliphist} store"
