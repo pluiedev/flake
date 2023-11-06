@@ -112,11 +112,13 @@
   services.greetd = {
     enable = true;
     settings.default_session = {
-      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd ${lib.getExe pkgs.hyprland}";
+      command = "${lib.getExe pkgs.greetd.tuigreet} --time --cmd ${lib.getExe pkgs.hyprland}";
       user = "greeter";
     };
   };
 
   # This is necessary for now, until nixpkgs#265536 is merged
   security.pam.services.greetd.enableGnomeKeyring = true;
+
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }

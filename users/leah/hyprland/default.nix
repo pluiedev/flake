@@ -10,10 +10,6 @@
 
   roles.hyprland.enable = true;
 
-  # Chromium-based apps are segfaulting hard on XWayland rn...
-  # *sighs*
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
   hm = {
     home.packages = with pkgs; [
       hyprpicker
@@ -54,12 +50,9 @@
           "WLR_DRM_DEVICES,/dev/dri/card0" # Use iGPU
 
           # Fcitx5
-          "GTK_IM_MODULE,wayland"
-          "QT_IM_MODULE,fcitx"
-          "XMODIFIERS,@im=fcitx"
+          # Most of the required envvars are already set in the fcitx5 HM module
           "INPUT_METHOD,fcitx"
           "SDL_IM_MODULE,fcitx"
-          "GLFW_IM_MODULE,ibus"
           "GRIMBLAST_EDITOR,${getExe swappy} -f"
         ];
 
