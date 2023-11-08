@@ -1,5 +1,11 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  blender-bin,
+  ...
+}: {
   virtualisation.docker.enable = true;
+
+  nixpkgs.overlays = [blender-bin.overlays.default];
 
   hm.home.packages = with pkgs; [
     # Apps
@@ -9,9 +15,7 @@
     libreoffice-qt
     prismlauncher
     vlc
-    (blender.override {
-      cudaSupport = true;
-    })
+    blender_3_6
 
     # Command-line apps
     any-nix-shell

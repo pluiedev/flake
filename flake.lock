@@ -22,6 +22,26 @@
         "type": "github"
       }
     },
+    "blender-bin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "blender",
+        "lastModified": 1697928963,
+        "narHash": "sha256-nSasvbJI+TefGesRnI7mcARDa5Bxrj+GV0GfdG/sLUo=",
+        "owner": "edolstra",
+        "repo": "nix-warez",
+        "rev": "163ceafa06bb7bbf49d23c7c33f402cce0d3cdce",
+        "type": "github"
+      },
+      "original": {
+        "id": "blender-bin",
+        "type": "indirect"
+      }
+    },
     "crane": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -310,6 +330,7 @@
     },
     "root": {
       "inputs": {
+        "blender-bin": "blender-bin",
         "ctp-nix": "ctp-nix",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",

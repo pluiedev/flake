@@ -9,6 +9,11 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
 
+    blender-bin = {
+      url = "blender-bin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flake-utils.url = "github:numtide/flake-utils";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
