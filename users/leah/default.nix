@@ -12,6 +12,7 @@
     ./hyprland
     ./nvim
     #./plasma
+    ./qt
     ./rust
 
     ./programs.nix

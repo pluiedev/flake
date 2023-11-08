@@ -4,8 +4,12 @@ in {
   options.roles.qt = {
     enable = mkEnableOption "Qt" // {default = true;};
 
-    theme = mkOption {
-      type = types.nullOr types.path;
+    qt5.settings = mkOption {
+      type = types.nullOr (types.attrsOf types.anything);
+      default = null;
+    };
+    qt6.settings = mkOption {
+      type = types.nullOr (types.attrsOf types.anything);
       default = null;
     };
   };
