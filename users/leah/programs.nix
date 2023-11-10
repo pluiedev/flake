@@ -46,5 +46,6 @@
 
     obs-studio.enable = true;
     ripgrep.enable = true;
+    thunderbird.enable = true;
   };
 }
