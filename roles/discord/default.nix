@@ -15,7 +15,7 @@ in {
       description = "The package to use for Discord. Defaults to Vesktop if it is enabled, or the official client if it is not.";
 
       default =
-        if (cfg.vesktop.enable)
+        if cfg.vesktop.enable
         then pkgs.vesktop
         else
           pkgs.discord.override {

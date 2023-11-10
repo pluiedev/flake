@@ -52,7 +52,7 @@ in {
 
     hm = {
       home = {
-        username = cfg.username;
+        inherit (cfg) username;
         homeDirectory = config.roles.base.user.home;
       };
 

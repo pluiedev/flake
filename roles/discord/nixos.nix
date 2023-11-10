@@ -9,7 +9,7 @@ in {
   config = mkIf cfg.enable {
     hm.xdg.configFile = let
       vencordRoot =
-        if (cfg.vesktop.enable)
+        if cfg.vesktop.enable
         then "VencordDesktop/VencordDesktop"
         else "Vencord";
     in
