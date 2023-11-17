@@ -12,8 +12,10 @@
   roles = {
     bluetooth.enable = true;
     nvidia.enable = true;
-    #patch.fix-246195 = true;
   };
+
+  # Don't need this with a high enough DPI
+  fonts.fontconfig.hinting.enable = false;
 
   hardware.nvidia = {
     dynamicBoost.enable = true;

@@ -1,8 +1,9 @@
-let
+{lib, ...}: let
   settings = {
     Appearance = {
       icon_theme = "breeze-dark";
       standard_dialogs = "default";
+      style = "Breeze";
     };
     Fonts = {
       fixed = "Monospace,11,-1,5,50,0,0,0,0,0";
@@ -31,6 +32,7 @@ let
     };
   };
 in {
-  roles.qt.qt5.settings = settings // {Appearance.style = "Breeze";};
-  roles.qt.qt6.settings = settings // {Appearance.style = "Fusion";};
+  roles.qt.qt5.settings = settings;
+  # TODO: wait till someone packages Plasma 6
+  roles.qt.qt6.settings = lib.recursiveUpdate settings {Appearance.style = "Fusion";};
 }

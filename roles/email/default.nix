@@ -63,6 +63,7 @@ in {
         inherit (account.host) imap smtp;
         inherit address;
         userName = address; # Use the address as the IMAP/SMTP username by default
+        thunderbird.enable = true;
       })
       cfg.accounts;
   in

@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   blender-bin,
   ...
@@ -46,6 +47,12 @@
 
     obs-studio.enable = true;
     ripgrep.enable = true;
-    thunderbird.enable = true;
+
+    thunderbird = {
+      enable = true;
+      profiles.${config.roles.base.username} = {
+        isDefault = true;
+      };
+    };
   };
 }
