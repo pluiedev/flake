@@ -15,11 +15,7 @@
 
     rime = {
       enable = true;
-      settings = rec {
-        default.patch.schema_list = [
-          {schema = "luna_pinyin_simp";}
-          {schema = "luna_pinyin";}
-        ];
+      settings = let
         luna_pinyin.patch."speller/algebra" = [
           "erase/^xx$/"
           "derive/in$/ing/" # in/ing 不分
@@ -32,6 +28,12 @@
           "derive/uei$/ui/" # gui = guei
           "derive/iou$/iu/" # jiu = jiou
         ];
+      in {
+        default.patch.schema_list = [
+          {schema = "luna_pinyin_simp";}
+          {schema = "luna_pinyin";}
+        ];
+        inherit luna_pinyin;
         luna_pinyin_simp = luna_pinyin;
       };
     };

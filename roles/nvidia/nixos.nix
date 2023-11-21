@@ -8,10 +8,8 @@
 in {
   config = mkIf cfg.enable {
     hardware = {
-      opengl = {
-        enable = true;
-        driSupport32Bit = true; # Steam apparently requires this to work
-      };
+      opengl.enable = true;
+
       nvidia = {
         # Modesetting is needed for most Wayland compositors
         modesetting.enable = true;

@@ -2,11 +2,8 @@
   imports = with nixos-hardware.nixosModules; [
     ./hardware-configuration.nix
 
-    common-pc-laptop
-    common-pc-laptop-ssd
     common-hidpi
-    common-cpu-intel
-    common-gpu-nvidia
+    asus-zephyrus-gu603h
   ];
 
   roles = {
@@ -25,11 +22,10 @@
         enable = true;
         enableOffloadCmd = true;
       };
-
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
     };
   };
+
+  hm.programs.wpaperd.settings.default.path = "${./wallpaper.png}";
 
   time.timeZone = "Europe/Berlin";
 }

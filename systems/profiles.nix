@@ -40,6 +40,7 @@ inputs @ {
 
       ./${name}
       ../roles/nixos.nix
+      ../users/personal.nix
 
       {system.stateVersion = "23.11";}
     ];
@@ -55,6 +56,7 @@ inputs @ {
 
       ./${name}
       ../roles/darwin.nix
+      ../users/personal.nix
 
       {system.stateVersion = 4;}
     ];

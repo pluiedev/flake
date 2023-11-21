@@ -118,15 +118,6 @@
     };
   };
 
-  services.kmscon = {
-    enable = true;
-    hwRender = true;
-    fonts = [
-      {name = "Iosevka Nerd Font"; package = pkgs.nerdfonts.override 
-      { fonts = ["Iosevka"];};}
-    ];
-  };
-
   # Stop the damn TUI from bleeding
   # https://www.reddit.com/r/NixOS/comments/u0cdpi/tuigreet_with_xmonad_how/
   # https://github.com/apognu/tuigreet/issues/68#issuecomment-1586359960
@@ -140,9 +131,6 @@
     TTYVHangup = true;
     TTYVTDisallocate = true;
   };
-
-  # This is necessary for now, until nixpkgs#265536 is merged
-  security.pam.services.greetd.enableGnomeKeyring = true;
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }

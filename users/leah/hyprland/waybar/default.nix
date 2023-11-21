@@ -47,7 +47,7 @@ in {
           format-icons = {
             headphone = "";
             hands-free = "";
-            #headset = "";
+            headset = "";
             phone = "";
             portable = "";
             car = "";
@@ -62,7 +62,7 @@ in {
         battery = {
           interval = 1;
           states = {
-            full = 95;
+            full = 100;
             not-quite-full = 65;
             warning = 25;
             critical = 10;

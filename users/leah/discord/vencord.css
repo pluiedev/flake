@@ -1,9 +1,36 @@
 /* bleh new member */
-
 .newMemberBadge-3PdStX {
   content: url(https://cdn.discordapp.com/emojis/1032974662122098698.webp);
 }
 
 * {
   --font-primary: Rubik Light, system-ui, sans-serif;
+}
+
+*[href="/discovery"],                       /* Discovery Tab */
+*[href="/store"],                           /* Store Tab */
+*[href="/shop"],                            /* Shop Tab */
+*[href="/activities"],                      /* Activities Tab */
+*[href*="/snowsgiving"],                    /* Snowsgiving Tab */
+div[aria-label="Gift Inventory"],         div[aria-label="Geschenkinventar"],
+div[aria-label="Nitro"],                    /* Nitro Tab and buttons */
+div[class^="profileEffects"],               /* Profile effects */
+button[aria-label="Send a gift"],         button[aria-label="Ein Geschenk senden"],     
+button[aria-label="Open sticker picker"], button[aria-label="Stickerauswahl öffnen"],  
+button[aria-label="Open GIF picker"],     button[aria-label="GIF-Auswahl öffnen"],  
+svg[class^="avatarDecoration"],             /* Avatar Decorations */
+.containerWrapper-WZBNDK,                   /* "Like this avatar decoration" popup on user modal */
+.container-5BK5-N                           /* "Collect new Avatar decorations" Banner on Profiles page */ {
+  display: none;
+}
+
+/* Super Reactions are annoying */
+div[class^="effectsWrapper"] {
+  display: none;
+}
+img.emoji {
+  opacity: 100;
+}
+div[class*="shakeReaction"] {
+  animation: none !important;
 }

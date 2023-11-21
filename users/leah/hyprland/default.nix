@@ -13,11 +13,8 @@
   hm = {
     home.packages = with pkgs; [
       hyprpicker
-      swaybg
       font-awesome
       networkmanagerapplet # necessary for icons
-      qt5.qtwayland
-      breeze-icons
     ];
 
     programs = {
@@ -33,8 +30,13 @@
 
     services.cliphist.enable = true;
 
+    home.sessionVariables = {
+      WLR_DRM_DEVICES = "/dev/dri/card0"; # use iGPU
+      GRIMBLAST_EDITOR = "${lib.getExe pkgs.swappy} -f";
+    };
+
     wayland.windowManager.hyprland.settings = let
-      inherit (lib) getExe getExe';
+      inherit (lib) getExe getExe' flatten mod range pipe;
     in
       with pkgs; {
         "$mod" = "SUPER";
@@ -44,17 +46,6 @@
         "$wl-paste" = getExe' wl-clipboard "wl-paste";
 
         monitor = ",2560x1600@165,0x0,1.25";
-
-        env = [
-          "XCURSOR_SIZE,24"
-          "WLR_DRM_DEVICES,/dev/dri/card0" # Use iGPU
-
-          # Fcitx5
-          # Most of the required envvars are already set in the fcitx5 HM module
-          "INPUT_METHOD,fcitx"
-          "SDL_IM_MODULE,fcitx"
-          "GRIMBLAST_EDITOR,${getExe swappy} -f"
-        ];
 
         exec-once = [
           "${getExe waybar}"
@@ -142,19 +133,13 @@
           preserve_split = true;
         };
 
-        gestures = {
-          workspace_swipe = true;
-        };
+        gestures.workspace_swipe = true;
 
-        xwayland = {
-          # some XWayland apps, like say, 1Password, look absolutely horrendous without this on.
-          force_zero_scaling = true;
-        };
+        # some XWayland apps, like say, 1Password, look absolutely horrendous without this on.
+        xwayland.force_zero_scaling = true;
 
-        misc = {
-          # I don't like fun
-          disable_hyprland_logo = true;
-        };
+        # I don't like fun
+        misc.disable_hyprland_logo = true;
 
         bind =
           [
@@ -196,12 +181,15 @@
           ++
           # Switch workspaces with mod + [0-9]
           # Move active window to a workspace with mod + SHIFT + [0-9]
-          lib.flatten (builtins.map (i: let
-            key = lib.mod i 10;
-          in [
-            "$mod, ${toString key}, workspace, ${toString i}"
-            "$mod SHIFT, ${toString key}, movetoworkspace, ${toString i}"
-          ]) (lib.range 1 10));
+          pipe (range 1 10) [
+            (map (i: let
+              key = mod i 10;
+            in [
+              "$mod, ${toString key}, workspace, ${toString i}"
+              "$mod SHIFT, ${toString key}, movetoworkspace, ${toString i}"
+            ]))
+            flatten
+          ];
 
         # Press Super once to open Fuzzel; twice to close it
         bindr = [

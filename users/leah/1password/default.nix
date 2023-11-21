@@ -1,13 +1,14 @@
 {
-  hm = {
-    # Use the 1Password CLI plugins
-    home.sessionVariables.OP_PLUGIN_ALIASES_SOURCED = "1";
-
-    programs.fish.shellAliases = {
-      cargo = "op plugin run -- cargo";
-      gh = "op plugin run -- gh";
-    };
-  };
+  # TODO: horrendously broken
+  # hm = {
+  # Use the 1Password CLI plugins
+  #   home.sessionVariables.OP_PLUGIN_ALIASES_SOURCED = "1";
+  #
+  #   programs.fish.shellAliases = {
+  #     cargo = "op plugin run -- cargo";
+  #     gh = "op plugin run -- gh";
+  #   };
+  # };
 
   roles._1password = {
     enable = true;

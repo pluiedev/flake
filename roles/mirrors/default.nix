@@ -4,7 +4,9 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (lib) mkEnableOption mkIf mkOption types flip;
+  inherit (builtins) hasAttr mapAttrs;
+
   cfg = config.roles.mirrors;
   defaultSite = cfg.chinese.sites.${cfg.chinese.defaultSite};
 in {
@@ -12,7 +14,7 @@ in {
     enable = mkEnableOption "Chinese mirror sites to speed up downloads in Mainland China";
 
     defaultSite = mkOption {
-      type = types.str // {check = lib.flip builtins.hasAttr cfg.chinese.sites;};
+      type = types.str // {check = flip hasAttr cfg.chinese.sites;};
 
       default = "sjtu";
     };
@@ -37,10 +39,8 @@ in {
         };
 
       settings.source =
-        {
-          crates-io.replace-with = cfg.chinese.defaultSite;
-        }
-        // builtins.mapAttrs (_: url: "sparse+${url}/crates.io-index") cfg.chinese.sites;
+        {crates-io.replace-with = cfg.chinese.defaultSite;}
+        // mapAttrs (_: url: "sparse+${url}/crates.io-index") cfg.chinese.sites;
     };
 
     # cache.nixos.org is *unbearably* slow when accessed from Mainland China.

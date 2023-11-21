@@ -1,4 +1,8 @@
-{lib, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   settings = {
     Appearance = {
       icon_theme = "breeze-dark";
@@ -32,6 +36,13 @@
     };
   };
 in {
+  hm.home.packages = with pkgs; [
+    breeze-icons
+
+    qt5.qtwayland
+    qt6.qtwayland
+  ];
+
   roles.qt.qt5.settings = settings;
   # TODO: wait till someone packages Plasma 6
   roles.qt.qt6.settings = lib.recursiveUpdate settings {Appearance.style = "Fusion";};

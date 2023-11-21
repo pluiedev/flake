@@ -50,9 +50,7 @@
 
     thunderbird = {
       enable = true;
-      profiles.${config.roles.base.username} = {
-        isDefault = true;
-      };
+      profiles.${config.roles.base.username}.isDefault = true;
     };
   };
 }

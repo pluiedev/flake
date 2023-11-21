@@ -42,6 +42,7 @@
 
       search = let
         mkParams = lib.mapAttrsToList lib.nameValuePair;
+        nixIcon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
         nixosSearch = path: aliases: {
           urls = [
             {
@@ -54,8 +55,13 @@
               };
             }
           ];
-          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+          icon = nixIcon;
           definedAliases = aliases;
+        };
+
+        search = path: queryKey: {
+          template = path;
+          params = mkParams {${queryKey} = "{searchTerms}";};
         };
       in {
         default = "DuckDuckGo";
@@ -64,55 +70,39 @@
           "Nixpkgs" = nixosSearch "packages" ["@np"];
           "NixOS Settings" = nixosSearch "options" ["@ns"];
           "NixOS Wiki" = {
-            urls = [
-              {
-                template = "https://nixos.wiki/index.php";
-                params = mkParams {search = "{searchTerms}";};
-              }
-            ];
+            urls = [(search "https://nixos.wiki/index.php" "search")];
             icon = "https://nixos.wiki/favicon.png";
             definedAliases = ["@nw"];
           };
           "Nixpkgs PR Tracker" = {
-            urls = [
-              {
-                template = "https://nixpk.gs/pr-tracker.html";
-                params = mkParams {pr = "{searchTerms}";};
-              }
-            ];
-            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            urls = [(search "https://nixpk.gs/pr-tracker.html" "pr")];
+            icon = nixIcon;
             definedAliases = ["@npr"];
           };
           "Home Manager Settings" = {
-            urls = [
-              {
-                template = "https://mipmip.github.io/home-manager-option-search/";
-                params = mkParams {query = "{searchTerms}";};
-              }
-            ];
-
-            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            urls = [(search "https://mipmip.github.io/home-manager-option-search/" "query")];
+            icon = nixIcon;
             definedAliases = ["@hm"];
           };
           "Wiktionary" = {
-            urls = [
-              {
-                template = "https://en.wiktionary.org/wiki/Special:Search";
-                params = mkParams {search = "{searchTerms}";};
-              }
-            ];
+            urls = [(search "https://en.wiktionary.org/wiki/Special:Search" "search")];
             icon = "https://en.wiktionary.org/favicon.ico";
             definedAliases = ["@wkt"];
           };
           "GitHub" = {
-            urls = [
-              {
-                template = "https://github.com/search";
-                params = mkParams {q = "{searchTerms}";};
-              }
-            ];
+            urls = [(search "https://github.com/search" "q")];
             icon = "https://github.com/favicon.ico";
             definedAliases = ["@gh"];
+          };
+          "docs.rs" = {
+            urls = [(search "https://docs.rs/releases/search" "query")];
+            icon = "https://docs.rs/-/static/favicon.ico";
+            definedAliases = ["@rs"];
+          };
+          "lib.rs" = {
+            urls = [(search "https://lib.rs/search" "q")];
+            icon = "https://lib.rs/favicon.ico";
+            definedAliases = ["@lrs"];
           };
         };
       };
