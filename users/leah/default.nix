@@ -99,14 +99,6 @@
     };
     nix-ld.enable = true;
   };
-  hm.programs = {
-    starship = {
-      enable = true;
-      settings = builtins.fromTOML (builtins.readFile ./starship.toml);
-    };
-
-    nix-index.enable = true;
-  };
 
   services.gnome.gnome-keyring.enable = true;
 

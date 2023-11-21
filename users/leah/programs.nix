@@ -10,18 +10,26 @@
 
   hm.home.packages = with pkgs; [
     # Apps
+    blender_3_6
+    chromium
     gimp-with-plugins
     inkscape-with-extensions
     kdenlive
     libreoffice-qt
     prismlauncher
+    thunderbird
     vlc
-    blender_3_6
 
     # Command-line apps
     any-nix-shell
+    comma
     just
     xclip
+
+    # Java stuff
+    jetbrains.idea-community
+    jdk17
+    glfw
   ];
   hm.programs = {
     eza = {
@@ -45,8 +53,14 @@
       };
     };
 
+    nix-index.enable = true;
     obs-studio.enable = true;
     ripgrep.enable = true;
+
+    starship = {
+      enable = true;
+      settings = builtins.fromTOML (builtins.readFile ./starship.toml);
+    };
 
     thunderbird = {
       enable = true;
