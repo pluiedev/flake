@@ -19,6 +19,9 @@
 
     programs = {
       kitty.enable = true;
+
+      wpaperd.enable = true;
+
       fuzzel = {
         enable = true;
         settings.main = {
