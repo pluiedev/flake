@@ -68,6 +68,7 @@
 
         windowrulev2 = [
           "float,class:(org.kde.polkit-kde-authentication-agent-1)"
+          "float,class:(firefox),title:(Picture-in-Picture)"
         ];
 
         workspace = [
