@@ -33,11 +33,6 @@
 
     services.cliphist.enable = true;
 
-    home.sessionVariables = {
-      WLR_DRM_DEVICES = "/dev/dri/card0"; # use iGPU
-      GRIMBLAST_EDITOR = "${lib.getExe pkgs.swappy} -f";
-    };
-
     wayland.windowManager.hyprland.settings = let
       inherit (lib) getExe getExe' flatten mod range pipe;
     in
@@ -49,6 +44,11 @@
         "$wl-paste" = getExe' wl-clipboard "wl-paste";
 
         monitor = ",2560x1600@165,0x0,1.25";
+
+        env = [
+          "WLR_DRM_DEVICES,/dev/dri/card0" # use iGPU
+          "GRIMBLAST_EDITOR,${lib.getExe pkgs.swappy} -f"
+        ];
 
         exec-once = [
           "${getExe waybar}"
