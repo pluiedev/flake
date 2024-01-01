@@ -68,9 +68,9 @@
     {inherit inputs;}
     {
       imports = [
+        ./nixpkgs
         ./systems
         ./templates
-        ./nixpkgs
       ];
       systems = [
         "x86_64-linux"

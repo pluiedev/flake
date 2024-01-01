@@ -1,12 +1,11 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
-  inherit (lib) mkIf getExe';
+  inherit (lib) mkIf;
   cfg = config.roles.fcitx5;
-
+  toINI = lib.generators.toINI {};
   mkFcitx5Cfg = {
     groups ? [],
     groupOrder ? builtins.catAttrs "name" groups,
@@ -50,20 +49,19 @@
 
     mkGroupOrder = go: listToAttrs (imap0 (i: nameValuePair (toString i)) go);
   in
-    lib.generators.toINI {} (
+    toINI (
       listToAttrs (mkGroups groups) // {GroupOrder = mkGroupOrder groupOrder;}
     );
 in {
   config = mkIf cfg.enable {
-    hm = {
-      i18n.inputMethod.enabled = "fcitx5";
-      xdg.configFile."fcitx5/profile" = builtins.trace (mkFcitx5Cfg cfg.settings) (mkIf (cfg.settings != null) {
+    hm.i18n.inputMethod.enabled = "fcitx5";
+    hm.xdg.configFile = {
+      "fcitx5/profile" = mkIf (cfg.settings != null) {
         text = mkFcitx5Cfg cfg.settings;
-      });
+      };
+      "fcitx5/conf/classicui.conf" = mkIf (cfg.theme != null) {
+        text = toINI {Theme = cfg.theme;};
+      };
     };
-
-    roles.hyprland.settings.exec-once = [
-      "${getExe' pkgs.fcitx5 "fcitx5"} -dr -s 5 &"
-    ];
   };
 }

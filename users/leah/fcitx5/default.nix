@@ -1,17 +1,20 @@
 {pkgs, ...}: {
+  hm.home.packages = [pkgs.catppuccin-fcitx5];
+  environment.pathsToLink = ["/share/fcitx5"];
+
   roles.fcitx5 = {
     enable = true;
 
     addons = [pkgs.fcitx5-mozc];
 
-    settings.groups = [
-      {
-        name = "Default";
-        defaultLayout = "us";
-        defaultIM = "keyboard-us";
-        items = map (name: {inherit name;}) ["keyboard-us" "rime" "mozc"];
-      }
-    ];
+    # settings.groups = [
+    #   {
+    #     name = "Default";
+    #     defaultLayout = "us";
+    #     defaultIM = "keyboard-us";
+    #     items = map (name: {inherit name;}) ["keyboard-us" "rime" "mozc"];
+    #   }
+    # ];
 
     rime = {
       enable = true;

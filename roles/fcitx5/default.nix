@@ -37,12 +37,17 @@
   };
 in {
   imports = [
-    ./rime.nix
+    ./rime
     (lib.mkAliasOptionModule ["roles" "fcitx5" "addons"] ["hm" "i18n" "inputMethod" "fcitx5" "addons"])
   ];
 
   options.roles.fcitx5 = {
     enable = mkEnableOption "Fcitx5";
+
+    theme = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+    };
 
     settings = mkOption {
       type = types.nullOr (types.submodule settingsModule);

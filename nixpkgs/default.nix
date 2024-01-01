@@ -1,7 +1,8 @@
 {
   perSystem = {pkgs, ...}: {
     packages = {
-      blender-cuda = pkgs.blender.override {cudaSupport = true;};
+      catppuccin-fcitx5 = pkgs.callPackage ./pkgs/catppuccin-fcitx5.nix {};
+      catppuccin-qtct = pkgs.callPackage ./pkgs/catppuccin-qtct.nix {};
     };
   };
 }
