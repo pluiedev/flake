@@ -15,13 +15,11 @@ in {
     programs.hyprland = {
       enable = true;
       xwayland.enable = true;
-      enableNvidiaPatches = true;
     };
 
     hm.wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
-      enableNvidiaPatches = true;
     };
 
     hm.home.packages = [pkgs.wl-clipboard];

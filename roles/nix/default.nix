@@ -33,7 +33,7 @@ in {
     config.allowUnfree = true;
 
     overlays = [
-      (import ../../nixpkgs/overlay.nix)
+      (import ../../packages/overlay.nix)
     ];
   };
 }

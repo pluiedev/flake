@@ -68,7 +68,7 @@
     {inherit inputs;}
     {
       imports = [
-        ./nixpkgs
+        ./packages
         ./systems
         ./templates
       ];
