@@ -233,6 +233,29 @@
         "type": "github"
       }
     },
+    "nix-gaming": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1705098110,
+        "narHash": "sha256-1s+2dCRPCc89Jg93yG4vdTFNcSIDyetdvEQJhcmhf1M=",
+        "owner": "fufexan",
+        "repo": "nix-gaming",
+        "rev": "e9f2767e1e6e2c4ebbd36cba5268d98deeb68704",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fufexan",
+        "repo": "nix-gaming",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1704061647,
@@ -337,6 +360,7 @@
         "home-manager": "home-manager",
         "krunner-nix": "krunner-nix",
         "nix-darwin": "nix-darwin",
+        "nix-gaming": "nix-gaming",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
