@@ -127,4 +127,9 @@
   };
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [80 443 5173];
+  };
 }

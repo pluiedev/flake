@@ -22,11 +22,11 @@ check:
 
 [linux]
 switch *args:
-    sudo nixos-rebuild switch --flake . --keep-going {{args}}
+    sudo nixos-rebuild switch --flake . --keep-going -L {{args}}
 
 [macos]
 switch *args:
-    darwin-rebuild switch --flake . --keep-going {{args}}
+    darwin-rebuild switch --flake . --keep-going -L {{args}}
 
 [linux]
 test:

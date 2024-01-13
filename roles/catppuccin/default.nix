@@ -36,6 +36,7 @@ in {
       imports = [ctp-nix.homeManagerModules.catppuccin];
 
       programs = {
+        bat.catppuccin.enable = true;
         fish.catppuccin.enable = true;
         kitty.catppuccin.enable = true;
 
