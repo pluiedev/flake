@@ -57,7 +57,7 @@
       env = [
         "WLR_DRM_DEVICES,/dev/dri/card0" # use iGPU
         "GRIMBLAST_EDITOR,${writeShellScript "edit.sh" ''
-          cp $1 ~/Pictures/screenshots
+          cp $1 ${config.hm.home.homeDirectory}/Pictures/screenshots
           ${getExe satty} -f $1
         ''}"
       ];
