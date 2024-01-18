@@ -25,6 +25,8 @@
     any-nix-shell
     comma
     just
+    nix-output-monitor
+    nurl
     xclip
 
     # Java stuff

@@ -22,7 +22,8 @@ check:
 
 [linux]
 switch *args:
-    sudo nixos-rebuild switch --flake . --keep-going -L {{args}}
+    @sudo -v
+    sudo nixos-rebuild switch --flake .#$(hostname) --keep-going -L {{args}} |& nix run n#nix-output-monitor
 
 [macos]
 switch *args:
@@ -37,4 +38,3 @@ test:
     darwin-rebuild test --flake .
 
 update: (switch "--recreate-lock-file")
-    nix-index
