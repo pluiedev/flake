@@ -46,13 +46,7 @@
         nixosSearch = path: aliases: {
           urls = [
             {
-              template = "https://search.nixos.org/${path}";
-              params = mkParams {
-                type = "packages";
-                channel = "unstable";
-                sort = "relevance";
-                query = "{searchTerms}";
-              };
+              template = "https://nixpkgs.dev/${path}";
             }
           ];
           icon = nixIcon;
@@ -67,8 +61,16 @@
         default = "DuckDuckGo";
         force = true;
         engines = {
-          "Nixpkgs" = nixosSearch "packages" ["@np"];
-          "NixOS Settings" = nixosSearch "options" ["@ns"];
+          "Nixpkgs" = {
+            urls = [{template = "https://nixpkgs.dev/{searchTerms}";}];
+            icon = nixIcon;
+            definedAliases = ["@np"];
+          };
+          "NixOS Options" = {
+            urls = [{template = "https://nixpkgs.dev/option/{searchTerms}";}];
+            icon = nixIcon;
+            definedAliases = ["@ns" "@no"];
+          };
           "NixOS Wiki" = {
             urls = [(search "https://nixos.wiki/index.php" "search")];
             icon = "https://nixos.wiki/favicon.png";
