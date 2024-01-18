@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  rootPath,
   ...
 }: {
   imports = [
@@ -16,6 +15,7 @@
     hyprpicker
     font-awesome
     networkmanagerapplet # necessary for icons
+    satty
   ];
 
   hm.programs = {
@@ -47,7 +47,7 @@
   in
     with pkgs; {
       "$mod" = "SUPER";
-      "$grimblast" = getExe grimblast;
+      "$grimblast" = "${getExe grimblast} --freeze --notify --cursor";
       "$pamixer" = getExe pamixer;
       "$brightnessctl" = getExe brightnessctl;
       "$wl-paste" = getExe' wl-clipboard "wl-paste";
@@ -56,33 +56,30 @@
 
       env = [
         "WLR_DRM_DEVICES,/dev/dri/card0" # use iGPU
-        "GRIMBLAST_EDITOR,${lib.getExe pkgs.swappy} -f"
+        "GRIMBLAST_EDITOR,${writeShellScript "edit.sh" ''
+          cp $1 ~/Pictures/screenshots
+          ${getExe satty} -f $1
+        ''}"
       ];
 
       exec-once = [
         # TODO: waiting for nixpkgs#270366
-        (getExe' config.hm.programs.wpaperd.package "wpaperd")
+        (getExe config.hm.programs.wpaperd.package)
         (getExe config.hm.programs.waybar.package)
         "${polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
 
         "$wl-paste --type  text --watch ${getExe cliphist} store"
         "$wl-paste --type image --watch ${getExe cliphist} store"
 
-        "[workspace 1] ${getExe firefox}"
-
         # FIXME: GTK 3 crashes with wayland IM module enabled right now.
         # Somehow using native wayland doesn't fix this, gonna do this for now
-        "[workspace 1 silent; float] GTK_IM_MODULE= ${getExe _1password-gui}"
-        "[workspace 2] cd ~/coding/flake; ${getExe' neovide "neovide"}; ${getExe kitty}"
+        # FIXME: Running without --disable-gpu results in a blank screen (see nixpkgs#278040)
+        "[workspace 1 silent; float] GTK_IM_MODULE= ${getExe _1password-gui} --disable-gpu"
       ];
 
       windowrulev2 = [
         "float,class:(org.kde.polkit-kde-authentication-agent-1)"
         "float,class:(firefox),title:(Picture-in-Picture)"
-      ];
-
-      workspace = [
-        "2,name:flake,monitor:eDP-1"
       ];
 
       input = {
