@@ -59,11 +59,11 @@ in {
     };
 
     roles.qt = let
-      Appearance.color_scheme_path = "${pkgs.catppuccin-qtct}/share/qt5ct/colors/Catppuccin-${Flavour}.conf";
-      Appearance.custom_palette = true;
-    in {
-      qt5.settings = {inherit Appearance;};
-      qt6.settings = {inherit Appearance;};
-    };
+      common.settings.Appearance = {
+        color_scheme_path = "${pkgs.catppuccin-qt5ct}/share/qt5ct/colors/Catppuccin-${Flavour}.conf";
+        custom_palette = true;
+      };
+    in
+      lib.genAttrs ["qt5" "qt6"] (_: common);
   };
 }
