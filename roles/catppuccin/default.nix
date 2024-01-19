@@ -3,6 +3,8 @@
   pkgs,
   lib,
   ctp-nix,
+  ctp-discord-compiled,
+  ctp-vscode-compiled,
   ...
 }: let
   inherit (lib) mkEnableOption mkIf mkOption types;
@@ -52,10 +54,11 @@ in {
       };
     };
 
+    # Reproducible 🔥🚀 tracking of latest theme version
     roles.discord.vencord.settings = {
-      themeLinks = ["https://catppuccin.github.io/discord/dist/catppuccin-${flavour}-${accent}.theme.css"];
+      themeLinks = ["https://raw.githubusercontent.com/catppuccin/discord/${ctp-discord-compiled.rev}/dist/catppuccin-${flavour}-${accent}.theme.css"];
 
-      plugins.ShikiCodeblocks.theme = "https://raw.githubusercontent.com/catppuccin/vscode/6db6d747b2d2b5f21a6c8d5d2ea6ccbd5048c315/${flavour}.json";
+      plugins.ShikiCodeblocks.theme = "https://raw.githubusercontent.com/catppuccin/vscode/${ctp-vscode-compiled.rev}/${flavour}.json";
     };
 
     roles.qt = let
