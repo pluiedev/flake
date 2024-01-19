@@ -15,6 +15,7 @@
     hyprpicker
     font-awesome
     networkmanagerapplet # necessary for icons
+    grimblast
     satty
   ];
 
@@ -58,12 +59,11 @@
         "WLR_DRM_DEVICES,/dev/dri/card0" # use iGPU
         "GRIMBLAST_EDITOR,${writeShellScript "edit.sh" ''
           cp $1 ${config.hm.home.homeDirectory}/Pictures/screenshots
-          ${getExe satty} -f $1
+          ${getExe satty} --copy-command ${getExe' wl-clipboard "wl-copy"} -f $1
         ''}"
       ];
 
       exec-once = [
-        # TODO: waiting for nixpkgs#270366
         (getExe config.hm.programs.wpaperd.package)
         (getExe config.hm.programs.waybar.package)
         "${polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
