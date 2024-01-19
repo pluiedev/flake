@@ -32,5 +32,6 @@
   specialisation.china.configuration = {
     time.timeZone = "Asia/Shanghai";
     roles.mirrors.chinese.enable = true;
+    environment.variables.NIXOS_SPECIALISATION = "china";
   };
 }
