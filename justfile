@@ -1,40 +1,32 @@
-# Shamelessly taken from https://github.com/getchoo/flake/blob/d80d49cc7652ea84810c4688212c48277dfc71be/justfile
-
 alias b := build
 alias c := check
 alias sw := switch
 alias t := test
 
 default:
-    @just --choose
+  @just --choose
 
 [linux]
-build *args:
-    nixos-rebuild build --flake . {{args}}
-    nix run n#nvd -- diff /run/current-system/ result/
+build *args: (_rebuild "build" args)
+  nix run nixpkgs#nvd -- diff /run/current-system/ result/
 
 [macos]
-build:
-    darwin-rebuild --flake .
+build *args: (_rebuild "build" args)
 
 check:
-    nix flake check
+  nix flake check
 
-[linux]
-switch *args:
-    @sudo -v
-    sudo nixos-rebuild switch --flake .#$(hostname) --keep-going -L {{args}} |& nix run n#nix-output-monitor
-
-[macos]
-switch *args:
-    darwin-rebuild switch --flake . --keep-going -L {{args}}
-
-[linux]
-test:
-    sudo nixos-rebuild test --flake .
-
-[macos]
-test:
-    darwin-rebuild test --flake .
+switch *args: (_rebuild "switch" args)
+test *args: (_rebuild "test" args)
 
 update: (switch "--recreate-lock-file")
+
+#=== ABSTRACTION ==#
+
+rebuild := if os() == "macos" { "darwin-rebuild" } else { "nixos-rebuild" }
+common_build_flags := "--flake .#$HOSTNAME --keep-going -L"
+additional_build_flags := if os() == "linux" { "${NIXOS_SPECIALISATION:+--specialisation $NIXOS_SPECIALISATION}" } else { "" }
+
+_rebuild cmd *args:
+  {{rebuild}} {{cmd}} {{common_build_flags}} {{additional_build_flags}} {{args}} |& nix run n#nix-output-monitor
+
