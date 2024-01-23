@@ -9,6 +9,7 @@
     }: {
       services.postgresql = {
         enable = true;
+        package = pkgs.postgresql_16;
         ensureDatabases = ["postgres"];
         authentication = ''
           # TYPE  DATABASE  USER  ADDRESS    METHOD
