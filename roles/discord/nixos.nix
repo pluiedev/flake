@@ -10,7 +10,7 @@ in {
     hm.xdg.configFile = let
       vencordRoot =
         if cfg.vesktop.enable
-        then "VencordDesktop/VencordDesktop"
+        then "vesktop"
         else "Vencord";
     in
       mkMerge [
@@ -19,8 +19,7 @@ in {
           "${vencordRoot}/settings/quickCss.css".text = cfg.vencord.css;
         })
         (mkIf cfg.vesktop.enable {
-          # TODO: broken
-          #"${vencordRoot}/settings.json".text = builtins.toJSON cfg.vesktop.settings;
+          "${vencordRoot}/settings.json".text = builtins.toJSON cfg.vesktop.settings;
         })
       ];
   };

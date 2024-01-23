@@ -2,12 +2,16 @@
   roles.discord = {
     enable = true;
 
-    vesktop.enable = true;
-    vesktop.settings = {
-      minimizeToTray = "on";
-      discordBranch = "stable";
-      firstLaunch = false;
-      arRPC = "on";
+    vesktop = {
+      enable = true;
+
+      settings = {
+        minimizeToTray = "on";
+        discordBranch = "stable";
+        arRPC = "on";
+        splashColor = "rgb(235, 160, 172)"; # maroon
+        splashBackground = "rgb(30, 30, 46)"; # mantle
+      };
     };
 
     vencord.css = builtins.readFile ./vencord.css;
@@ -41,6 +45,7 @@
           enabled = true;
           settingsLocation = "aboveActivity";
         };
+        AnonymiseFileNames.enabled = true;
         BetterFolders = {
           enabled = true;
           sidebar = false;
@@ -50,13 +55,18 @@
           closeOthers = false;
           forceOpen = false;
         };
+        BetterGifAltText.enabled = true;
         BetterRoleDot = {
           enabled = true;
           bothStyles = false;
         };
+        BetterUploadButton.enabled = true;
+        BiggerStreamPreview.enabled = true;
+        BlurNSFW.enabled = true;
         CallTimer.enabled = true;
         ClearURLs.enabled = true;
         CrashHandler.enabled = true;
+        Decor.enabled = true;
         EmoteCloner.enabled = true;
         Experiments = {
           enabled = true;
@@ -79,12 +89,16 @@
         };
         FavoriteGifSearch.enabled = true;
         FixInbox.enabled = true;
+        FixImagesQuality.enabled = true;
         FixSpotifyEmbeds.enabled = true;
         GifPaste.enabled = true;
         GreetStickerPicker.enabled = true;
+        HideAttachments.enabled = true;
         iLoveSpam.enabled = true;
         KeepCurrentChannel.enabled = true;
         MemberCount.enabled = true;
+        MessageLinkEmbeds.enabled = true;
+        MoreKaomoji.enabled = true;
         MoreUserTags = {
           enabled = true;
           tagSettings = {
@@ -124,9 +138,10 @@
           enabled = true;
           ignoreBots = true;
           triggerWhenUnfocused = false;
-          volume = 0.25;
+          volume = 0.1;
           ignoreBlocked = true;
         };
+        MutualGroupDMs.enabled = true;
         NoDevtoolsWarning.enabled = true;
         NoF1.enabled = true;
         NoReplyMention = {
@@ -135,9 +150,14 @@
           shouldPingListed = true;
           inverseShiftReply = false;
         };
+        NotificationVolume = {
+          enabled = true;
+          notificationVolume = 50;
+        };
         NormalizeMessageLinks.enabled = true;
+        NoTypingAnimation.enabled = true;
         NoUnblockToJump.enabled = true;
-        NSFWGateBypass.enabled = true;
+        OnePingPerDM.enabled = true;
         OpenInApp = {
           enabled = true;
           spotify = true;
@@ -208,6 +228,7 @@
           iconSpacing = 1;
           iconSize = 32;
         };
+        ShowTimeouts.enabled = true;
         SilentMessageToggle.enabled = true;
         SortFriendRequests.enabled = true;
         SpotifyControls = {
@@ -218,6 +239,12 @@
           enabled = true;
           noSpotifyAutoPause = true;
           keepSpotifyActivityOnIdle = false;
+        };
+        StartupTimings.enabled = true;
+        SuperReactionTweaks = {
+          enabled = true;
+          superReactByDefault = false;
+          superReactionPlayingLimit = 10;
         };
         SupportHelper.enabled = true;
         Translate = {

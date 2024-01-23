@@ -1,5 +1,5 @@
 /* bleh new member */
-.newMemberBadge-3PdStX {
+*[class^="newMemberBadge"] {
   content: url(https://cdn.discordapp.com/emojis/1032974662122098698.webp);
 }
 
@@ -22,15 +22,4 @@ svg[class^="avatarDecoration"],             /* Avatar Decorations */
 .containerWrapper-WZBNDK,                   /* "Like this avatar decoration" popup on user modal */
 .container-5BK5-N                           /* "Collect new Avatar decorations" Banner on Profiles page */ {
   display: none;
-}
-
-/* Super Reactions are annoying */
-div[class^="effectsWrapper"] {
-  display: none;
-}
-img.emoji {
-  opacity: 100;
-}
-div[class*="shakeReaction"] {
-  animation: none !important;
 }
