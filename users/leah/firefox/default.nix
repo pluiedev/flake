@@ -15,28 +15,38 @@
       # HiDPI shenanigans
       settings."layout.css.devPixelsPerPx" = 2;
 
-      extensions = with firefox-addons.packages.${pkgs.system}; [
-        augmented-steam
-        auto-tab-discard
-        darkreader
-        decentraleyes
-        disconnect
-        firefox-color
-        furiganaize
-        languagetool
-        onepassword-password-manager
-        pronoundb
-        protondb-for-steam
-        refined-github
-        rust-search-extension
-        search-by-image
-        sponsorblock
-        terms-of-service-didnt-read
-        ublock-origin
-        unpaywall
-        wayback-machine
-        youtube-nonstop
-      ];
+      extensions = let
+        # FIXME: firefox-addons currently receives free-only nixpkgs,
+        # and so unfree plugins are blocked from evaluation.
+        # Use this one dirty trick to make the FSF mad! :trolley:
+        gaslight = pkgs:
+          pkgs.overrideAttrs {
+            meta.license.free = true;
+          };
+      in
+        with firefox-addons.packages.${pkgs.system};
+          map gaslight [
+            augmented-steam
+            auto-tab-discard
+            darkreader
+            decentraleyes
+            disconnect
+            firefox-color
+            furiganaize
+            languagetool
+            onepassword-password-manager
+            pronoundb
+            protondb-for-steam
+            refined-github
+            rust-search-extension
+            search-by-image
+            sponsorblock
+            terms-of-service-didnt-read
+            ublock-origin
+            unpaywall
+            wayback-machine
+            youtube-nonstop
+          ];
 
       search = let
         mkParams = lib.mapAttrsToList lib.nameValuePair;
