@@ -2,11 +2,9 @@
   config,
   lib,
   pkgs,
-  nur,
+  firefox-addons,
   ...
 }: {
-  imports = [nur.nixosModules.nur];
-
   hm.programs.firefox = {
     enable = true;
 
@@ -17,7 +15,7 @@
       # HiDPI shenanigans
       settings."layout.css.devPixelsPerPx" = 2;
 
-      extensions = with config.nur.repos.rycee.firefox-addons; [
+      extensions = with firefox-addons.packages.${pkgs.system}; [
         augmented-steam
         auto-tab-discard
         darkreader

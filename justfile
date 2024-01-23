@@ -8,13 +8,13 @@ default:
 
 [linux]
 build *args: (_rebuild "build" args)
-  nix run nixpkgs#nvd -- diff /run/current-system/ result/
+  #nix run nixpkgs#nvd -- diff /run/current-system/ result/
 
 [macos]
 build *args: (_rebuild "build" args)
 
 check:
-  nix flake check
+  nix flake check --option allow-import-from-derivation true
 
 switch *args: (_rebuild "switch" args)
 test *args: (_rebuild "test" args)

@@ -30,13 +30,18 @@
       flake = false;
     };
 
+    firefox-addons = {
+      url = "sourcehut:~rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "ragenix/flake-utils";
+      };
+    };
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-
-    # Only here for input deduplication
-    flake-utils.url = "github:numtide/flake-utils";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -58,18 +63,15 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    nur.url = "github:nix-community/NUR";
-
     ragenix = {
       url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
+      inputs.flake-utils.follows = "ragenix/flake-utils";
     };
   };
 

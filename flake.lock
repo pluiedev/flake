@@ -144,6 +144,32 @@
         "type": "github"
       }
     },
+    "firefox-addons": {
+      "inputs": {
+        "flake-utils": [
+          "ragenix",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "pkgs/firefox-addons",
+        "lastModified": 1705878250,
+        "narHash": "sha256-KaZxAXqsZNjIUQf1L3ccwkvzSmo+QNA0P4t1qqAcbDQ=",
+        "owner": "~rycee",
+        "repo": "nur-expressions",
+        "rev": "9d6b7a6189e0ba3a039dce2b0c3783d332dcfe8f",
+        "type": "sourcehut"
+      },
+      "original": {
+        "dir": "pkgs/firefox-addons",
+        "owner": "~rycee",
+        "repo": "nur-expressions",
+        "type": "sourcehut"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -292,28 +318,11 @@
         "type": "indirect"
       }
     },
-    "nur": {
-      "locked": {
-        "lastModified": 1705617906,
-        "narHash": "sha256-KPsZU00iPK6+XpUbTTHvIRWrsLAt0jfi367Gcxyxpto=",
-        "owner": "nix-community",
-        "repo": "NUR",
-        "rev": "45e99e80a0f25e50905f9da6153048136c4c7f64",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "NUR",
-        "type": "github"
-      }
-    },
     "ragenix": {
       "inputs": {
         "agenix": "agenix",
         "crane": "crane",
-        "flake-utils": [
-          "flake-utils"
-        ],
+        "flake-utils": "flake-utils",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -339,14 +348,13 @@
         "ctp-discord-compiled": "ctp-discord-compiled",
         "ctp-nix": "ctp-nix",
         "ctp-vscode-compiled": "ctp-vscode-compiled",
+        "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts",
-        "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nix-gaming": "nix-gaming",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "nur": "nur",
         "ragenix": "ragenix",
         "rust-overlay": "rust-overlay_2"
       }
@@ -379,6 +387,7 @@
     "rust-overlay_2": {
       "inputs": {
         "flake-utils": [
+          "ragenix",
           "flake-utils"
         ],
         "nixpkgs": [
