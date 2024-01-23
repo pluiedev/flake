@@ -21,6 +21,18 @@ test *args: (_rebuild "test" args)
 
 update: (switch "--recreate-lock-file")
 
+# blatantly stolen from getchoo
+ci:
+    nix run \
+      --inputs-from . \
+      --override-input nixpkgs nixpkgs \
+      github:Mic92/nix-fast-build -- \
+      --no-nom \
+      --skip-cached \
+      --option accept-flake-config true \
+      --option allow-import-from-derivation true \
+      --flake '.#hydraJobs'
+
 #=== ABSTRACTION ==#
 
 rebuild := if os() == "macos" { "darwin-rebuild" } else { "nixos-rebuild" }

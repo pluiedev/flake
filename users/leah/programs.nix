@@ -23,6 +23,7 @@
 
     # Command-line apps
     any-nix-shell
+    cachix
     comma
     just
     nix-output-monitor
