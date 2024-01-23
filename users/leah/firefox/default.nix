@@ -44,11 +44,7 @@
         mkParams = lib.mapAttrsToList lib.nameValuePair;
         nixIcon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
         nixosSearch = path: aliases: {
-          urls = [
-            {
-              template = "https://nixpkgs.dev/${path}";
-            }
-          ];
+          urls = [{template = "https://nixpkgs.dev${path}/{searchTerms}";}];
           icon = nixIcon;
           definedAliases = aliases;
         };
@@ -61,19 +57,11 @@
         default = "DuckDuckGo";
         force = true;
         engines = {
-          "Nixpkgs" = {
-            urls = [{template = "https://nixpkgs.dev/{searchTerms}";}];
-            icon = nixIcon;
-            definedAliases = ["@np"];
-          };
-          "NixOS Options" = {
-            urls = [{template = "https://nixpkgs.dev/option/{searchTerms}";}];
-            icon = nixIcon;
-            definedAliases = ["@ns" "@no"];
-          };
+          "Nixpkgs" = nixosSearch "" ["@np"];
+          "NixOS Options" = nixosSearch "/option" ["@ns" "@no"];
           "NixOS Wiki" = {
             urls = [(search "https://nixos.wiki/index.php" "search")];
-            icon = "https://nixos.wiki/favicon.png";
+            icon = nixIcon;
             definedAliases = ["@nw"];
           };
           "Nixpkgs PR Tracker" = {
