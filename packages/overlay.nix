@@ -1,1 +1,1 @@
-final: _: import ./packages.nix {pkgs = final;}
+_: prev: import ./packages.nix {pkgs = prev;}
