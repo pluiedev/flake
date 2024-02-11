@@ -244,6 +244,26 @@
         "type": "github"
       }
     },
+    "krunner-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1696278906,
+        "narHash": "sha256-z2tbFXMC+nSN7vhn2WSoMVdViolucLeoDSfOfnRcmCE=",
+        "owner": "pluiedev",
+        "repo": "krunner-nix",
+        "rev": "8a819944620db8eab35e7dbb14d1916c9e7a478d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pluiedev",
+        "repo": "krunner-nix",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -305,17 +325,40 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1705856552,
-        "narHash": "sha256-JXfnuEf5Yd6bhMs/uvM67/joxYKoysyE3M2k6T3eWbg=",
+        "lastModified": 1706550542,
+        "narHash": "sha256-UcsnCG6wx++23yeER4Hg18CXWbgNpqNXcHIo5/1Y+hc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "612f97239e2cc474c13c9dafa0df378058c5ad8d",
+        "rev": "97b17f32362e475016f942bbdfda4a4a72a8a652",
         "type": "github"
       },
       "original": {
         "id": "nixpkgs",
         "ref": "nixos-unstable",
         "type": "indirect"
+      }
+    },
+    "plasma-manager": {
+      "inputs": {
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1705946102,
+        "narHash": "sha256-0hy28d7qC7Hv6/KV7xefa03b2xFJIGHPYAPcsVwzTeM=",
+        "owner": "pjones",
+        "repo": "plasma-manager",
+        "rev": "4d209a083aeefa7d4f8060de14896399bbc8f30b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pjones",
+        "repo": "plasma-manager",
+        "type": "github"
       }
     },
     "ragenix": {
@@ -351,10 +394,12 @@
         "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
+        "krunner-nix": "krunner-nix",
         "nix-darwin": "nix-darwin",
         "nix-gaming": "nix-gaming",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "plasma-manager": "plasma-manager",
         "ragenix": "ragenix",
         "rust-overlay": "rust-overlay_2"
       }

@@ -43,6 +43,11 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    krunner-nix = {
+      url = "github:pluiedev/krunner-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -63,6 +68,14 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs = {
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     ragenix = {
       url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -80,7 +93,6 @@
     {inherit inputs;}
     {
       imports = [
-        ./packages
         ./systems
         ./templates
       ];
