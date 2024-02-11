@@ -8,7 +8,7 @@ default:
 
 [linux]
 build *args: (_rebuild "build" args)
-  #nix run nixpkgs#nvd -- diff /run/current-system/ result/
+  nix run nixpkgs#nvd -- diff /run/current-system/ result/
 
 [macos]
 build *args: (_rebuild "build" args)
