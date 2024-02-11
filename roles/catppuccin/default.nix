@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   ctp-nix,
   ctp-discord-compiled,
@@ -9,11 +8,6 @@
 }: let
   inherit (lib) mkEnableOption mkIf mkOption types;
   inherit (config.roles.catppuccin) enable flavour accent;
-
-  mkUpper = str:
-    with builtins;
-      (lib.toUpper (substring 0 1 str)) + (substring 1 (stringLength str) str);
-  Flavour = mkUpper flavour;
 in {
   imports = [ctp-nix.nixosModules.catppuccin];
 
@@ -60,13 +54,5 @@ in {
 
       plugins.ShikiCodeblocks.theme = "https://raw.githubusercontent.com/catppuccin/vscode/${ctp-vscode-compiled.rev}/${flavour}.json";
     };
-
-    roles.qt = let
-      common.settings.Appearance = {
-        color_scheme_path = "${pkgs.catppuccin-qt5ct}/share/qt5ct/colors/Catppuccin-${Flavour}.conf";
-        custom_palette = true;
-      };
-    in
-      lib.genAttrs ["qt5" "qt6"] (_: common);
   };
 }

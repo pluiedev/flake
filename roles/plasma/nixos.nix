@@ -10,9 +10,12 @@
   inherit (lib) mkIf;
 in {
   config = mkIf cfg.enable {
-    services.xserver.desktopManager.plasma5 = {
-      enable = true;
-      useQtScaling = true;
+    services.xserver = {
+      desktopManager.plasma5 = {
+        enable = true;
+        useQtScaling = true;
+      };
+      displayManager.sddm.enable = true;
     };
 
     # Hibernate fix
@@ -25,7 +28,7 @@ in {
     hm = {
       imports = [plasma-manager.homeManagerModules.plasma-manager];
 
-      home.packages = lib.optional cfg.krunner-nix.enable pkgs.krunner-nix;
+      home.packages = lib.optional cfg.krunner-nix.enable krunner-nix.packages.${pkgs.system}.default;
 
       # Janky workaround
       # https://github.com/nix-community/home-manager/issues/1586
@@ -35,7 +38,5 @@ in {
 
       programs.plasma.enable = true;
     };
-
-    nixpkgs.overlays = lib.optional cfg.krunner-nix.enable krunner-nix.overlays.default;
   };
 }

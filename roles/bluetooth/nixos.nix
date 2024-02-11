@@ -9,12 +9,6 @@
 in {
   config = mkIf cfg.enable {
     hardware.bluetooth.enable = true;
-    services.blueman.enable = true;
-
-    hm.services.blueman-applet.enable = true;
-
-    roles.hyprland.settings.exec-once = [
-      (getExe' pkgs.blueman "blueman-applet")
-    ];
+    # services.blueman.enable = true;
   };
 }

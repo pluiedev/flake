@@ -8,14 +8,11 @@
   cfg = config.roles.qt;
 in {
   config = mkIf cfg.enable {
-    qt = {
-      enable = true;
-      platformTheme = "qt5ct";
-    };
+    qt.enable = true;
 
-    hm.xdg.configFile = {
-      "qt5ct/qt5ct.conf".text = mkIf (cfg.qt5.settings != null) (toINI cfg.qt5.settings);
-      "qt6ct/qt6ct.conf".text = mkIf (cfg.qt6.settings != null) (toINI cfg.qt6.settings);
+    hm.xdg.configFile = mkIf (cfg.platform == "qt5ct") {
+      "qt5ct/qt5ct.conf".text = mkIf (cfg.qt5ct.settings != null) (toINI cfg.qt5ct.settings);
+      "qt6ct/qt6ct.conf".text = mkIf (cfg.qt6ct.settings != null) (toINI cfg.qt6ct.settings);
     };
   };
 }
