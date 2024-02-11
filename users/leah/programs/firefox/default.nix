@@ -12,9 +12,6 @@
       isDefault = true;
       name = config.roles.base.realName;
 
-      # HiDPI shenanigans
-      settings."layout.css.devPixelsPerPx" = 2;
-
       extensions = let
         # FIXME: firefox-addons currently receives free-only nixpkgs,
         # and so unfree plugins are blocked from evaluation.
@@ -26,26 +23,63 @@
       in
         with firefox-addons.packages.${pkgs.system};
           map gaslight [
-            augmented-steam
+            # Essentials
             auto-tab-discard
-            darkreader
-            decentraleyes
-            disconnect
-            firefox-color
-            furiganaize
-            languagetool
             onepassword-password-manager
-            pronoundb
-            protondb-for-steam
-            refined-github
-            rust-search-extension
-            search-by-image
+            ublock-origin
+
+            # Avoid annoyances
+            consent-o-matic
+            don-t-fuck-with-paste
+            enhanced-h264ify
+            fastforwardteam
+            faststream
+            gaoptout
+            istilldontcareaboutcookies
+            link-cleaner
+            musescore-downloader
+            native-mathml
+            privacy-possum
+            re-enable-right-click
             sponsorblock
             terms-of-service-didnt-read
-            ublock-origin
+            youtube-nonstop
+
+            # Redirectors
+            indie-wiki-buddy
+            libredirect
+            localcdn
+            modrinthify
+
+            # Augmentations
+            augmented-steam
+            github-file-icons
+            octolinker
+            protondb-for-steam
+            refined-github
+            widegithub
+            wikiwand-wikipedia-modernized
+
+            # Language
+            furiganaize
+            immersive-translate
+            languagetool
+
+            # Styling
+            darkreader
+            firefox-color
+            stylus
+
+            # Dev
+            a11ycss
+            header-editor
+            rust-search-extension
+
+            disconnect
+            pronoundb
+            search-by-image
             unpaywall
             wayback-machine
-            youtube-nonstop
           ];
 
       search = let

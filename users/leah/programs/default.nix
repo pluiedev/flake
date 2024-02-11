@@ -3,8 +3,18 @@
   pkgs,
   lib,
   blender-bin,
+  nix-gaming,
   ...
 }: {
+  imports = [
+    ./1password
+    ./discord
+    ./fcitx5
+    ./firefox
+    ./nvim
+    ./rust
+  ];
+
   virtualisation.docker.enable = true;
 
   nixpkgs.overlays = [blender-bin.overlays.default];
@@ -33,8 +43,28 @@
     # Java stuff
     jetbrains.idea-community
     jdk17
-    glfw
   ];
+
+  programs = {
+    steam = {
+      enable = true;
+      package = pkgs.steam.override {
+        extraEnv = {
+          # nvidia-offload
+          __NV_PRIME_RENDER_OFFLOAD = 1;
+          __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+          __VK_LAYER_NV_optimus = "NVIDIA_only";
+
+          # Use Proton GE
+          STEAM_EXTRA_COMPAT_TOOLS_PATHS = "${nix-gaming.packages.${pkgs.system}.proton-ge}";
+        };
+      };
+      remotePlay.openFirewall = true;
+    };
+    nix-ld.enable = true;
+  };
+
   hm.programs = {
     bat = {
       enable = true;
@@ -82,6 +112,8 @@
         color_align.mode = "horizontal";
       };
     };
+
+    kitty.enable = true;
 
     nix-index.enable = true;
     obs-studio.enable = true;

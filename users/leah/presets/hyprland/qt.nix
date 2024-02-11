@@ -43,7 +43,11 @@ in {
     qt6.qtwayland
   ];
 
-  roles.qt.qt5.settings = settings;
-  # TODO: wait till someone packages Plasma 6
-  roles.qt.qt6.settings = lib.recursiveUpdate settings {Appearance.style = "Fusion";};
+  roles.qt = {
+    platform = "qt5ct";
+
+    qt5ct.settings = settings;
+    # TODO: wait till someone packages Plasma 6
+    qt6ct.settings = lib.recursiveUpdate settings {Appearance.style = "Fusion";};
+  };
 }

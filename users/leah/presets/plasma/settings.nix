@@ -1,4 +1,6 @@
-{
+{pkgs, ...}: {
+  hm.home.packages = with pkgs; [lightly-qt];
+
   hm.programs.plasma.configFile = {
     kdeglobals = {
       General = {
@@ -8,14 +10,20 @@
         smallestReadableFont = "Rubik,8,-1,5,50,0,0,0,0,0";
         toolBarFont = "Rubik,10,-1,5,50,0,0,0,0,0";
       };
-      KDE.SingleClick = false;
+      KDE = {
+        SingleClick = false;
+        widgetStyle = "Lightly";
+      };
       KScreen.ScaleFactor = 1.25;
     };
-    kwinrc.NightColor = {
-      Active = true;
-      EveningBeginFixed = 2200;
-      Mode = "Times";
-      TransitionTime = 120;
+    kwinrc = {
+      Tiling.padding = 2;
+      NightColor = {
+        Active = true;
+        EveningBeginFixed = 2200;
+        Mode = "Times";
+        TransitionTime = 120;
+      };
     };
     # Make KRunner appear in the center of the screen, like macOS Spotlight
     krunnerrc.General.FreeFloating = true;

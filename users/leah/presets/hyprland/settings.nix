@@ -1,75 +1,24 @@
 {
-  config,
-  pkgs,
   lib,
+  pkgs,
   ...
 }: {
-  imports = [
-    ./mako.nix
-    ./waybar
-  ];
-
-  roles.hyprland.enable = true;
-
-  hm.home.packages = with pkgs; [
-    hyprpicker
-    font-awesome
-    networkmanagerapplet # necessary for icons
-    grimblast
-    satty
-  ];
-
-  hm.programs = {
-    kitty.enable = true;
-
-    wpaperd.enable = true;
-
-    fuzzel = {
-      enable = true;
-      settings.main = {
-        font = "Iosevka Nerd Font:size=13";
-        dpi-aware = true;
-      };
-    };
-  };
-
-  hm.services = {
-    cliphist.enable = true;
-    mpris-proxy.enable = true;
-    mpd = {
-      enable = true;
-      musicDirectory = "${config.hm.home.homeDirectory}/music";
-    };
-    mpd-mpris.enable = true;
-  };
-
   hm.wayland.windowManager.hyprland.settings = let
-    inherit (lib) getExe getExe' flatten mod range pipe;
+    inherit (lib) getExe flatten mod range pipe;
   in
     with pkgs; {
       "$mod" = "SUPER";
-      "$grimblast" = "${getExe grimblast} --freeze --notify --cursor";
-      "$pamixer" = getExe pamixer;
-      "$brightnessctl" = getExe brightnessctl;
-      "$wl-paste" = getExe' wl-clipboard "wl-paste";
 
       monitor = "eDP-1,2560x1600@165,0x0,1.25";
 
       env = [
         "WLR_DRM_DEVICES,/dev/dri/card0" # use iGPU
-        "GRIMBLAST_EDITOR,${writeShellScript "edit.sh" ''
-          cp $1 ${config.hm.home.homeDirectory}/Pictures/screenshots
-          ${getExe satty} --copy-command ${getExe' wl-clipboard "wl-copy"} -f $1
-        ''}"
       ];
 
       exec-once = [
         (getExe config.hm.programs.wpaperd.package)
         (getExe config.hm.programs.waybar.package)
         "${polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
-
-        "$wl-paste --type  text --watch ${getExe cliphist} store"
-        "$wl-paste --type image --watch ${getExe cliphist} store"
 
         # FIXME: GTK 3 crashes with wayland IM module enabled right now.
         # Somehow using native wayland doesn't fix this, gonna do this for now
@@ -161,24 +110,6 @@
           "$mod, P, pseudo,"
           "$mod, J, togglesplit,"
 
-          # Screenshotting
-          "CTRL_R, Delete, exec, $grimblast edit area"
-          "SHIFT_R, Delete, exec, $grimblast edit active"
-          "CTRL_R SHIFT_R, Delete, exec, $grimblast edit output"
-          ", Print, exec, $grimblast edit area"
-          "SHIFT, Print, exec, $grimblast edit active"
-          "CTRL SHIFT, Print, exec, $grimblast edit output"
-
-          # Because of how cursed ASUS's laptop keyboard works
-          # (Fn+F6 produces a sequence of keystrokes that correspond to Windows+Shift+S on Windows),
-          # I need to do this to make it do what it's intended to do
-          "SUPER SHIFT, S, exec, $grimblast edit area"
-          "CTRL SUPER SHIFT, S, exec, $grimblast edit output"
-          "ALT SUPER SHIFT, S, exec, $grimblast edit active"
-
-          ", XF86AudioMute, exec, $pamixer -t"
-          ", XF86AudioMicMute, exec, $pamixer --default-source -t"
-
           # Move focus with mod + arrow keys
           "$mod, left, movefocus, l"
           "$mod, right, movefocus, r"
@@ -205,16 +136,6 @@
       # Press Super once to open Fuzzel; twice to close it
       bindr = [
         "$mod, Super_L, exec, pkill fuzzel || ${getExe fuzzel}"
-      ];
-
-      # Media keys
-      binde = [
-        ", XF86AudioLowerVolume, exec, $pamixer -ud 5"
-        ", XF86AudioRaiseVolume, exec, $pamixer -ui 5"
-        ", XF86MonBrightnessDown, exec, $brightnessctl --device=intel_backlight set 5%-"
-        ", XF86MonBrightnessUp, exec, $brightnessctl --device=intel_backlight set +5%"
-        ", XF86KbdBrightnessDown, exec, $brightnessctl --device=asus::kbd_backlight set 1-"
-        ", XF86KbdBrightnessUp, exec, $brightnessctl --device=asus::kbd_backlight set +1"
       ];
 
       bindm = [

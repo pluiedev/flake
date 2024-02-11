@@ -7,6 +7,8 @@
   # Kill and restart waybar if running
   onChange = "(ps aux | grep waybar | grep -v grep) && (${lib.getExe' pkgs.procps "pkill"} -u $USER waybar) && (${lib.getExe pkgs.waybar})";
 in {
+  hm.home.packages = with pkgs; [font-awesome];
+
   hm.xdg.configFile = {
     "waybar/config" = {inherit onChange;};
     "waybar/style.css" = {inherit onChange;};
