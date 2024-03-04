@@ -1,8 +1,4 @@
-{
-  nixos-hardware,
-  lib,
-  ...
-}: {
+{nixos-hardware, ...}: {
   imports = with nixos-hardware.nixosModules; [
     ./hardware-configuration.nix
 
@@ -27,10 +23,8 @@
   };
 
   hm.programs.wpaperd.settings.default.path = "${./wallpaper.png}";
-  time.timeZone = lib.mkDefault "Europe/Berlin";
 
   specialisation.china.configuration = {
-    time.timeZone = "Asia/Shanghai";
     roles.mirrors.chinese.enable = true;
     environment.variables.NIXOS_SPECIALISATION = "china";
   };
