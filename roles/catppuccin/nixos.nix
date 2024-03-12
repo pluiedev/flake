@@ -13,7 +13,6 @@
 in {
   config = lib.mkIf enable {
     hm.gtk = {
-      enable = true;
       catppuccin = {
         enable = true;
         tweaks = ["rimless"];

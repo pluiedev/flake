@@ -14,6 +14,12 @@
   roles.hyprland.enable = true;
   roles.dolphin.enable = true;
 
+  # Apply GTK themes.
+  # Some DEs, like Plasma, apply the GTK themes themselves and the configs
+  # that HM generates would conflict with Plasma's, so let's only enable this
+  # in environments that actually need manual application.
+  hm.gtk.enable = true;
+
   hm.home.packages = with pkgs; [
     networkmanagerapplet # necessary for icons
   ];
