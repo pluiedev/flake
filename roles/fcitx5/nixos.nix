@@ -54,7 +54,15 @@
     );
 in {
   config = mkIf cfg.enable {
-    hm.i18n.inputMethod.enabled = "fcitx5";
+    i18n.inputMethod = {
+      enabled = "fcitx5";
+
+      fcitx5 = {
+        waylandFrontend = true;
+        plasma6Support = true;
+      };
+    };
+
     hm.xdg.configFile = {
       "fcitx5/profile" = mkIf (cfg.settings != null) {
         text = mkFcitx5Cfg cfg.settings;

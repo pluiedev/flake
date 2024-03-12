@@ -67,14 +67,5 @@ in {
           flavors = [flavour];
         })
       ];
-
-    environment.systemPackages = let
-      sddmEnabled = config.services.xserver.displayManager.sddm.enable;
-    in
-      lib.optional sddmEnabled (pkgs.catppuccin-sddm.override {
-        flavors = [flavour];
-      });
-
-    services.xserver.displayManager.sddm.theme = "catppuccin-${flavour}";
   };
 }

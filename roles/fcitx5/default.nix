@@ -38,7 +38,7 @@
 in {
   imports = [
     ./rime
-    (lib.mkAliasOptionModule ["roles" "fcitx5" "addons"] ["hm" "i18n" "inputMethod" "fcitx5" "addons"])
+    (lib.mkAliasOptionModule ["roles" "fcitx5" "addons"] ["i18n" "inputMethod" "fcitx5" "addons"])
   ];
 
   options.roles.fcitx5 = {

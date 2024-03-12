@@ -11,11 +11,12 @@
 in {
   config = mkIf cfg.enable {
     services.xserver = {
-      desktopManager.plasma5 = {
+      desktopManager.plasma6.enable = true;
+      displayManager.defaultSession = "plasma";
+      displayManager.sddm = {
         enable = true;
-        useQtScaling = true;
+        wayland.enable = true;
       };
-      displayManager.sddm.enable = true;
     };
 
     # Hibernate fix
@@ -33,7 +34,7 @@ in {
       # Janky workaround
       # https://github.com/nix-community/home-manager/issues/1586
       programs.firefox.package = pkgs.firefox.override {
-        cfg.nativeMessagingHosts.packages = [pkgs.plasma5Packages.plasma-browser-integration];
+        cfg.nativeMessagingHosts.packages = [pkgs.plasma6Packages.plasma-browser-integration];
       };
 
       programs.plasma.enable = true;

@@ -2,14 +2,16 @@
   config,
   lib,
   ctp-nix,
-  ctp-discord-compiled,
-  ctp-vscode-compiled,
   ...
 }: let
-  inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (lib) mkEnableOption mkIf mkDefault mkOption types;
   inherit (config.roles.catppuccin) enable flavour accent;
 in {
-  imports = [ctp-nix.nixosModules.catppuccin];
+  imports = [
+    ctp-nix.nixosModules.catppuccin
+    ./discord.nix
+    ./sddm.nix
+  ];
 
   options.roles.catppuccin = {
     enable = mkEnableOption "Catppuccin";
@@ -32,9 +34,9 @@ in {
       imports = [ctp-nix.homeManagerModules.catppuccin];
 
       programs = {
-        bat.catppuccin.enable = true;
-        fish.catppuccin.enable = true;
-        kitty.catppuccin.enable = true;
+        bat.catppuccin.enable = mkDefault true;
+        fish.catppuccin.enable = mkDefault true;
+        kitty.catppuccin.enable = mkDefault true;
 
         fuzzel.settings.colors = {
           background = "11111bff";
@@ -46,13 +48,6 @@ in {
           border = "eba0acee";
         };
       };
-    };
-
-    # Reproducible 🔥🚀 tracking of latest theme version
-    roles.discord.vencord.settings = {
-      themeLinks = ["https://raw.githubusercontent.com/catppuccin/discord/${ctp-discord-compiled.rev}/dist/catppuccin-${flavour}-${accent}.theme.css"];
-
-      plugins.ShikiCodeblocks.theme = "https://raw.githubusercontent.com/catppuccin/vscode/${ctp-vscode-compiled.rev}/${flavour}.json";
     };
   };
 }
