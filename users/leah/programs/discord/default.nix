@@ -4,6 +4,7 @@
 
     vesktop = {
       enable = true;
+      useSystemVencord = false;
 
       settings = {
         minimizeToTray = "on";
@@ -204,7 +205,7 @@
         RevealAllSpoilers.enabled = true;
         ReverseImageSearch.enabled = true;
         RoleColorEverywhere = {
-          enabled = true;
+          # enabled = true;
           chatMentions = true;
           memberList = true;
           voiceUsers = true;

@@ -23,7 +23,7 @@
     # Apps
     blender_3_6
     chromium
-    gimp-with-plugins
+    gimp
     inkscape-with-extensions
     kdenlive
     libreoffice-qt

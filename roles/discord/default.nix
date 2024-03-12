@@ -16,7 +16,10 @@ in {
 
       default =
         if cfg.vesktop.enable
-        then pkgs.vesktop
+        then
+          pkgs.vesktop.override {
+            withSystemVencord = cfg.vesktop.useSystemVencord;
+          }
         else
           pkgs.discord.override {
             withOpenASAR = cfg.openAsar.enable;
@@ -45,6 +48,11 @@ in {
 
     vesktop = {
       enable = mkEnableOption "Vesktop, an alternative Discord client";
+      useSystemVencord =
+        mkEnableOption "the Vencord packaged in Nixpkgs, instead of allowing Vesktop to manage its own Vencord install"
+        // {
+          default = true;
+        };
       settings = mkOption {
         type = types.attrsOf types.anything;
         default = {};
