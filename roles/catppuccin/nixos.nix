@@ -13,6 +13,7 @@
 in {
   config = lib.mkIf enable {
     hm.gtk = {
+      enable = true;
       catppuccin = {
         enable = true;
         tweaks = ["rimless"];
@@ -55,11 +56,10 @@ in {
 
     # TODO: figure out how to apply this via plasmarc
     hm.home.packages = let
-      plasmaEnabled = config.services.xserver.desktopManager.plasma5.enable;
+      plasmaEnabled = config.services.xserver.desktopManager.plasma6.enable;
     in
-      lib.optional plasmaEnabled (pkgs.catppuccin-kde.override {
-        flavour = [flavour];
-        accents = [accent];
+      lib.optional plasmaEnabled (pkgs.catppuccin-kde-new.override {
+        inherit accent flavour;
       })
       ++ [
         (pkgs.catppuccin-konsole.override {

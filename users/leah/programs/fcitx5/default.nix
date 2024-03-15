@@ -18,6 +18,9 @@
 
     rime = {
       enable = true;
+
+      dataPkgs = with pkgs; [rime-data rime-japanese];
+
       settings = let
         luna_pinyin.patch."speller/algebra" = [
           "erase/^xx$/"
@@ -34,7 +37,8 @@
       in {
         default.patch.schema_list = [
           {schema = "luna_pinyin_simp";}
-          {schema = "luna_pinyin";}
+          # {schema = "luna_pinyin";}
+          {schema = "japanese";}
         ];
         inherit luna_pinyin;
         luna_pinyin_simp = luna_pinyin;

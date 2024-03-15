@@ -15,6 +15,11 @@ in {
   options.roles.fcitx5.rime = {
     enable = mkEnableOption "the Rime input engine for Fcitx5";
 
+    dataPkgs = mkOption {
+      type = types.listOf types.package;
+      default = [pkgs.rime-data];
+    };
+
     settings = mkOption {
       type = types.attrsOf types.anything;
       default = {};
@@ -28,7 +33,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    roles.fcitx5.addons = [pkgs.fcitx5-rime];
+    roles.fcitx5.addons = [
+      (pkgs.fcitx5-rime.override {
+        rimeDataPkgs = cfg.dataPkgs;
+      })
+    ];
     hm.xdg.dataFile = mkRimeCfgs cfg.settings;
   };
 }

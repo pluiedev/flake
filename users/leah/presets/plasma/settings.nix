@@ -1,6 +1,4 @@
-{pkgs, ...}: {
-  hm.home.packages = with pkgs; [lightly-qt];
-
+{
   hm.programs.plasma.configFile = {
     kdeglobals = {
       General = {
@@ -12,7 +10,6 @@
       };
       KDE = {
         SingleClick = false;
-        widgetStyle = "Lightly";
       };
       KScreen.ScaleFactor = 1.25;
     };
