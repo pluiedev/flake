@@ -16,5 +16,8 @@
 
   hm.gtk.gtk2.configLocation = "${config.hm.xdg.configHome}/gtk-2.0/gtkrc";
 
-  hm.home.packages = [krunner-nix.packages.${pkgs.system}.default];
+  hm.home.packages = with pkgs; [
+    krunner-nix.packages.${system}.default
+    wl-clipboard
+  ];
 }
