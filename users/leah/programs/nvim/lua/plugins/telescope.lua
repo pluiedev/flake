@@ -1,4 +1,7 @@
-local options = {
+local util = require "util"
+local builtin = require "telescope.builtin"
+
+require("telescope").setup {
   defaults = {
     vimgrep_arguments = {
       "rg",
@@ -48,8 +51,25 @@ local options = {
       n = { ["q"] = require("telescope.actions").close },
     },
   },
-
-  extensions_list = { "themes", "terms" },
 }
 
-return options
+util.register_keymap {
+  n = {
+    ["<leader>ff"] = { builtin.find_files, desc = "Find files" },
+    ["<leader>fw"] = { builtin.live_grep, desc = "Live grep" },
+    ["<leader>fb"] = { builtin.buffers, desc = "Find buffers" },
+    ["<leader>fh"] = { builtin.help_tags, desc = "Help page" },
+    ["<leader>fo"] = { builtin.oldfiles, desc = "Find oldfiles" },
+    ["<leader>fz"] = { builtin.current_buffer_fuzzy_find, desc = "Find in current buffer" },
+    ["<leader>cm"] = { builtin.git_commits, desc = "Git commits" },
+    ["<leader>gt"] = { builtin.git_status, desc = "Git status" },
+    ["<leader>ma"] = { builtin.marks, desc = "telescope bookmarks" },
+
+    ["<leader>fa"] = {
+      function()
+        builtin.find_files { follow = true, no_ignore = true, hidden = true }
+      end,
+      desc = "Find all",
+    },
+  },
+}

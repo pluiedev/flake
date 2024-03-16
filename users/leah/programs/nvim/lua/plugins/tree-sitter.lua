@@ -1,6 +1,4 @@
-local options = {
-  ensure_installed = { "lua" },
-
+require("nvim-treesitter.configs").setup {
   highlight = {
     enable = true,
     use_languagetree = true,
@@ -8,5 +6,3 @@ local options = {
 
   indent = { enable = true },
 }
-
-return options
