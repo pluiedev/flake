@@ -112,7 +112,7 @@
             definedAliases = ["@npr"];
           };
           "Home Manager Settings" = {
-            urls = [(search "https://mipmip.github.io/home-manager-option-search/" "query")];
+            urls = [(search "https://home-manager-options.extranix.com" "query")];
             icon = nixIcon;
             definedAliases = ["@hm"];
           };
