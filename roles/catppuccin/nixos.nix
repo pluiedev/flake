@@ -56,7 +56,7 @@ in {
 
     # TODO: figure out how to apply this via plasmarc
     hm.home.packages = let
-      plasmaEnabled = config.services.xserver.desktopManager.plasma6.enable;
+      plasmaEnabled = config.services.desktopManager.plasma6.enable;
     in
       lib.optional plasmaEnabled (pkgs.catppuccin-kde-new.override {
         inherit accent flavour;

@@ -10,19 +10,14 @@
   inherit (lib) mkIf;
 in {
   config = mkIf cfg.enable {
+    services.desktopManager.plasma6.enable = true;
     services.xserver = {
-      desktopManager.plasma6.enable = true;
       displayManager.defaultSession = "plasma";
       displayManager.sddm = {
         enable = true;
         wayland.enable = true;
       };
     };
-
-    # Hibernate fix
-    boot.extraModprobeConfig = ''
-      options nvidia NVreg_PreserveVideoMemoryAllocations=1 NVreg_TemporaryFilePath=/var/tmp
-    '';
 
     xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-kde];
 
