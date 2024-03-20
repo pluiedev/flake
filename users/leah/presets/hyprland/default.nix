@@ -21,7 +21,10 @@
   hm.programs = {
     kitty.enable = true;
 
-    wpaperd.enable = true;
+    wpaperd = {
+      enable = true;
+      settings.default.path = "${./wallpaper.png}";
+    };
 
     fuzzel = {
       enable = true;

@@ -22,8 +22,6 @@
     };
   };
 
-  hm.programs.wpaperd.settings.default.path = "${./wallpaper.png}";
-
   specialisation.china.configuration = {
     roles.mirrors.chinese.enable = true;
     environment.variables.NIXOS_SPECIALISATION = "china";
