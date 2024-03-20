@@ -1,22 +1,4 @@
 {pkgs, ...}: let
-  tree-sitter-just = pkgs.tree-sitter.buildGrammar {
-    language = "just";
-    version = "0-unstable-20240311";
-    src = pkgs.fetchFromGitHub {
-      owner = "IndianBoy42";
-      repo = "tree-sitter-just";
-      rev = "5fe40d3622042c66465c4673b209a71e8376f902";
-      hash = "sha256-Mw8lDpQHpI/L0p1qQYsycGT7ExMMFuYPjrb2Jbsyowo=";
-    };
-  };
-
-  nvim-treesitter' = let
-    inherit (pkgs.vimPlugins) nvim-treesitter;
-  in
-    nvim-treesitter.withPlugins (
-      _: nvim-treesitter.allGrammars ++ [tree-sitter-just]
-    );
-
   # TODO: upstream
   format-on-save = pkgs.vimUtils.buildVimPlugin {
     pname = "format-on-save.nvim";
@@ -69,7 +51,8 @@ in {
     (luaConf nvim-lspconfig "lspconfig")
 
     # Syntax highlighting
-    (luaConf nvim-treesitter' "tree-sitter")
+    (luaConf nvim-treesitter.withAllGrammars "tree-sitter")
+    vim-just
 
     # File browser
     (luaConf neo-tree-nvim "neo-tree")
