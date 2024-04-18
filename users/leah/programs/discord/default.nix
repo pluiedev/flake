@@ -61,7 +61,14 @@
           enabled = true;
           bothStyles = false;
         };
+        BetterRoleContext.enabled = true;
         BetterUploadButton.enabled = true;
+        BetterSettings = {
+          enabled = true;
+          disableFade = true;
+          organizeMenu = true;
+          eagerLoad = true;
+        };
         BiggerStreamPreview.enabled = true;
         BlurNSFW.enabled = true;
         CallTimer.enabled = true;
@@ -92,10 +99,12 @@
         FixInbox.enabled = true;
         FixImagesQuality.enabled = true;
         FixSpotifyEmbeds.enabled = true;
+        FriendsSince.enabled = true;
         GifPaste.enabled = true;
         GreetStickerPicker.enabled = true;
         HideAttachments.enabled = true;
         iLoveSpam.enabled = true;
+        ImageZoom.enabled = true;
         KeepCurrentChannel.enabled = true;
         MemberCount.enabled = true;
         MessageLinkEmbeds.enabled = true;
@@ -143,6 +152,13 @@
           ignoreBlocked = true;
         };
         MutualGroupDMs.enabled = true;
+        NewGuildSettings = {
+          enabled = true;
+          guild = false;
+          everyone = false;
+          role = false;
+          showAllChannels = true;
+        };
         NoDevtoolsWarning.enabled = true;
         NoF1.enabled = true;
         NoReplyMention = {
@@ -204,8 +220,9 @@
         };
         RevealAllSpoilers.enabled = true;
         ReverseImageSearch.enabled = true;
+        ReviewDB.enabled = false; # Fuck ReviewDB
         RoleColorEverywhere = {
-          # enabled = true;
+          enabled = true;
           chatMentions = true;
           memberList = true;
           voiceUsers = true;
@@ -278,6 +295,8 @@
         ValidUser.enabled = true;
         VcNarrator = {
           enabled = true;
+          # Cursed, I know.
+          voice = "Chinese (Mandarin, latin as English)+female2 espeak-ng";
           joinMessage = "{{USER}} joined";
           sayOwnName = false;
           latinOnly = false;

@@ -1,10 +1,10 @@
 {
   description = "Leah's NixOS configurations + more";
 
-  nixConfig = {
-    extra-substituters = ["https://cache.garnix.io"];
-    extra-trusted-public-keys = ["cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="];
-  };
+  #nixConfig = {
+  #extra-substituters = ["https://cache.garnix.io"];
+  #extra-trusted-public-keys = ["cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="];
+  #};
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
@@ -16,13 +16,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    catppuccin.url = "github:catppuccin/nix";
+
     # Only ever used for tracking and locking revs
     ctp-discord-compiled = {
       url = "github:catppuccin/discord/gh-pages";
       flake = false;
     };
-
-    ctp-nix.url = "github:Stonks3141/ctp-nix";
 
     # Only ever used for tracking and locking revs
     ctp-vscode-compiled = {
@@ -56,14 +56,6 @@
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";

@@ -21,7 +21,7 @@ in {
         cursor.enable = true;
       };
 
-      cursorTheme.size = 24;
+      cursorTheme.size = 32;
     };
 
     hm.wayland.windowManager.hyprland.catppuccin.enable = true;

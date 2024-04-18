@@ -1,14 +1,14 @@
 {
   config,
   lib,
-  ctp-nix,
+  catppuccin,
   ...
 }: let
   inherit (lib) mkEnableOption mkIf mkDefault mkOption types;
   inherit (config.roles.catppuccin) enable flavour accent;
 in {
   imports = [
-    ctp-nix.nixosModules.catppuccin
+    catppuccin.nixosModules.catppuccin
     ./discord.nix
     ./sddm.nix
   ];
@@ -31,7 +31,7 @@ in {
     hm = {
       catppuccin = {inherit accent flavour;};
 
-      imports = [ctp-nix.homeManagerModules.catppuccin];
+      imports = [catppuccin.homeManagerModules.catppuccin];
 
       programs = {
         bat.catppuccin.enable = mkDefault true;

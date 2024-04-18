@@ -4,7 +4,8 @@
 }
 
 * {
-  --font-primary: Rubik Light, system-ui, sans-serif;
+  --font-primary: Rethink Sans, system-ui, sans-serif;
+  --font-code: Iosevka Nerd Font, Iosevka, JetBrains Mono, monospace;
 }
 
 *[href="/discovery"],                       /* Discovery Tab */

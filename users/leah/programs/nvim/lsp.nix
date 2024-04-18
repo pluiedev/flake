@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   hm.home.packages = with pkgs; [
-    # language servers
+    # Language servers
     lua-language-server
     ltex-ls
     marksman
@@ -16,7 +16,7 @@
     typescript
     vscode-langservers-extracted
 
-    # formatters
+    # Formatters
     alejandra
     black
     prettierd

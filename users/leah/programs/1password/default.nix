@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   # TODO: horrendously broken
   # hm = {
   # Use the 1Password CLI plugins
@@ -12,6 +12,11 @@
 
   roles._1password = {
     enable = true;
+
+    # I *somehow* ended up with a local DB whose schema version is newer than stable...
+    # Welp. Whatever, just use beta lmao
+    package = pkgs._1password-gui-beta;
+
     autostart = true;
 
     settings = {

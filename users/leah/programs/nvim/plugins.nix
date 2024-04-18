@@ -52,7 +52,6 @@ in {
 
     # Syntax highlighting
     (luaConf nvim-treesitter.withAllGrammars "tree-sitter")
-    vim-just
 
     # File browser
     (luaConf neo-tree-nvim "neo-tree")

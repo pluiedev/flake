@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) mkEnableOption mkIf mkOption types;
@@ -10,6 +11,10 @@
 in {
   options.roles._1password = {
     enable = mkEnableOption "1Password";
+    package = mkOption {
+      type = types.package;
+      default = pkgs._1password-gui;
+    };
     autostart = mkEnableOption "autostarting 1Password";
 
     settings = mkOption {

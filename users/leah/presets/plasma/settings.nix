@@ -6,66 +6,63 @@
   hm.programs.plasma.configFile = {
     kdeglobals = {
       General = {
-        fixed = "Iosevka Nerd Font,11,-1,5,50,0,0,0,0,0";
-        font = "Rubik,11,-1,5,50,0,0,0,0,0";
-        menuFont = "Rubik,10,-1,5,50,0,0,0,0,0";
-        smallestReadableFont = "Rubik,8,-1,5,50,0,0,0,0,0";
-        toolBarFont = "Rubik,10,-1,5,50,0,0,0,0,0";
+        fixed.value = "Iosevka Nerd Font,11,-1,5,50,0,0,0,0,0";
+        font.value = "Rethink Sans,11,-1,5,50,0,0,0,0,0";
+        menuFont.value = "Rethink Sans,10,-1,5,50,0,0,0,0,0";
+        smallestReadableFont.value = "Rethink Sans,8,-1,5,50,0,0,0,0,0";
+        toolBarFont.value = "Rethink Sans,10,-1,5,50,0,0,0,0,0";
       };
       KDE = {
-        SingleClick = false;
-        widgetStyle = "Breeze";
+        SingleClick.value = false;
+        widgetStyle.value = "Breeze";
       };
-      KScreen.ScaleFactor = 1.25;
     };
 
     kwinrc = {
       Desktops = {
-        Id_1 = "d68bba52-cb75-4199-a86c-6b0595d2c54f";
-        Id_2 = "f312f93f-157d-4701-91f2-02c30d897938";
-        Id_3 = "03f3bc75-080d-4ae5-99e1-9da06b393828";
-        Name_2 = "Flake";
-        Name_3 = "Webdev";
-        Number = 3;
-        Rows = 1;
+        Id_1.value = "d68bba52-cb75-4199-a86c-6b0595d2c54f";
+        Id_2.value = "f312f93f-157d-4701-91f2-02c30d897938";
+        Id_3.value = "03f3bc75-080d-4ae5-99e1-9da06b393828";
+        Name_2.value = "Flake";
+        Name_3.value = "Webdev";
+        Number.value = 3;
+        Rows.value = 1;
       };
 
-      Tiling.padding = 2;
+      Tiling.padding.value = 2;
 
       NightColor = {
-        Active = true;
-        EveningBeginFixed = 2200;
-        Mode = "Times";
-        TransitionTime = 120;
+        Active.value = true;
+        EveningBeginFixed.value = 2200;
+        Mode.value = "Times";
+        TransitionTime.value = 120;
       };
 
       Wayland = lib.mkIf (config.i18n.inputMethod.enabled == "fcitx5") {
         # Fcitx 5
-        VirtualKeyboardEnabled = true;
-        "InputMethod[$e]" = "${config.i18n.inputMethod.package}/share/applications/org.fcitx.Fcitx5.desktop";
+        VirtualKeyboardEnabled.value = true;
+        "InputMethod[$e]".value = "${config.i18n.inputMethod.package}/share/applications/org.fcitx.Fcitx5.desktop";
       };
-
-      Xwayland.Scale = 1.25;
     };
 
     # Make KRunner appear in the center of the screen, like macOS Spotlight
-    krunnerrc.General.FreeFloating = true;
+    krunnerrc.General.FreeFloating.value = true;
 
     plasmarc = {
-      Theme.name = "default";
-      Wallpapers.usersWallpapers = "${./wallpaper.jpg}";
+      Theme.name.value = "default";
+      Wallpapers.usersWallpapers.value = "${./wallpaper.jpg}";
     };
 
     kcminputrc.Mouse = {
-      cursorSize = 32;
-      cursorTheme = "Catppuccin-Mocha-Maroon-Cursors";
+      cursorSize.value = 32;
+      cursorTheme.value = "Catppuccin-Mocha-Maroon-Cursors";
     };
 
     kscreenlockerrc."Greeter.Wallpaper.org.kde.image.General" = {
-      Image = "${./wallpaper.jpg}";
-      PreviewImage = "${./wallpaper.jpg}";
+      Image.value = "${./wallpaper.jpg}";
+      PreviewImage.value = "${./wallpaper.jpg}";
     };
 
-    kxkbrc.Layout.Options = "terminate:ctrl_alt_bksp,compose:ralt";
+    kxkbrc.Layout.Options.value = "terminate:ctrl_alt_bksp,compose:ralt";
   };
 }

@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf getExe optional;
+  inherit (lib) mkIf optional;
   cfg = config.roles._1password;
 in {
   config = let
@@ -32,6 +32,7 @@ in {
       programs = {
         _1password.enable = true;
         _1password-gui = {
+          inherit (cfg) package;
           enable = true;
           polkitPolicyOwners = optional config.roles.base.canSudo config.roles.base.username;
         };

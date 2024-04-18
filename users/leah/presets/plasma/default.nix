@@ -1,9 +1,14 @@
 {
   config,
-  krunner-nix,
+  lib,
   pkgs,
   ...
-}: {
+}: let
+  inherit (config.hm) gtk;
+
+  optionalPackage = opt:
+    lib.optional (opt != null && opt.package != null) opt.package;
+in {
   imports = [
     ./fusuma.nix
     ./sddm.nix
@@ -11,13 +16,17 @@
   ];
 
   boot.plymouth.enable = true;
-  roles.plasma.enable = true;
-  roles.qt.platform = "kde";
+  roles.plasma = {
+    enable = true;
+    krunner-nix.enable = true;
+  };
 
-  hm.gtk.gtk2.configLocation = "${config.hm.xdg.configHome}/gtk-2.0/gtkrc";
+  # KDE manages GTK stuff by itself
+  #hm.gtk.enable = lib.mkForce false;
 
-  hm.home.packages = with pkgs; [
-    krunner-nix.packages.${system}.default
-    wl-clipboard
-  ];
+  hm.home.packages = with pkgs; [wl-clipboard];
+  #++ lib.concatMap optionalPackage [
+  #  gtk.theme
+  #  gtk.cursorTheme
+  #];
 }

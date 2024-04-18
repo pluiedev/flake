@@ -103,7 +103,9 @@ if g.neovide then
   g.neovide_remember_window_size = true
 
   local function scale(f)
-    return function() g.neovide_scale_factor = f(g.neovide_scale_factor) end
+    return function()
+      g.neovide_scale_factor = f(g.neovide_scale_factor)
+    end
   end
 
   util.register_keymap {
@@ -132,3 +134,10 @@ if g.neovide then
     },
   }
 end
+
+-- Make nvim understand what just is
+vim.filetype.add {
+  filename = {
+    ["justfile"] = "just",
+  },
+}
