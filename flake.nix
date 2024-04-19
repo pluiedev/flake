@@ -1,11 +1,6 @@
 {
   description = "Leah's NixOS configurations + more";
 
-  #nixConfig = {
-  #extra-substituters = ["https://cache.garnix.io"];
-  #extra-trusted-public-keys = ["cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="];
-  #};
-
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
 
@@ -58,6 +53,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     plasma-manager = {
@@ -85,8 +85,9 @@
     {inherit inputs;}
     {
       imports = [
+        ./hm-plus
+        ./packages
         ./systems
-        ./templates
       ];
       systems = [
         "x86_64-linux"

@@ -14,19 +14,24 @@ in {
     # to another attrset like { p = 4; "a.b.c.d.e.f" = 3; "a.b.c.e" = 5; }
     pathify = let
       inherit (lib) flatten mapAttrsToList nameValuePair;
+      inherit (builtins) isAttrs listToAttrs;
+
       pathify' = name: value:
-        if (builtins.typeOf value == "set")
+        if isAttrs value
         then
-          flatten (mapAttrsToList (
-              n:
-                if (name != "")
-                then pathify' "${name}.${n}"
-                else pathify' n
-            )
-            value)
-        else nameValuePair name value;
+          flatten (mapAttrsToList (n:
+            pathify' (
+              if name != ""
+              then "${name}.${n}"
+              else n
+            ))
+          value)
+        else [(nameValuePair name value)];
     in
-      v: builtins.listToAttrs (pathify' "" v);
+      v:
+        if isAttrs v
+        then listToAttrs (pathify' "" v)
+        else v;
   in
     mkIf cfg.enable {
       programs = {

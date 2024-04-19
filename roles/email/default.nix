@@ -56,8 +56,8 @@ in {
     };
   };
 
-  config = let
-    accounts' =
+  config.hm.accounts.email = let
+    accounts =
       builtins.mapAttrs (address: account: rec {
         inherit (account) primary realName;
         inherit (account.host) imap smtp;
@@ -68,16 +68,6 @@ in {
       cfg.accounts;
   in
     mkIf cfg.enable {
-      hm.accounts.email.accounts = accounts';
-
-      roles.git.email = let
-        primary = pipe accounts' [
-          (lib.filterAttrs (_: v: v.primary))
-          builtins.attrValues
-          (map (a: a.address))
-        ];
-      in
-        mkIf (primary != [])
-        (builtins.head primary);
+      inherit accounts;
     };
 }

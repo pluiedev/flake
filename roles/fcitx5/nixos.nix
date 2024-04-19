@@ -63,6 +63,8 @@ in {
       };
     };
 
+    hm.i18n.inputMethod.enabled = "fcitx5";
+
     hm.xdg.configFile = {
       "fcitx5/profile" = mkIf (cfg.settings != null) {
         text = mkFcitx5Cfg cfg.settings;

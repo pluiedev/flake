@@ -47,9 +47,7 @@
   programs = {
     steam = {
       enable = true;
-      extraCompatPackages = with pkgs; [
-        proton-ge-bin
-      ];
+      extraCompatPackages = [pkgs.proton-ge-bin];
       remotePlay.openFirewall = true;
     };
     nix-ld.enable = true;
@@ -92,6 +90,25 @@
       nix-direnv.enable = true;
     };
 
+    gh = {
+      enable = true;
+      settings.git_protocol = "ssh";
+    };
+
+    git = {
+      enable = true;
+      userName = config.roles.base.fullName;
+      userEmail = "hi@pluie.me";
+
+      signing.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC7uJGE2/25M4a3DIVxtnTA5INqWsFGw+49qHXaN/kqy";
+      signingFormat = "ssh";
+
+      extraConfig = {
+        init.defaultBranch = "main";
+        push.autoSetupRemote = true;
+      };
+    };
+
     hyfetch = {
       enable = true;
       settings = {
@@ -102,7 +119,6 @@
       };
     };
 
-    nix-index.enable = true;
     obs-studio.enable = true;
     ripgrep.enable = true;
 

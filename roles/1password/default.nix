@@ -30,7 +30,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    roles.git.signing.signer = mkIf cfg.sshAgent.enable "${package}/bin/op-ssh-sign";
+    hm.programs.git.signer = mkIf cfg.sshAgent.enable "${package}/bin/op-ssh-sign";
 
     hm.home.file.".ssh/config" = mkIf cfg.sshAgent.enable {
       text = ''

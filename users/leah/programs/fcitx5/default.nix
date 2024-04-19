@@ -1,7 +1,4 @@
 {pkgs, ...}: {
-  hm.home.packages = [pkgs.catppuccin-fcitx5];
-  environment.pathsToLink = ["/share/fcitx5"];
-
   roles.fcitx5 = {
     enable = true;
 
@@ -19,8 +16,6 @@
     rime = {
       enable = true;
 
-      dataPkgs = with pkgs; [rime-data rime-japanese];
-
       settings = let
         luna_pinyin.patch."speller/algebra" = [
           "erase/^xx$/"
@@ -37,8 +32,7 @@
       in {
         default.patch.schema_list = [
           {schema = "luna_pinyin_simp";}
-          # {schema = "luna_pinyin";}
-          {schema = "japanese";}
+          {schema = "luna_pinyin";}
         ];
         inherit luna_pinyin;
         luna_pinyin_simp = luna_pinyin;

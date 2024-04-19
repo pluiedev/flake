@@ -33,6 +33,8 @@ in {
 
       imports = [catppuccin.homeManagerModules.catppuccin];
 
+      i18n.inputMethod.fcitx5.catppuccin.enable = true;
+
       programs = {
         bat.catppuccin.enable = mkDefault true;
         fish.catppuccin.enable = mkDefault true;

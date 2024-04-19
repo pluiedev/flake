@@ -10,12 +10,14 @@
   inherit (lib) mkIf;
 in {
   config = mkIf cfg.enable {
-    services.desktopManager.plasma6.enable = true;
-    services.xserver = {
-      displayManager.defaultSession = "plasma";
-      displayManager.sddm = {
-        enable = true;
-        wayland.enable = true;
+    services = {
+      desktopManager.plasma6.enable = true;
+      displayManager = {
+        defaultSession = "plasma";
+        sddm = {
+          enable = true;
+          wayland.enable = true;
+        };
       };
     };
 
