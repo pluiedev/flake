@@ -33,7 +33,6 @@
     # Command-line apps
     any-nix-shell
     cachix
-    comma
     just
     nix-output-monitor
     nurl
@@ -118,6 +117,8 @@
         color_align.mode = "horizontal";
       };
     };
+
+    nix-index-database.comma.enable = true;
 
     obs-studio.enable = true;
     ripgrep.enable = true;
