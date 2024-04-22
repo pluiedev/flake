@@ -49,7 +49,10 @@
       extraCompatPackages = [pkgs.proton-ge-bin];
       remotePlay.openFirewall = true;
     };
-    nix-ld.enable = true;
+    nix-ld = {
+      enable = true;
+      package = pkgs.nix-ld-rs;
+    };
   };
 
   hm.programs = {
