@@ -36,6 +36,7 @@
     just
     nix-output-monitor
     nurl
+    sbctl
     xclip
 
     # Java stuff
