@@ -10,7 +10,6 @@
     lib.optional (opt != null && opt.package != null) opt.package;
 in {
   imports = [
-    ./fusuma.nix
     ./sddm.nix
     ./settings.nix
   ];
