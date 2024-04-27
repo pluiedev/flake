@@ -46,8 +46,7 @@ in {
   roles.qt = {
     platform = "qt5ct";
 
-    qt5ct.settings = settings;
-    # TODO: wait till someone packages Plasma 6
-    qt6ct.settings = lib.recursiveUpdate settings {Appearance.style = "Fusion";};
+    qt5ct = {inherit settings;};
+    qt6ct = {inherit settings;};
   };
 }
