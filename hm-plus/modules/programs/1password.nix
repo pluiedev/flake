@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (lib) mkIf mkMerge mkOption mkEnableOption mkPackageOption;
+  inherit (lib) mkIf mkMerge mkOption mkEnableOption mkPackageOption optional;
   cfg = config.programs._1password;
 
   format = pkgs.formats.json {};
@@ -39,8 +39,10 @@ in {
       default = ["_1password-gui"];
     };
 
+    autostart = mkEnableOption "autostarting 1Password";
+
     settings = mkOption {
-      type = format.type;
+      inherit (format) type;
       default = {};
       description = ''
         Configuration written to {file}`$XDG_CONFIG_HOME/1Password/settings/settings.json`.
@@ -57,9 +59,14 @@ in {
   };
   config = mkIf cfg.enable (mkMerge [
     {
-      home.packages = [cfg.package];
+      home.packages =
+        [cfg.package]
+        ++ optional cfg.autostart (pkgs.makeAutostartItem {
+          name = "1password";
+          inherit (cfg) package;
+        });
 
-      xdg.configFile."1Password/settings/settings.json".source = format.generate "1password-settings" (
+      xdg.configFile."1Password/settings/settings.json".source = format.generate "1password-settings.json" (
         pathify ({version = 1;} // cfg.settings)
       );
     }

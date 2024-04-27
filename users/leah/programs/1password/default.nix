@@ -1,16 +1,19 @@
-{pkgs, ...}: {
-  # TODO: horrendously broken
-  # hm = {
-  # Use the 1Password CLI plugins
-  #   home.sessionVariables.OP_PLUGIN_ALIASES_SOURCED = "1";
-  #
-  #   programs.fish.shellAliases = {
-  #     cargo = "op plugin run -- cargo";
-  #     gh = "op plugin run -- gh";
-  #   };
-  # };
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
+  programs = {
+    _1password.enable = true;
+    _1password-gui = {
+      enable = true;
+      package = pkgs._1password-gui-beta;
+      polkitPolicyOwners = lib.optional config.roles.base.canSudo config.roles.base.username;
+    };
+  };
 
-  roles._1password = {
+  hm.programs._1password = {
     enable = true;
 
     # I *somehow* ended up with a local DB whose schema version is newer than stable...
@@ -44,9 +47,25 @@
         # Display key names when authorizing connections
         storeKeyTitles = true;
         storeSshKeyTitlesResponseGiven = true;
-        # FIXME: Rich prompts are currently broken on Nix! See nixpkgs#258139
-        authPromptsV2.enabled = false;
+        authPromptsV2.enabled = true;
       };
+
+      # Scan disk for dev credentials
+      devWatchtower.localDiskScanning = true;
     };
   };
+
+  # Use the 1Password CLI plugins
+  hm.home.sessionVariables = {
+    OP_PLUGIN_ALIASES_SOURCED = "1";
+    OP_BIOMETRIC_UNLOCK_UNABLED = "true";
+  };
+
+  hm.programs.fish.shellAliases = lib.pipe ["cargo" "gh"] [
+    (map (name: {
+      inherit name;
+      value = "${lib.getExe' pkgs._1password "op"} plugin run -- ${name}";
+    }))
+    builtins.listToAttrs
+  ];
 }
