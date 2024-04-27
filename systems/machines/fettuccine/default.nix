@@ -1,39 +1,20 @@
-{
-  nixos-hardware,
-  lanzaboote,
-  lib,
-  ...
-}: {
+{nixos-hardware, ...}: {
   imports = with nixos-hardware.nixosModules; [
     ./hardware-configuration.nix
 
     common-hidpi
     asus-zephyrus-gu603h
-
-    lanzaboote.nixosModules.lanzaboote
   ];
 
   roles = {
-    bluetooth.enable = true;
+    boot.lanzaboote.enable = true;
     nvidia.enable = true;
   };
 
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/etc/secureboot";
-  };
-  boot.loader.systemd-boot.enable = lib.mkForce false;
+  hardware.bluetooth.enable = true;
 
-  hardware.nvidia = {
-    dynamicBoost.enable = true;
-
-    prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-    };
-  };
+  # Other Nvidia settings are set via nixos-hardware
+  hardware.nvidia.dynamicBoost.enable = true;
 
   specialisation.china.configuration = {
     roles.mirrors.chinese.enable = true;
