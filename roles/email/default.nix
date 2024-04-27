@@ -4,7 +4,7 @@
   ...
 }: let
   cfg = config.roles.email;
-  inherit (lib) mkEnableOption mkIf mkOption types pipe;
+  inherit (lib) mkEnableOption mkIf mkOption types;
 
   serverModule.options = {
     host = mkOption {
