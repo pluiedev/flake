@@ -5,14 +5,10 @@
   ...
 }: let
   inherit (lib) mkIf mkEnableOption mkOption mapAttrs' nameValuePair types;
-  cfg = config.roles.fcitx5.rime;
-
-  mkRimeCfgs = mapAttrs' (
-    n: v:
-      nameValuePair "fcitx5/rime/${n}.custom.yaml" {text = lib.generators.toYAML {} v;}
-  );
+  cfg = config.i18n.inputMethod.fcitx5.rime;
+  format = pkgs.formats.yaml {};
 in {
-  options.roles.fcitx5.rime = {
+  options.i18n.inputMethod.fcitx5.rime = {
     enable = mkEnableOption "the Rime input engine for Fcitx5";
 
     dataPkgs = mkOption {
@@ -21,7 +17,7 @@ in {
     };
 
     settings = mkOption {
-      type = types.attrsOf types.anything;
+      inherit (format) type;
       default = {};
       example = {
         default.patch.schema_list = [
@@ -33,11 +29,16 @@ in {
   };
 
   config = mkIf cfg.enable {
-    roles.fcitx5.addons = [
+    i18n.inputMethod.fcitx5.addons = [
       (pkgs.fcitx5-rime.override {
         rimeDataPkgs = cfg.dataPkgs;
       })
     ];
-    hm.xdg.dataFile = mkRimeCfgs cfg.settings;
+    xdg.dataFile =
+      mapAttrs' (
+        n: v:
+          nameValuePair "fcitx5/rime/${n}.custom.yaml" {source = format.generate n v;}
+      )
+      cfg.settings;
   };
 }
