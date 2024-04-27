@@ -1,21 +1,20 @@
 {
-  roles.discord = {
+  hm.programs.vesktop = {
     enable = true;
 
-    vesktop = {
-      enable = true;
-      useSystemVencord = false;
-
-      settings = {
-        minimizeToTray = "on";
-        discordBranch = "stable";
-        arRPC = "on";
-        splashColor = "rgb(235, 160, 172)"; # maroon
-        splashBackground = "rgb(30, 30, 46)"; # mantle
-      };
+    settings = {
+      minimizeToTray = "on";
+      discordBranch = "stable";
+      arRPC = "on";
+      splashColor = "rgb(235, 160, 172)"; # maroon
+      splashBackground = "rgb(30, 30, 46)"; # mantle
     };
 
-    vencord.css = builtins.readFile ./vencord.css;
+    vencord = {
+      useSystemPackage = false;
+      css = builtins.readFile ./vencord.css;
+    };
+
     vencord.settings = {
       notifyAboutUpdates = true;
       autoUpdate = false;
