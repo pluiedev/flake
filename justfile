@@ -19,8 +19,6 @@ check:
 switch *args: (_rebuild "switch" args)
 test *args: (_rebuild "test" args)
 
-update: (switch "--recreate-lock-file")
-
 # blatantly stolen from getchoo
 ci:
     nix run \
@@ -40,5 +38,7 @@ common_build_flags := "--flake .#$HOSTNAME --keep-going -L"
 additional_build_flags := if os() == "linux" { "${NIXOS_SPECIALISATION:+--specialisation $NIXOS_SPECIALISATION}" } else { "" }
 
 _rebuild cmd *args:
+  #!/usr/bin/env bash
+  set -o pipefail # fail if the build fails instead of blindly returning 0 as nom succeeds
   {{rebuild}} {{cmd}} {{common_build_flags}} {{additional_build_flags}} {{args}} |& nix run n#nix-output-monitor
 
