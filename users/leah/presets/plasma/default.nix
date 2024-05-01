@@ -11,7 +11,7 @@
 in {
   imports = [
     ./sddm.nix
-    ./settings.nix
+    ./settings
   ];
 
   boot.plymouth.enable = true;

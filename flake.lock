@@ -467,15 +467,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1713552700,
-        "narHash": "sha256-R2+GRjHFEapDa08FnuJjweAiE+5W7VKnBxNo3tC/Yzo=",
-        "owner": "pjones",
+        "lastModified": 1714563971,
+        "narHash": "sha256-4eqST81ihz+qFQ/XVKfMIEuV+Tpk2YKSP0HNKNBU9Us=",
+        "owner": "pluiedev",
         "repo": "plasma-manager",
-        "rev": "bd743369ef402d269885225af93064f22b640990",
+        "rev": "b138e3f06163acff75ad57a04a6e2a2c89c403fc",
         "type": "github"
       },
       "original": {
-        "owner": "pjones",
+        "owner": "pluiedev",
+        "ref": "panel-settings",
         "repo": "plasma-manager",
         "type": "github"
       }
