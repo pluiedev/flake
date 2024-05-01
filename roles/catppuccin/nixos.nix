@@ -40,8 +40,9 @@ in {
     hm.home.packages = let
       plasmaEnabled = config.services.desktopManager.plasma6.enable;
     in
-      lib.optional plasmaEnabled (pkgs.catppuccin-kde-new.override {
-        inherit accent flavour;
+      lib.optional plasmaEnabled (pkgs.catppuccin-kde.override {
+        flavour = [flavour];
+        accents = [accent];
       })
       ++ [
         (pkgs.catppuccin-konsole.override {

@@ -56,16 +56,17 @@
   };
 
   # Use the 1Password CLI plugins
-  hm.home.sessionVariables = {
-    OP_PLUGIN_ALIASES_SOURCED = "1";
-    OP_BIOMETRIC_UNLOCK_UNABLED = "true";
-  };
+  # TODO: no workey!
+  #hm.home.sessionVariables = {
+  #  OP_PLUGIN_ALIASES_SOURCED = "1";
+  #  OP_BIOMETRIC_UNLOCK_UNABLED = "true";
+  #};
 
-  hm.programs.fish.shellAliases = lib.pipe ["cargo" "gh"] [
-    (map (name: {
-      inherit name;
-      value = "${lib.getExe' pkgs._1password "op"} plugin run -- ${name}";
-    }))
-    builtins.listToAttrs
-  ];
+  #hm.programs.fish.shellAliases = lib.pipe ["cargo" "gh"] [
+  #  (map (name: {
+  #    inherit name;
+  #    value = "${lib.getExe' pkgs._1password "op"} plugin run -- ${name}";
+  #  }))
+  #  builtins.listToAttrs
+  #];
 }

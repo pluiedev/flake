@@ -56,12 +56,17 @@
           forceOpen = false;
         };
         BetterGifAltText.enabled = true;
+        BetterGifPicker.enabled = true;
         BetterRoleDot = {
           enabled = true;
           bothStyles = false;
         };
         BetterRoleContext.enabled = true;
         BetterUploadButton.enabled = true;
+        BetterSessions = {
+          enabled = true;
+          backgroundCheck = true;
+        };
         BetterSettings = {
           enabled = true;
           disableFade = true;
@@ -95,15 +100,18 @@
           nitroFirst = true;
         };
         FavoriteGifSearch.enabled = true;
+        FixCodeblockGap.enabled = true;
         FixInbox.enabled = true;
         FixImagesQuality.enabled = true;
         FixSpotifyEmbeds.enabled = true;
+        FixYoutubeEmbeds.enabled = true;
         FriendsSince.enabled = true;
         GifPaste.enabled = true;
         GreetStickerPicker.enabled = true;
         HideAttachments.enabled = true;
         iLoveSpam.enabled = true;
         ImageZoom.enabled = true;
+        ImplicitRelationships = true;
         KeepCurrentChannel.enabled = true;
         MemberCount.enabled = true;
         MessageLinkEmbeds.enabled = true;
@@ -258,6 +266,7 @@
           keepSpotifyActivityOnIdle = false;
         };
         StartupTimings.enabled = true;
+        StreamerModeOnStream.enabled = true;
         SuperReactionTweaks = {
           enabled = true;
           superReactByDefault = false;

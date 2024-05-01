@@ -82,7 +82,10 @@
     defaultShell = true;
   };
 
-  environment.variables.NIXOS_OZONE_WL = "1";
+  environment.variables = {
+    NIXOS_OZONE_WL = "1";
+    SDL_VIDEODRIVER = "wayland";
+  };
 
   networking.firewall = {
     enable = true;

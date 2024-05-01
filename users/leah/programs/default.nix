@@ -14,34 +14,20 @@
     ./rust
   ];
 
-  virtualisation.docker.enable = true;
-
-  nixpkgs.overlays = [blender-bin.overlays.default];
-
   hm.home.packages = with pkgs; [
     # Apps
-    blender_3_6
+    (blender-bin.packages.${pkgs.system}.default)
     chromium
     gimp
     inkscape-with-extensions
-    kdenlive
-    libreoffice-qt
-    prismlauncher
-    thunderbird
     vlc
 
     # Command-line apps
-    any-nix-shell
-    cachix
     just
+    fastfetch
     nix-output-monitor
     nurl
-    sbctl
     xclip
-
-    # Java stuff
-    jetbrains.idea-community
-    jdk17
   ];
 
   programs = {
@@ -119,6 +105,7 @@
         mode = "rgb";
         lightness = 0.60;
         color_align.mode = "horizontal";
+        backend = "fastfetch";
       };
     };
 
@@ -130,11 +117,6 @@
     starship = {
       enable = true;
       settings = builtins.fromTOML (builtins.readFile ./starship.toml);
-    };
-
-    thunderbird = {
-      enable = true;
-      profiles.${config.roles.base.username}.isDefault = true;
     };
   };
 }
