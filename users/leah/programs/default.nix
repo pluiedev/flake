@@ -2,7 +2,7 @@
   config,
   pkgs,
   lib,
-  blender-bin,
+  inputs,
   ...
 }: {
   imports = [
@@ -17,7 +17,7 @@
 
   hm.home.packages = with pkgs; [
     # Apps
-    (blender-bin.packages.${pkgs.system}.default)
+    (inputs.blender-bin.packages.${pkgs.system}.default)
     chromium
     gimp
     inkscape-with-extensions

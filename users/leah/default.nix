@@ -1,8 +1,7 @@
 {
   config,
   pkgs,
-  nix-index-database,
-  self,
+  inputs,
   ...
 }: {
   imports = [
@@ -12,8 +11,8 @@
   ];
 
   hm.imports = [
-    nix-index-database.hmModules.nix-index
-    self.hmModules.hm-plus
+    inputs.nix-index-database.hmModules.nix-index
+    inputs.self.hmModules.hm-plus
   ];
 
   roles.base = {
@@ -71,7 +70,7 @@
 
     defaults = {
       serif = ["Libertinus Serif" "LXGW WenKai"];
-      sansSerif = ["Rubik" "LXGW Neo XiHei"];
+      sansSerif = ["Rethink Sans" "LXGW Neo XiHei"];
       emoji = ["Noto Color Emoji"];
       monospace = ["Iosevka Nerd Font" "LXGW Neo XiHei"];
     };

@@ -1,5 +1,5 @@
-{nixos-hardware, ...}: {
-  imports = with nixos-hardware.nixosModules; [
+{inputs, ...}: {
+  imports = with inputs.nixos-hardware.nixosModules; [
     ./hardware-configuration.nix
 
     common-pc

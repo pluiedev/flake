@@ -14,5 +14,5 @@ inputs @ {
 
     {system.stateVersion = 4;}
   ];
-  specialArgs = inputs;
+  specialArgs = {inherit inputs;};
 }

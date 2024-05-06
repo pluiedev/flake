@@ -1,8 +1,8 @@
 {
-  self,
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   system = {
@@ -22,6 +22,6 @@
       flags = ["--refresh"];
     };
 
-    configurationRevision = self.rev or self.dirtyRev or "unknown-dirty";
+    configurationRevision = inputs.self.rev or inputs.self.dirtyRev or "unknown-dirty";
   };
 }

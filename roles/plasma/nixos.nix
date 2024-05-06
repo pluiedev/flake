@@ -2,8 +2,7 @@
   config,
   lib,
   pkgs,
-  plasma-manager,
-  krunner-nix,
+  inputs,
   ...
 }: let
   cfg = config.roles.plasma;
@@ -25,9 +24,9 @@ in {
     roles.qt.platform = "kde";
 
     hm = {
-      imports = [plasma-manager.homeManagerModules.plasma-manager];
+      imports = [inputs.plasma-manager.homeManagerModules.plasma-manager];
 
-      home.packages = lib.optional cfg.krunner-nix.enable krunner-nix.packages.${pkgs.system}.default;
+      home.packages = lib.optional cfg.krunner-nix.enable inputs.krunner-nix.packages.${pkgs.system}.default;
 
       # Janky workaround
       # https://github.com/nix-community/home-manager/issues/1586

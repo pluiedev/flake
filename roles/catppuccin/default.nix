@@ -1,14 +1,14 @@
 {
   config,
   lib,
-  catppuccin,
+  inputs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkIf mkDefault mkOption types;
+  inherit (lib) mkEnableOption mkIf mkOption types;
   inherit (config.roles.catppuccin) enable flavour accent;
 in {
   imports = [
-    catppuccin.nixosModules.catppuccin
+    inputs.catppuccin.nixosModules.catppuccin
     ./discord.nix
     ./sddm.nix
   ];
@@ -32,7 +32,7 @@ in {
       enable = true;
     };
     hm = {
-      imports = [catppuccin.homeManagerModules.catppuccin];
+      imports = [inputs.catppuccin.homeManagerModules.catppuccin];
 
       catppuccin = {
         inherit accent flavour;

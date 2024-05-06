@@ -1,5 +1,5 @@
-{nixos-hardware, ...}: {
-  imports = with nixos-hardware.nixosModules; [
+{inputs, ...}: {
+  imports = with inputs.nixos-hardware.nixosModules; [
     ./hardware-configuration.nix
 
     common-hidpi
@@ -8,7 +8,7 @@
 
   roles = {
     boot.lanzaboote.enable = true;
-    nvidia.enable = true;
+    #nvidia.enable = true;
   };
 
   hardware.bluetooth.enable = true;

@@ -1,8 +1,7 @@
 {
   config,
   lib,
-  ctp-discord-compiled,
-  ctp-vscode-compiled,
+  inputs,
   ...
 }: let
   inherit (lib) mkEnableOption mkIf;
@@ -10,9 +9,9 @@
   cfg = config.hm.programs.discord.catppuccin;
 
   vencord.settings = {
-    themeLinks = ["https://raw.githubusercontent.com/catppuccin/discord/${ctp-discord-compiled.rev}/dist/catppuccin-${flavour}-${accent}.theme.css"];
+    themeLinks = ["https://raw.githubusercontent.com/catppuccin/discord/${inputs.ctp-discord-compiled.rev}/dist/catppuccin-${flavour}-${accent}.theme.css"];
 
-    plugins.ShikiCodeblocks.theme = "https://raw.githubusercontent.com/catppuccin/vscode/${ctp-vscode-compiled.rev}/${flavour}.json";
+    plugins.ShikiCodeblocks.theme = "https://raw.githubusercontent.com/catppuccin/vscode/${inputs.ctp-vscode-compiled.rev}/${flavour}.json";
   };
 in {
   # TODO: make these "catppuccin-plus" options

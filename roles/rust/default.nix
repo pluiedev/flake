@@ -2,7 +2,7 @@
   lib,
   pkgs,
   config,
-  rust-overlay,
+  inputs,
   ...
 }: let
   cfg = config.roles.rust;
@@ -54,7 +54,7 @@ in {
     toTOMLFile = pkgs.formats.toml {};
   in
     mkIf cfg.enable {
-      nixpkgs.overlays = [rust-overlay.overlays.default];
+      nixpkgs.overlays = [inputs.rust-overlay.overlays.default];
 
       hm = {
         home.packages = [cfg.package];

@@ -29,7 +29,7 @@
       url = "sourcehut:~rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "ragenix/flake-utils";
+        flake-utils.follows = "flake-utils";
       };
     };
 
@@ -37,6 +37,9 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+
+    # Only for input deduplication
+    flake-utils.url = "github:numtide/flake-utils";
 
     krunner-nix = {
       url = "github:pluiedev/krunner-nix";
@@ -77,15 +80,10 @@
       };
     };
 
-    ragenix = {
-      url = "github:yaxitech/ragenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "ragenix/flake-utils";
+      inputs.flake-utils.follows = "flake-utils";
     };
   };
 

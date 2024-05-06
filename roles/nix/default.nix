@@ -1,14 +1,14 @@
 {
   lib,
-  nixpkgs,
+  inputs,
   ...
-} @ inputs: let
+}: let
   inherit (lib) mkDefault;
 in {
   nix = {
     registry = {
-      nixpkgs.flake = nixpkgs;
-      n.flake = nixpkgs;
+      nixpkgs.flake = inputs.nixpkgs;
+      n.flake = inputs.nixpkgs;
     };
     nixPath = let
       toNixPath = input: "${input}=${inputs.${input}.outPath}";

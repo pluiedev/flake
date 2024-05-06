@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  firefox-addons,
+  inputs,
   ...
 }: {
   hm.programs.firefox = {
@@ -21,7 +21,7 @@
             meta.license.free = true;
           };
       in
-        with firefox-addons.packages.${pkgs.system};
+        with inputs.firefox-addons.packages.${pkgs.system};
           map gaslight [
             # Essentials
             auto-tab-discard
