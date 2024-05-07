@@ -1,4 +1,4 @@
-{lib, ...}: {
+{
   hm.programs.plasma.panels = let
     base = {
       hiding = "dodgewindows";
@@ -44,19 +44,6 @@
           }
           {
             systemMonitor = {
-              title = "GPU Usage";
-              sensors = [
-                {
-                  name = "gpu/gpu1/usage";
-                  color = "180,190,254"; # Lavender
-                }
-              ];
-              totalSensors = ["gpu/gpu1/usage"];
-              textOnlySensors = ["gpu/gpu1/temperature" "gpu/gpu1/frequency" "gpu/gpu1/power" "gpu/gpu1/usedVram" "gpu/gpu1/totalVram"];
-            };
-          }
-          {
-            systemMonitor = {
               title = "Memory Usage";
               sensors = [
                 {
@@ -88,29 +75,18 @@
       }
       {
         alignment = "right";
-        widgets = ["org.kde.plasma.systemtray"];
-
-        extraSettings = ''
-          // Yes, trying to customize the system tray is fucking cursed.
-
-          // Why can't we just use panelWidgets["org.kde.plasma.systemtray"], you say?
-          // Well, that's because SOMEHOW the widget you get from that is DIFFERENT
-          // from the REAL system tray widget! *sigh*
-
-          for (const wid of panel.widgets(["org.kde.plasma.systemtray"])) {
-            const tray = desktopById(wid.readConfig("SystrayContainmentId"));
-            if (!tray) continue; // if somehow the containment doesn't exist
-
-            tray.writeConfig("hiddenItems", [
-              "org.kde.plasma.brightness",
-              "org.kde.plasma.clipboard",
-            ]);
-
-            // At least customizing subwidgets is blissfully simple.
-            const battery = tray.addWidget("org.kde.plasma.battery");
-            battery.writeConfig("showPercentage", true);
+        widgets = [
+          {
+            systemTray = {
+              icons.scaleToFit = true;
+              items = {
+                shown = ["org.kde.plasma.battery"];
+                hidden = ["org.kde.plasma.brightness" "org.kde.plasma.clipboard"];
+                configs.battery.showPercentage = true;
+              };
+            };
           }
-        '';
+        ];
       }
     ];
 }

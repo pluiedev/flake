@@ -73,7 +73,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     plasma-manager = {
-      url = "github:pluiedev/plasma-manager/panel-settings";
+      url = "github:pluiedev/plasma-manager/feat/systray-and-battery";
       inputs = {
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
