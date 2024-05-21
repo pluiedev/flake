@@ -376,16 +376,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1715117482,
-        "narHash": "sha256-OJ2d6cwoEP37CYDMX5hs2Oe0ELroNNbU/nwI4w5BWmQ=",
-        "owner": "pluiedev",
+        "lastModified": 1716145823,
+        "narHash": "sha256-S2cfXdWCRf6Z+Gas6GN1kMSYqG01583uuJKITDVQp0o=",
+        "owner": "pjones",
         "repo": "plasma-manager",
-        "rev": "7446cfaaf17d48487822085f00dcd1fae49d4746",
+        "rev": "5db76cbb4d66231769cd8939472ae00c55c24a44",
         "type": "github"
       },
       "original": {
-        "owner": "pluiedev",
-        "ref": "feat/systray-and-battery",
+        "owner": "pjones",
         "repo": "plasma-manager",
         "type": "github"
       }

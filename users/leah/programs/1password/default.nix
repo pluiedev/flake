@@ -23,6 +23,8 @@
 
     autostart = true;
 
+    sshAgent.enable = true;
+
     settings = {
       app.useHardwareAcceleration = true;
       advanced.EnableDebuggingTools = true;
@@ -41,7 +43,6 @@
       developers.cliSharedLockState.enabled = true;
 
       sshAgent = {
-        enabled = true;
         # Ask approval for each new application.
         # (1Pass misspelled it, not me.)
         sshAuthorizatonModel = "application";
