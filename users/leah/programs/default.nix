@@ -12,7 +12,7 @@
     ./firefox
     ./nvim
     ./rust
-    ./virt-manager
+    #./virt-manager
   ];
 
   hm.home.packages = with pkgs; [

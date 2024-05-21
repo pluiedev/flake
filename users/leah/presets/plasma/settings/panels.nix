@@ -44,6 +44,19 @@
           }
           {
             systemMonitor = {
+              title = "GPU Usage";
+              sensors = [
+                {
+                  name = "gpu/gpu1/usage";
+                  color = "180,190,254"; # Lavender
+                }
+              ];
+              totalSensors = ["gpu/gpu1/usage"];
+              textOnlySensors = ["gpu/gpu1/temperature" "gpu/gpu1/frequency" "gpu/gpu1/power" "gpu/gpu1/usedVram" "gpu/gpu1/totalVram"];
+            };
+          }
+          {
+            systemMonitor = {
               title = "Memory Usage";
               sensors = [
                 {

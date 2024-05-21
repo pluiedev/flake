@@ -8,13 +8,13 @@
 
   roles = {
     boot.lanzaboote.enable = true;
-    #nvidia.enable = true;
+    nvidia.enable = true;
   };
 
   hardware.bluetooth.enable = true;
 
   # Other Nvidia settings are set via nixos-hardware
-  hardware.nvidia.dynamicBoost.enable = true;
+  #hardware.nvidia.dynamicBoost.enable = true;
 
   specialisation.china.configuration = {
     roles.mirrors.chinese.enable = true;
