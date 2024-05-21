@@ -1,8 +1,5 @@
-inputs @ {
-  nix-darwin,
-  home-manager,
-  ...
-}: name: {
+inputs@{ nix-darwin, home-manager, ... }:
+name: {
   system = "x86_64-darwin";
   builder = nix-darwin.lib.darwinSystem;
 
@@ -12,7 +9,9 @@ inputs @ {
     ../../../roles/darwin.nix
     ../../../users/personal.nix
 
-    {system.stateVersion = 4;}
+    { system.stateVersion = 4; }
   ];
-  specialArgs = {inherit inputs;};
+  specialArgs = {
+    inherit inputs;
+  };
 }

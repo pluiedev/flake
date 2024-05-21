@@ -4,22 +4,31 @@
   lib,
   pkgs,
   ...
-}: let
-  inherit (lib) mkMerge mkIf mkOption types literalExpression;
+}:
+let
+  inherit (lib)
+    mkMerge
+    mkIf
+    mkOption
+    types
+    literalExpression
+    ;
   im = config.i18n.inputMethod;
   cfg = im.fcitx5;
 
   fcitx5Package =
-    if cfg.plasma6Support
-    then pkgs.qt6Packages.fcitx5-with-addons.override {inherit (cfg) addons;}
-    else pkgs.libsForQt5.fcitx5-with-addons;
+    if cfg.plasma6Support then
+      pkgs.qt6Packages.fcitx5-with-addons.override { inherit (cfg) addons; }
+    else
+      pkgs.libsForQt5.fcitx5-with-addons;
 
-  fcitx5Package' = fcitx5Package.override {inherit (cfg) addons;};
+  fcitx5Package' = fcitx5Package.override { inherit (cfg) addons; };
 
-  format = pkgs.formats.ini {};
-  formatWithGlobalSection = pkgs.formats.iniWithGlobalSection {};
-in {
-  imports = [./rime.nix];
+  format = pkgs.formats.ini { };
+  formatWithGlobalSection = pkgs.formats.iniWithGlobalSection { };
+in
+{
+  imports = [ ./rime.nix ];
 
   options.i18n.inputMethod.fcitx5 = {
     waylandFrontend = mkOption {
@@ -41,7 +50,7 @@ in {
     };
     quickPhrase = mkOption {
       type = with types; attrsOf str;
-      default = {};
+      default = { };
       example = literalExpression ''
         {
           smile = "（・∀・）";
@@ -52,7 +61,7 @@ in {
     };
     quickPhraseFiles = mkOption {
       type = with types; attrsOf path;
-      default = {};
+      default = { };
       example = literalExpression ''
         {
           words = ./words.mb;
@@ -63,26 +72,22 @@ in {
     };
     settings = {
       globalOptions = mkOption {
-        type = types.submodule {
-          freeformType = format.type;
-        };
-        default = {};
+        type = types.submodule { freeformType = format.type; };
+        default = { };
         description = ''
           The global options in `config` file in ini format.
         '';
       };
       inputMethod = mkOption {
-        type = types.submodule {
-          freeformType = format.type;
-        };
-        default = {};
+        type = types.submodule { freeformType = format.type; };
+        default = { };
         description = ''
           The input method configure in `profile` file in ini format.
         '';
       };
       addons = mkOption {
         type = with types; (attrsOf anything);
-        default = {};
+        default = { };
         description = ''
           The addon configures in `conf` folder in ini format with global sections.
           Each item is written to the corresponding file.
@@ -106,33 +111,31 @@ in {
     i18n.inputMethod.package = lib.mkForce fcitx5Package';
 
     i18n.inputMethod.fcitx5.addons =
-      lib.optionals (cfg.quickPhrase != {}) [
-        (pkgs.writeTextDir "share/fcitx5/data/QuickPhrase.mb"
-          (lib.concatStringsSep "\n"
-            (lib.mapAttrsToList (name: value: "${name} ${value}") cfg.quickPhrase)))
+      lib.optionals (cfg.quickPhrase != { }) [
+        (pkgs.writeTextDir "share/fcitx5/data/QuickPhrase.mb" (
+          lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "${name} ${value}") cfg.quickPhrase)
+        ))
       ]
-      ++ lib.optionals (cfg.quickPhraseFiles != {}) [
-        (pkgs.linkFarm "quickPhraseFiles" (lib.mapAttrs'
-          (name: value: lib.nameValuePair "share/fcitx5/data/quickphrase.d/${name}.mb" value)
-          cfg.quickPhraseFiles))
+      ++ lib.optionals (cfg.quickPhraseFiles != { }) [
+        (pkgs.linkFarm "quickPhraseFiles" (
+          lib.mapAttrs' (
+            name: value: lib.nameValuePair "share/fcitx5/data/quickphrase.d/${name}.mb" value
+          ) cfg.quickPhraseFiles
+        ))
       ];
 
-    xdg.configFile = let
-      optionalFile = p: f: v:
-        lib.optionalAttrs (v != {}) {
-          "fcitx5/${p}".source = f p v;
-        };
-    in
+    xdg.configFile =
+      let
+        optionalFile =
+          p: f: v:
+          lib.optionalAttrs (v != { }) { "fcitx5/${p}".source = f p v; };
+      in
       lib.attrsets.mergeAttrsList [
         (optionalFile "config" format cfg.settings.globalOptions)
         (optionalFile "profile" format cfg.settings.inputMethod)
-        (lib.concatMapAttrs
-          (name: value:
-            optionalFile
-            "conf/${name}.conf"
-            formatWithGlobalSection
-            value)
-          cfg.settings.addons)
+        (lib.concatMapAttrs (
+          name: value: optionalFile "conf/${name}.conf" formatWithGlobalSection value
+        ) cfg.settings.addons)
       ];
 
     home.sessionVariables = mkMerge [
@@ -141,9 +144,7 @@ in {
         GTK_IM_MODULE = "";
         QT_IM_MODULE = "";
       })
-      (mkIf cfg.ignoreUserConfig {
-        SKIP_FCITX_USER_PATH = "1";
-      })
+      (mkIf cfg.ignoreUserConfig { SKIP_FCITX_USER_PATH = "1"; })
     ];
   };
 }

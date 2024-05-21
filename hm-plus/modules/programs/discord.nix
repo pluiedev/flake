@@ -3,24 +3,31 @@
   lib,
   pkgs,
   ...
-}: let
-  inherit (lib) mkEnableOption mkPackageOption mkOption mkIf optionalAttrs types;
+}:
+let
+  inherit (lib)
+    mkEnableOption
+    mkPackageOption
+    mkOption
+    mkIf
+    optionalAttrs
+    types
+    ;
   cfg = config.programs.discord;
-  format = pkgs.formats.json {};
-in {
+  format = pkgs.formats.json { };
+in
+{
   options.programs.discord = {
     enable = mkEnableOption "Discord";
 
-    package = mkPackageOption pkgs "Discord" {
-      default = ["discord"];
-    };
+    package = mkPackageOption pkgs "Discord" { default = [ "discord" ]; };
 
     settings = mkOption {
       inherit (format) type;
       description = ''
         Configuration written to {file}`$XDG_CONFIG_HOME/discord/settings.json`.
       '';
-      default = {};
+      default = { };
     };
 
     openAsar.enable = mkEnableOption "OpenASAR";
@@ -33,7 +40,7 @@ in {
         description = ''
           Configuration written to {file}`$XDG_CONFIG_HOME/Vencord/settings/settings.json`.
         '';
-        default = {};
+        default = { };
       };
 
       css = mkOption {

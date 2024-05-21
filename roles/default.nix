@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   imports = lib.pipe ./. [
     builtins.readDir
     (lib.filterAttrs (n: ty: ty == "directory" && builtins.pathExists ./${n}/default.nix))

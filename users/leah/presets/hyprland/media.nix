@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   hm.services = {
     mpris-proxy.enable = true;
     mpd = {

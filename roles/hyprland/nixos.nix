@@ -3,12 +3,27 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf mkAliasOptionModule;
   cfg = config.roles.hyprland;
-in {
+in
+{
   imports = [
-    (mkAliasOptionModule ["roles" "hyprland" "settings"] ["hm" "wayland" "windowManager" "hyprland" "settings"])
+    (mkAliasOptionModule
+      [
+        "roles"
+        "hyprland"
+        "settings"
+      ]
+      [
+        "hm"
+        "wayland"
+        "windowManager"
+        "hyprland"
+        "settings"
+      ]
+    )
   ];
 
   config = mkIf cfg.enable {
@@ -22,6 +37,6 @@ in {
       xwayland.enable = true;
     };
 
-    hm.home.packages = [pkgs.wl-clipboard];
+    hm.home.packages = [ pkgs.wl-clipboard ];
   };
 }

@@ -1,11 +1,9 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   cfg = config.roles.plasma;
   inherit (lib) mkIf;
-in {
+in
+{
   config = mkIf cfg.enable {
     hardware = {
       opengl.enable = true;
@@ -22,7 +20,7 @@ in {
     };
     services.xserver = {
       enable = true;
-      videoDrivers = ["nvidia"];
+      videoDrivers = [ "nvidia" ];
     };
   };
 }

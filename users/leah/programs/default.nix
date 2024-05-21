@@ -4,7 +4,8 @@
   lib,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     ./1password
     ./discord
@@ -34,7 +35,7 @@
   programs = {
     steam = {
       enable = true;
-      extraCompatPackages = [pkgs.proton-ge-bin];
+      extraCompatPackages = [ pkgs.proton-ge-bin ];
       remotePlay.openFirewall = true;
     };
     nix-ld = {
@@ -47,12 +48,13 @@
     bat = {
       enable = true;
       config = {
-        map-syntax = ["flake.lock:JSON"];
+        map-syntax = [ "flake.lock:JSON" ];
       };
       syntaxes = {
         just = {
           src = lib.cleanSourceWith {
-            filter = name: type:
+            filter =
+              name: type:
               lib.cleanSourceFilter name type
               && !builtins.elem (baseNameOf name) [
                 "ShellScript (for Just).sublime-syntax"
@@ -104,7 +106,7 @@
       settings = {
         preset = "lesbian";
         mode = "rgb";
-        lightness = 0.60;
+        lightness = 0.6;
         color_align.mode = "horizontal";
         backend = "fastfetch";
       };

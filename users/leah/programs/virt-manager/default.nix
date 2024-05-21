@@ -1,19 +1,16 @@
+{ pkgs, lib, ... }:
 {
-  pkgs,
-  lib,
-  ...
-}: {
-  boot.kernelModules = ["vfio-pci"];
-  boot.blacklistedKernelModules = ["nouveau"];
-  boot.kernelParams = ["intel_iommu=on"];
+  boot.kernelModules = [ "vfio-pci" ];
+  boot.blacklistedKernelModules = [ "nouveau" ];
+  boot.kernelParams = [ "intel_iommu=on" ];
 
-  services.xserver.videoDrivers = lib.mkForce [];
+  services.xserver.videoDrivers = lib.mkForce [ ];
 
-  systemd.tmpfiles.rules = ["f /dev/shm/looking-glass 0660 leah kvm -"];
+  systemd.tmpfiles.rules = [ "f /dev/shm/looking-glass 0660 leah kvm -" ];
 
-  hm.home.packages = [pkgs.looking-glass-client];
+  hm.home.packages = [ pkgs.looking-glass-client ];
 
-  hm.xdg.configFile."looking-glass/client.ini".text = lib.generators.toINI {} {
+  hm.xdg.configFile."looking-glass/client.ini".text = lib.generators.toINI { } {
     win = {
       size = "1920x1200";
       autoResize = "yes";
@@ -31,7 +28,7 @@
       qemu = {
         swtpm.enable = true;
         ovmf.enable = true;
-        ovmf.packages = [pkgs.OVMFFull.fd];
+        ovmf.packages = [ pkgs.OVMFFull.fd ];
       };
     };
     spiceUSBRedirection.enable = true;
@@ -41,7 +38,7 @@
 
   programs.virt-manager.enable = true;
 
-  roles.base.user.extraGroups = ["libvirtd"];
+  roles.base.user.extraGroups = [ "libvirtd" ];
 
   environment.systemPackages = with pkgs; [
     virt-viewer
@@ -54,8 +51,8 @@
 
   hm.dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
-      autoconnect = ["qemu:///system"];
-      uris = ["qemu:///system"];
+      autoconnect = [ "qemu:///system" ];
+      uris = [ "qemu:///system" ];
     };
   };
 }

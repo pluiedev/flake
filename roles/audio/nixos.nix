@@ -1,17 +1,15 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   cfg = config.roles.audio;
   inherit (lib) mkIf;
-in {
+in
+{
   config = mkIf cfg.enable {
     sound.enable = true;
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
 
-    roles.base.user.extraGroups = ["rtkit"];
+    roles.base.user.extraGroups = [ "rtkit" ];
 
     services.pipewire = {
       enable = true;

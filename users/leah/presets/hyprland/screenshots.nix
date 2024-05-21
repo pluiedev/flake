@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   hm.home.packages = with pkgs; [
     hyprpicker
     grimblast

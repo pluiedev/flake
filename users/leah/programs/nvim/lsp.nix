@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   hm.home.packages = with pkgs; [
     # Language servers
     lua-language-server

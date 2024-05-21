@@ -1,12 +1,10 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkIf;
-  toINI = lib.generators.toINI {};
+  toINI = lib.generators.toINI { };
   cfg = config.roles.qt;
-in {
+in
+{
   config = mkIf cfg.enable {
     qt.enable = true;
 

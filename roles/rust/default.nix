@@ -4,25 +4,33 @@
   config,
   inputs,
   ...
-}: let
+}:
+let
   cfg = config.roles.rust;
-  inherit (lib) mkIf mkOption mkEnableOption types;
-in {
+  inherit (lib)
+    mkIf
+    mkOption
+    mkEnableOption
+    types
+    ;
+in
+{
   options.roles.rust = {
     enable = mkEnableOption "Rust";
 
     rust-bin = mkOption {
       type = types.attrsOf types.anything;
       default = pkgs.rust-bin;
-      example = pkgs.rust-bin // {distRoot = "some-root";};
+      example = pkgs.rust-bin // {
+        distRoot = "some-root";
+      };
     };
 
     package = mkOption {
       type = types.package;
-      default = cfg.rust-bin.selectLatestNightlyWith (toolchain:
-        toolchain.default.override {
-          extensions = ["rust-analyzer"];
-        });
+      default = cfg.rust-bin.selectLatestNightlyWith (
+        toolchain: toolchain.default.override { extensions = [ "rust-analyzer" ]; }
+      );
       example = cfg.rust-bin.stable.latest.default;
       description = "Version of Rust to install. Defaults to latest nightly with rust-analyzer";
     };
@@ -36,7 +44,7 @@ in {
 
     settings = mkOption {
       type = types.nullOr (types.attrsOf types.anything);
-      default = {};
+      default = { };
     };
 
     rustfmt.settings = mkOption {
@@ -50,14 +58,15 @@ in {
     };
   };
 
-  config = let
-    toTOMLFile = pkgs.formats.toml {};
-  in
+  config =
+    let
+      toTOMLFile = pkgs.formats.toml { };
+    in
     mkIf cfg.enable {
-      nixpkgs.overlays = [inputs.rust-overlay.overlays.default];
+      nixpkgs.overlays = [ inputs.rust-overlay.overlays.default ];
 
       hm = {
-        home.packages = [cfg.package];
+        home.packages = [ cfg.package ];
 
         xdg.configFile."rustfmt/rustfmt.toml" = mkIf (cfg.rustfmt.settings != null) {
           source = toTOMLFile.generate "rustfmt.toml" cfg.rustfmt.settings;
@@ -68,7 +77,10 @@ in {
             (lib.optionalAttrs (cfg.linker != null) {
               target.${pkgs.rust.toRustTarget pkgs.hostPlatform} = {
                 linker = "${lib.getExe pkgs.clang_16}";
-                rustflags = ["-C" "link-arg=-fuse-ld=${cfg.linker}"];
+                rustflags = [
+                  "-C"
+                  "link-arg=-fuse-ld=${cfg.linker}"
+                ];
               };
             })
             // cfg.settings

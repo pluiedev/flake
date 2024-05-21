@@ -1,5 +1,7 @@
 {
-  perSystem = {pkgs, ...}: {
-    packages = import ./packages.nix {inherit pkgs;};
-  };
+  perSystem =
+    { pkgs, ... }:
+    {
+      packages = import ./packages.nix { inherit pkgs; };
+    };
 }

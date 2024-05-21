@@ -1,8 +1,5 @@
+{ personal, personal-mac, ... }:
 {
-  personal,
-  personal-mac,
-  ...
-}: {
   nixosConfigurations = {
     tagliatelle.profile = personal;
     fettuccine.profile = personal;

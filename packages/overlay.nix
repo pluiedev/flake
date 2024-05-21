@@ -1,1 +1,1 @@
-_: prev: import ./packages.nix {pkgs = prev;}
+_: prev: import ./packages.nix { pkgs = prev; }

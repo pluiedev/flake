@@ -4,10 +4,12 @@
   pkgs,
   inputs,
   ...
-}: let
+}:
+let
   cfg = config.roles.plasma;
   inherit (lib) mkIf;
-in {
+in
+{
   config = mkIf cfg.enable {
     services = {
       desktopManager.plasma6.enable = true;
@@ -20,18 +22,20 @@ in {
       };
     };
 
-    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-kde];
+    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-kde ];
     roles.qt.platform = "kde";
 
     hm = {
-      imports = [inputs.plasma-manager.homeManagerModules.plasma-manager];
+      imports = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
 
-      home.packages = lib.optional cfg.krunner-nix.enable inputs.krunner-nix.packages.${pkgs.system}.default;
+      home.packages =
+        lib.optional cfg.krunner-nix.enable
+          inputs.krunner-nix.packages.${pkgs.system}.default;
 
       # Janky workaround
       # https://github.com/nix-community/home-manager/issues/1586
       programs.firefox.package = pkgs.firefox.override {
-        cfg.nativeMessagingHosts.packages = [pkgs.plasma6Packages.plasma-browser-integration];
+        cfg.nativeMessagingHosts.packages = [ pkgs.plasma6Packages.plasma-browser-integration ];
       };
 
       programs.plasma.enable = true;

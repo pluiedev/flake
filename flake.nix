@@ -87,17 +87,14 @@
     };
   };
 
-  outputs = inputs:
-    inputs.flake-parts.lib.mkFlake
-    {inherit inputs;}
-    {
+  outputs =
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         ./hm-plus
         ./packages
         ./systems
       ];
-      systems = [
-        "x86_64-linux"
-      ];
+      systems = [ "x86_64-linux" ];
     };
 }

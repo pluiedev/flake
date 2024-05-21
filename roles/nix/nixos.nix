@@ -4,7 +4,8 @@
   lib,
   inputs,
   ...
-}: {
+}:
+{
   system = {
     # Thank @luishfonseca for this
     # https://github.com/luishfonseca/dotfiles/blob/ab7625ec406b48493eda701911ad1cd017ce5bc1/modules/upgrade-diff.nix
@@ -19,7 +20,7 @@
     autoUpgrade = {
       enable = true;
       flake = "github:pluiedev/flake#${config.networking.hostName}";
-      flags = ["--refresh"];
+      flags = [ "--refresh" ];
     };
 
     configurationRevision = inputs.self.rev or inputs.self.dirtyRev or "unknown-dirty";

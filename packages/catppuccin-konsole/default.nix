@@ -2,16 +2,23 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  flavors ? [],
-}: let
-  validFlavors = ["mocha" "macchiato" "frappe" "latte"];
-  mkUpper = str:
-    with builtins;
-      (lib.toUpper (substring 0 1 str)) + (substring 1 (stringLength str) str);
+  flavors ? [ ],
+}:
+let
+  validFlavors = [
+    "mocha"
+    "macchiato"
+    "frappe"
+    "latte"
+  ];
+  mkUpper =
+    str: with builtins; (lib.toUpper (substring 0 1 str)) + (substring 1 (stringLength str) str);
 in
-  #
-  lib.checkListOfEnum "Invalid flavor, valid flavors are ${toString validFlavors}" validFlavors flavors
-  stdenvNoCC.mkDerivation {
+#
+lib.checkListOfEnum "Invalid flavor, valid flavors are ${toString validFlavors}" validFlavors
+  flavors
+  stdenvNoCC.mkDerivation
+  {
     pname = "catppuccin-konsole";
     version = "2022-11-09";
 
@@ -22,18 +29,18 @@ in
       hash = "sha256-EwSJMTxnaj2UlNJm1t6znnatfzgm1awIQQUF3VPfCTM=";
     };
 
-    installPhase = let
-      flavoursToInstall = builtins.concatStringsSep " " (map (x: "Catppuccin-${mkUpper x}.colorscheme") (
-        if flavors == []
-        then ["*"]
-        else flavors
-      ));
-    in ''
-      runHook preInstall
+    installPhase =
+      let
+        flavoursToInstall = builtins.concatStringsSep " " (
+          map (x: "Catppuccin-${mkUpper x}.colorscheme") (if flavors == [ ] then [ "*" ] else flavors)
+        );
+      in
+      ''
+        runHook preInstall
 
-      mkdir -p $out/share/konsole/
-      cp -r ${flavoursToInstall} $out/share/konsole/
+        mkdir -p $out/share/konsole/
+        cp -r ${flavoursToInstall} $out/share/konsole/
 
-      runHook postInstall
-    '';
+        runHook postInstall
+      '';
   }

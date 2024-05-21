@@ -1,10 +1,12 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   cfg = config.roles.email;
-  inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
 
   serverModule.options = {
     host = mkOption {
@@ -42,32 +44,28 @@
       type = types.str;
       example = "Leah";
     };
-    host = mkOption {
-      type = types.submodule hostModule;
-    };
+    host = mkOption { type = types.submodule hostModule; };
   };
-in {
+in
+{
   options.roles.email = {
     enable = mkEnableOption "E-Mail configurations";
 
     accounts = mkOption {
       type = types.attrsOf (types.submodule emailModule);
-      default = {};
+      default = { };
     };
   };
 
-  config.hm.accounts.email = let
-    accounts =
-      builtins.mapAttrs (address: account: rec {
+  config.hm.accounts.email =
+    let
+      accounts = builtins.mapAttrs (address: account: rec {
         inherit (account) primary realName;
         inherit (account.host) imap smtp;
         inherit address;
         userName = address; # Use the address as the IMAP/SMTP username by default
         thunderbird.enable = true;
-      })
-      cfg.accounts;
-  in
-    mkIf cfg.enable {
-      inherit accounts;
-    };
+      }) cfg.accounts;
+    in
+    mkIf cfg.enable { inherit accounts; };
 }

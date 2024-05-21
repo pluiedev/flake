@@ -3,8 +3,9 @@
   lib,
   inputs,
   ...
-}: {
-  imports = [inputs.lanzaboote.nixosModules.lanzaboote];
+}:
+{
+  imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
   options.roles.boot.lanzaboote.enable = lib.mkEnableOption "Lanzaboote, a secure boot implementation for NixOS";
 

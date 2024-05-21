@@ -2,12 +2,20 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  flavors ? [],
-}: let
-  validFlavors = ["mocha" "macchiato" "frappe" "latte"];
+  flavors ? [ ],
+}:
+let
+  validFlavors = [
+    "mocha"
+    "macchiato"
+    "frappe"
+    "latte"
+  ];
 in
-  lib.checkListOfEnum "Invalid flavor, valid flavors are ${toString validFlavors}" validFlavors flavors
-  stdenvNoCC.mkDerivation {
+lib.checkListOfEnum "Invalid flavor, valid flavors are ${toString validFlavors}" validFlavors
+  flavors
+  stdenvNoCC.mkDerivation
+  {
     pname = "catppuccin-sddm";
     version = "2023-12-05";
 
@@ -18,18 +26,18 @@ in
       hash = "sha256-Jf4xfgJEzLM7WiVsERVkj5k80Fhh1edUl6zsSBbQi6Y=";
     };
 
-    installPhase = let
-      flavoursToInstall = builtins.concatStringsSep " " (map (x: "src/catppuccin-${x}") (
-        if flavors == []
-        then ["*"]
-        else flavors
-      ));
-    in ''
-      runHook preInstall
+    installPhase =
+      let
+        flavoursToInstall = builtins.concatStringsSep " " (
+          map (x: "src/catppuccin-${x}") (if flavors == [ ] then [ "*" ] else flavors)
+        );
+      in
+      ''
+        runHook preInstall
 
-      mkdir -p $out/share/sddm/themes/
-      cp -r ${flavoursToInstall} $out/share/sddm/themes/
+        mkdir -p $out/share/sddm/themes/
+        cp -r ${flavoursToInstall} $out/share/sddm/themes/
 
-      runHook postInstall
-    '';
+        runHook postInstall
+      '';
   }

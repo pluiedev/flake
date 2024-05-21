@@ -1,16 +1,16 @@
 let
-  mkSystem = name: {
-    profile,
-    system ? null,
-    modules ? [],
-    specialArgs ? {},
-  }: let
-    profile' = profile name;
-    system' =
-      if (system != null)
-      then system
-      else profile'.system;
-  in
+  mkSystem =
+    name:
+    {
+      profile,
+      system ? null,
+      modules ? [ ],
+      specialArgs ? { },
+    }:
+    let
+      profile' = profile name;
+      system' = if (system != null) then system else profile'.system;
+    in
     profile'.builder {
       system = system';
       specialArgs = profile'.specialArgs // specialArgs;
@@ -25,7 +25,8 @@ let
           }
         ];
     };
-in {
+in
+{
   inherit mkSystem;
   mkSystems = builtins.mapAttrs mkSystem;
 }

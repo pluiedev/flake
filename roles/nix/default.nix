@@ -1,20 +1,18 @@
-{
-  lib,
-  inputs,
-  ...
-}: let
+{ lib, inputs, ... }:
+let
   inherit (lib) mkDefault;
-in {
+in
+{
   nix = {
     registry = {
       nixpkgs.flake = inputs.nixpkgs;
       n.flake = inputs.nixpkgs;
     };
-    nixPath = let
-      toNixPath = input: "${input}=${inputs.${input}.outPath}";
-    in [
-      (toNixPath "nixpkgs")
-    ];
+    nixPath =
+      let
+        toNixPath = input: "${input}=${inputs.${input}.outPath}";
+      in
+      [ (toNixPath "nixpkgs") ];
 
     gc = {
       automatic = mkDefault true;
@@ -24,16 +22,19 @@ in {
 
     settings = {
       auto-optimise-store = true;
-      experimental-features = ["nix-command" "flakes" "auto-allocate-uids" "repl-flake"];
-      trusted-users = ["@wheel"];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "auto-allocate-uids"
+        "repl-flake"
+      ];
+      trusted-users = [ "@wheel" ];
     };
   };
   nixpkgs = {
     # I'm not part of the FSF and I don't care
     config.allowUnfree = true;
 
-    overlays = [
-      (import ../../packages/overlay.nix)
-    ];
+    overlays = [ (import ../../packages/overlay.nix) ];
   };
 }

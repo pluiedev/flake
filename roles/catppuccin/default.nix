@@ -3,10 +3,17 @@
   lib,
   inputs,
   ...
-}: let
-  inherit (lib) mkEnableOption mkIf mkOption types;
+}:
+let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
   inherit (config.roles.catppuccin) enable flavour accent;
-in {
+in
+{
   imports = [
     inputs.catppuccin.nixosModules.catppuccin
     ./discord.nix
@@ -17,11 +24,31 @@ in {
     enable = mkEnableOption "Catppuccin";
 
     flavour = mkOption {
-      type = types.enum ["latte" "frappe" "macchiato" "mocha"];
+      type = types.enum [
+        "latte"
+        "frappe"
+        "macchiato"
+        "mocha"
+      ];
       example = "mocha";
     };
     accent = mkOption {
-      type = types.enum ["rosewater" "flamingo" "pink" "mauve" "red" "maroon" "peach" "yellow" "green" "teal" "sky" "sapphire" "blue" "lavender"];
+      type = types.enum [
+        "rosewater"
+        "flamingo"
+        "pink"
+        "mauve"
+        "red"
+        "maroon"
+        "peach"
+        "yellow"
+        "green"
+        "teal"
+        "sky"
+        "sapphire"
+        "blue"
+        "lavender"
+      ];
       example = "maroon";
     };
   };
@@ -32,7 +59,7 @@ in {
       enable = true;
     };
     hm = {
-      imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+      imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
 
       catppuccin = {
         inherit accent flavour;

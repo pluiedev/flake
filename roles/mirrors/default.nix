@@ -3,18 +3,28 @@
   lib,
   pkgs,
   ...
-}: let
-  inherit (lib) mkEnableOption mkIf mkOption types flip;
+}:
+let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    flip
+    ;
   inherit (builtins) hasAttr mapAttrs;
 
   cfg = config.roles.mirrors;
   defaultSite = cfg.chinese.sites.${cfg.chinese.defaultSite};
-in {
+in
+{
   options.roles.mirrors.chinese = {
     enable = mkEnableOption "Chinese mirror sites to speed up downloads in Mainland China";
 
     defaultSite = mkOption {
-      type = types.str // {check = flip hasAttr cfg.chinese.sites;};
+      type = types.str // {
+        check = flip hasAttr cfg.chinese.sites;
+      };
 
       default = "sjtu";
     };
@@ -32,19 +42,19 @@ in {
 
   config = mkIf cfg.chinese.enable {
     roles.rust = {
-      rust-bin =
-        pkgs.rust-bin
-        // {
-          distRoot = "${defaultSite}/rust-static/dist";
-        };
+      rust-bin = pkgs.rust-bin // {
+        distRoot = "${defaultSite}/rust-static/dist";
+      };
 
-      settings.source =
-        {crates-io.replace-with = cfg.chinese.defaultSite;}
-        // mapAttrs (_: url: "sparse+${url}/crates.io-index") cfg.chinese.sites;
+      settings.source = {
+        crates-io.replace-with = cfg.chinese.defaultSite;
+      } // mapAttrs (_: url: "sparse+${url}/crates.io-index") cfg.chinese.sites;
     };
 
     # cache.nixos.org is *unbearably* slow when accessed from Mainland China.
     # Fortunately, mirror sites exist... Hooray(?)
-    nix.settings.substituters = map (url: "${url}/nix-channels/store") (builtins.attrValues cfg.chinese.sites);
+    nix.settings.substituters = map (url: "${url}/nix-channels/store") (
+      builtins.attrValues cfg.chinese.sites
+    );
   };
 }

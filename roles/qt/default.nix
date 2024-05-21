@@ -1,12 +1,31 @@
-{lib, ...}: let
-  inherit (lib) mkAliasOptionModule mkEnableOption mkOption types;
-in {
+{ lib, ... }:
+let
+  inherit (lib)
+    mkAliasOptionModule
+    mkEnableOption
+    mkOption
+    types
+    ;
+in
+{
   imports = [
-    (mkAliasOptionModule ["roles" "qt" "platform"] ["qt" "platformTheme"])
+    (mkAliasOptionModule
+      [
+        "roles"
+        "qt"
+        "platform"
+      ]
+      [
+        "qt"
+        "platformTheme"
+      ]
+    )
   ];
 
   options.roles.qt = {
-    enable = mkEnableOption "Qt" // {default = true;};
+    enable = mkEnableOption "Qt" // {
+      default = true;
+    };
 
     qt5ct.settings = mkOption {
       type = types.nullOr (types.attrsOf types.anything);

@@ -1,11 +1,9 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   cfg = config.roles.boot;
-in {
-  imports = [./fix-246195];
+in
+{
+  imports = [ ./fix-246195 ];
 
   config = lib.mkIf cfg.enable {
     boot.loader = {

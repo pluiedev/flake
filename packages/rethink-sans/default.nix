@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation {
     description = "A humble open source font built on the shoulders of DM Sans and Poppins";
     homepage = "https://github.com/hans-thiessen/Rethink-Sans";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [pluiedev];
+    maintainers = with lib.maintainers; [ pluiedev ];
     platforms = lib.platforms.all;
   };
 }

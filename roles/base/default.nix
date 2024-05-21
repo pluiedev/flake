@@ -1,12 +1,16 @@
-{
-  config,
-  lib,
-  ...
-}: let
-  inherit (lib) mkAliasOptionModule mkEnableOption mkOption types optional;
+{ config, lib, ... }:
+let
+  inherit (lib)
+    mkAliasOptionModule
+    mkEnableOption
+    mkOption
+    types
+    optional
+    ;
 
   cfg = config.roles.base;
-in {
+in
+{
   options.roles.base = {
     username = mkOption {
       type = types.str;
@@ -30,8 +34,23 @@ in {
   };
 
   imports = [
-    (mkAliasOptionModule ["hm"] ["home-manager" "users" cfg.username])
-    (mkAliasOptionModule ["roles" "base" "user"] ["users" "users" cfg.username])
+    (mkAliasOptionModule [ "hm" ] [
+      "home-manager"
+      "users"
+      cfg.username
+    ])
+    (mkAliasOptionModule
+      [
+        "roles"
+        "base"
+        "user"
+      ]
+      [
+        "users"
+        "users"
+        cfg.username
+      ]
+    )
   ];
 
   config = {

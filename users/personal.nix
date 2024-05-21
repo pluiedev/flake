@@ -1,5 +1,1 @@
-{
-  imports = [
-    ./leah
-  ];
-}
+{ imports = [ ./leah ]; }

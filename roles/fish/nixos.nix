@@ -3,10 +3,12 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
   cfg = config.roles.fish;
-in {
+in
+{
   config = mkIf cfg.enable {
     programs.fish.enable = true;
     hm.programs.fish.enable = true;

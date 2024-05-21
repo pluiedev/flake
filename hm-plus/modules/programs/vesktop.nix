@@ -3,24 +3,30 @@
   lib,
   pkgs,
   ...
-}: let
-  inherit (lib) mkEnableOption mkPackageOption mkOption mkIf types;
+}:
+let
+  inherit (lib)
+    mkEnableOption
+    mkPackageOption
+    mkOption
+    mkIf
+    types
+    ;
   cfg = config.programs.vesktop;
-  format = pkgs.formats.json {};
-in {
+  format = pkgs.formats.json { };
+in
+{
   options.programs.vesktop = {
     enable = mkEnableOption "Vesktop";
 
-    package = mkPackageOption pkgs "Vesktop" {
-      default = ["vesktop"];
-    };
+    package = mkPackageOption pkgs "Vesktop" { default = [ "vesktop" ]; };
 
     settings = mkOption {
       inherit (format) type;
       description = ''
         Configuration written to {file}`$XDG_CONFIG_HOME/vesktop/settings.json`.
       '';
-      default = {};
+      default = { };
     };
 
     vencord = {
@@ -35,7 +41,7 @@ in {
         description = ''
           Configuration of the bundled client mod, Vencord, written to {file}`$XDG_CONFIG_HOME/vesktop/settings/settings.json`.
         '';
-        default = {};
+        default = { };
       };
 
       css = mkOption {
@@ -49,9 +55,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = [
-      (cfg.package.override {withSystemVencord = cfg.vencord.useSystemPackage;})
-    ];
+    home.packages = [ (cfg.package.override { withSystemVencord = cfg.vencord.useSystemPackage; }) ];
 
     xdg.configFile = {
       "vesktop/settings.json".source = format.generate "vesktop-settings.json" cfg.settings;

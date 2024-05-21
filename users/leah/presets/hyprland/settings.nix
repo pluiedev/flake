@@ -1,12 +1,17 @@
+{ lib, pkgs, ... }:
 {
-  lib,
-  pkgs,
-  ...
-}: {
-  hm.wayland.windowManager.hyprland.settings = let
-    inherit (lib) getExe flatten mod range pipe;
-  in
-    with pkgs; {
+  hm.wayland.windowManager.hyprland.settings =
+    let
+      inherit (lib)
+        getExe
+        flatten
+        mod
+        range
+        pipe
+        ;
+    in
+    with pkgs;
+    {
       "$mod" = "SUPER";
 
       monitor = "eDP-1,2560x1600@165,0x0,1.25";
@@ -124,19 +129,21 @@
         # Switch workspaces with mod + [0-9]
         # Move active window to a workspace with mod + SHIFT + [0-9]
         pipe (range 1 10) [
-          (map (i: let
-            key = mod i 10;
-          in [
-            "$mod, ${toString key}, workspace, ${toString i}"
-            "$mod SHIFT, ${toString key}, movetoworkspace, ${toString i}"
-          ]))
+          (map (
+            i:
+            let
+              key = mod i 10;
+            in
+            [
+              "$mod, ${toString key}, workspace, ${toString i}"
+              "$mod SHIFT, ${toString key}, movetoworkspace, ${toString i}"
+            ]
+          ))
           flatten
         ];
 
       # Press Super once to open Fuzzel; twice to close it
-      bindr = [
-        "$mod, Super_L, exec, pkill fuzzel || ${getExe fuzzel}"
-      ];
+      bindr = [ "$mod, Super_L, exec, pkill fuzzel || ${getExe fuzzel}" ];
 
       bindm = [
         # Move/resize windows with mod + LMB/RMB and dragging

@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   # TODO: upstream
   format-on-save = pkgs.vimUtils.buildVimPlugin {
     pname = "format-on-save.nvim";
@@ -12,15 +13,18 @@
     meta.homepage = "https://github.com/elentok/format-on-save.nvim";
   };
 
-  luaConf = plugin: filename:
-    if !builtins.isPath ./lua/plugins/${filename}.lua
-    then throw "Config for ${filename} not found at ./lua/plugins/${filename}.lua"
-    else {
-      inherit plugin;
-      type = "lua";
-      config = "require 'plugins.${filename}'";
-    };
-in {
+  luaConf =
+    plugin: filename:
+    if !builtins.isPath ./lua/plugins/${filename}.lua then
+      throw "Config for ${filename} not found at ./lua/plugins/${filename}.lua"
+    else
+      {
+        inherit plugin;
+        type = "lua";
+        config = "require 'plugins.${filename}'";
+      };
+in
+{
   hm.programs.neovim.plugins = with pkgs.vimPlugins; [
     # UI
     (luaConf catppuccin-nvim "catppuccin")

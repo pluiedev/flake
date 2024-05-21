@@ -1,12 +1,10 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib.lists) optional;
 
   cfg = config.roles.base;
-in {
+in
+{
   config = {
     roles.base.user = {
       isNormalUser = true;

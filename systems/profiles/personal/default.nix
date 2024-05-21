@@ -1,8 +1,5 @@
-inputs @ {
-  nixpkgs,
-  home-manager,
-  ...
-}: name: {
+inputs@{ nixpkgs, home-manager, ... }:
+name: {
   system = "x86_64-linux";
   builder = nixpkgs.lib.nixosSystem;
 
@@ -12,7 +9,9 @@ inputs @ {
     ../../../roles/nixos.nix
     ../../../users/personal.nix
 
-    {system.stateVersion = "24.05";}
+    { system.stateVersion = "24.05"; }
   ];
-  specialArgs = {inherit inputs;};
+  specialArgs = {
+    inherit inputs;
+  };
 }

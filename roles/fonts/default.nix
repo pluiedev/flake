@@ -1,15 +1,17 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   inherit (lib) mkEnableOption mkOption types;
-in {
+in
+{
   options.roles.fonts = {
     enable = mkEnableOption "default fonts";
     packages = mkOption {
       type = types.listOf types.package;
-      default = [];
+      default = [ ];
     };
     defaults = mkOption {
       type = types.attrsOf (types.listOf types.str);
-      default = {};
+      default = { };
     };
   };
 }

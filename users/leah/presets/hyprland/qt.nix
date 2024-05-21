@@ -1,8 +1,5 @@
-{
-  lib,
-  pkgs,
-  ...
-}: let
+{ lib, pkgs, ... }:
+let
   settings = {
     Appearance = {
       icon_theme = "breeze-dark";
@@ -35,7 +32,8 @@
       ignored_applications = "@Invalid()";
     };
   };
-in {
+in
+{
   hm.home.packages = with pkgs; [
     breeze-icons
 
@@ -46,7 +44,11 @@ in {
   roles.qt = {
     platform = "qt5ct";
 
-    qt5ct = {inherit settings;};
-    qt6ct = {inherit settings;};
+    qt5ct = {
+      inherit settings;
+    };
+    qt6ct = {
+      inherit settings;
+    };
   };
 }

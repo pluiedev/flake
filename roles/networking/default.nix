@@ -1,7 +1,11 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   inherit (lib) mkEnableOption;
-in {
+in
+{
   options.roles.networking = {
-    enable = mkEnableOption "Networking" // {default = true;};
+    enable = mkEnableOption "Networking" // {
+      default = true;
+    };
   };
 }

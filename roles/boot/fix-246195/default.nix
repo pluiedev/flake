@@ -4,9 +4,10 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.boot.loader.systemd-boot;
-  python3 = pkgs.python3.withPackages (ps: [ps.packaging]);
+  python3 = pkgs.python3.withPackages (ps: [ ps.packaging ]);
 
   systemdBootBuilder = pkgs.substituteAll {
     src = ./systemd-boot-builder.py;
@@ -16,14 +17,8 @@ with lib; let
     systemd = config.systemd.package;
     nix = config.nix.package.out;
     timeout = optionalString (config.boot.loader.timeout != null) config.boot.loader.timeout;
-    editor =
-      if cfg.editor
-      then "True"
-      else "False";
-    configurationLimit =
-      if cfg.configurationLimit != null
-      then cfg.configurationLimit
-      else 0;
+    editor = if cfg.editor then "True" else "False";
+    configurationLimit = if cfg.configurationLimit != null then cfg.configurationLimit else 0;
 
     inherit (cfg) consoleMode graceful;
     inherit (config.boot.loader.efi) efiSysMountPoint canTouchEfiVariables;
@@ -35,38 +30,46 @@ with lib; let
     copyExtraFiles = pkgs.writeShellScript "copy-extra-files" ''
       empty_file=$(${pkgs.coreutils}/bin/mktemp)
 
-      ${concatStrings (mapAttrsToList (n: v: ''
+      ${concatStrings (
+        mapAttrsToList (n: v: ''
           ${pkgs.coreutils}/bin/install -Dp "${v}" "${efiSysMountPoint}/"${escapeShellArg n}
           ${pkgs.coreutils}/bin/install -D $empty_file "${efiSysMountPoint}/efi/nixos/.extra-files/"${escapeShellArg n}
-        '')
-        cfg.extraFiles)}
+        '') cfg.extraFiles
+      )}
 
-      ${concatStrings (mapAttrsToList (n: v: ''
+      ${concatStrings (
+        mapAttrsToList (n: v: ''
           ${pkgs.coreutils}/bin/install -Dp "${pkgs.writeText n v}" "${efiSysMountPoint}/loader/entries/"${escapeShellArg n}
           ${pkgs.coreutils}/bin/install -D $empty_file "${efiSysMountPoint}/efi/nixos/.extra-files/loader/entries/"${escapeShellArg n}
-        '')
-        cfg.extraEntries)}
+        '') cfg.extraEntries
+      )}
     '';
   };
 
   checkedSystemdBootBuilder =
-    pkgs.runCommand "systemd-boot" {
-      nativeBuildInputs = [pkgs.mypy python3];
-    } ''
-      install -m755 ${systemdBootBuilder} $out
-      mypy \
-        --no-implicit-optional \
-        --disallow-untyped-calls \
-        --disallow-untyped-defs \
-        $out
-    '';
+    pkgs.runCommand "systemd-boot"
+      {
+        nativeBuildInputs = [
+          pkgs.mypy
+          python3
+        ];
+      }
+      ''
+        install -m755 ${systemdBootBuilder} $out
+        mypy \
+          --no-implicit-optional \
+          --disallow-untyped-calls \
+          --disallow-untyped-defs \
+          $out
+      '';
 
   finalSystemdBootBuilder = pkgs.writeScript "install-systemd-boot.sh" ''
     #!${pkgs.runtimeShell}
     ${checkedSystemdBootBuilder} "$@"
     ${cfg.extraInstallCommands}
   '';
-in {
+in
+{
   config = lib.mkIf config.roles.boot.patch.fix-246195.enable {
     system.build.installBootLoader = lib.mkForce finalSystemdBootBuilder;
   };

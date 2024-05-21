@@ -3,13 +3,25 @@
   pkgs,
   config,
   ...
-}: let
-  inherit (lib) getExe getExe' mkIf mkOption types;
+}:
+let
+  inherit (lib)
+    getExe
+    getExe'
+    mkIf
+    mkOption
+    types
+    ;
   cfg = config.programs.git;
-in {
+in
+{
   options.programs.git = {
     signingFormat = mkOption {
-      type = types.enum ["openpgp" "ssh" "x509"];
+      type = types.enum [
+        "openpgp"
+        "ssh"
+        "x509"
+      ];
       default = "openpgp";
     };
 

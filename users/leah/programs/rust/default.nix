@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   roles.rust = {
     enable = true;
     settings = {

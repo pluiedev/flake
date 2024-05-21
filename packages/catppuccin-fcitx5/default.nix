@@ -1,7 +1,4 @@
-{
-  stdenvNoCC,
-  fetchFromGitHub,
-}:
+{ stdenvNoCC, fetchFromGitHub }:
 stdenvNoCC.mkDerivation {
   pname = "catppuccin-fcitx5";
   version = "2022-10-05";

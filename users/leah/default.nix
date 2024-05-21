@@ -3,7 +3,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     ./containers
     ./presets/plasma
@@ -28,36 +29,38 @@
     accent = "maroon";
   };
 
-  roles.email = let
-    realName = config.roles.base.fullName;
-    host = {
-      imap = {
-        host = "imap.migadu.com";
-        port = 993;
+  roles.email =
+    let
+      realName = config.roles.base.fullName;
+      host = {
+        imap = {
+          host = "imap.migadu.com";
+          port = 993;
+        };
+        smtp = {
+          host = "smtp.migadu.com";
+          port = 465;
+        };
       };
-      smtp = {
-        host = "smtp.migadu.com";
-        port = 465;
+    in
+    {
+      enable = true;
+      accounts = {
+        "hi@pluie.me" = {
+          inherit realName host;
+          primary = true;
+        };
+        "acc@pluie.me" = {
+          inherit host;
+          realName = "${realName} [accounts]";
+        };
       };
     };
-  in {
-    enable = true;
-    accounts = {
-      "hi@pluie.me" = {
-        inherit realName host;
-        primary = true;
-      };
-      "acc@pluie.me" = {
-        inherit host;
-        realName = "${realName} [accounts]";
-      };
-    };
-  };
 
   roles.fonts = {
     enable = true;
     packages = with pkgs; [
-      (nerdfonts.override {fonts = ["Iosevka"];})
+      (nerdfonts.override { fonts = [ "Iosevka" ]; })
       noto-fonts
       noto-fonts-extra
       noto-fonts-emoji
@@ -69,10 +72,19 @@
     ];
 
     defaults = {
-      serif = ["Libertinus Serif" "LXGW WenKai"];
-      sansSerif = ["Rethink Sans" "LXGW Neo XiHei"];
-      emoji = ["Noto Color Emoji"];
-      monospace = ["Iosevka Nerd Font" "LXGW Neo XiHei"];
+      serif = [
+        "Libertinus Serif"
+        "LXGW WenKai"
+      ];
+      sansSerif = [
+        "Rethink Sans"
+        "LXGW Neo XiHei"
+      ];
+      emoji = [ "Noto Color Emoji" ];
+      monospace = [
+        "Iosevka Nerd Font"
+        "LXGW Neo XiHei"
+      ];
     };
   };
 
@@ -88,7 +100,11 @@
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [80 443 5173];
+    allowedTCPPorts = [
+      80
+      443
+      5173
+    ];
   };
 
   nix.package = pkgs.nixVersions.nix_2_21;
