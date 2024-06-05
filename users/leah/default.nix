@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    ./appearance.nix
     ./containers
     ./presets/plasma
     ./programs
@@ -21,12 +22,6 @@
     realName = "Leah";
     fullName = "Leah Amelia Chen";
     canSudo = true;
-  };
-
-  roles.catppuccin = {
-    enable = true;
-    flavour = "mocha";
-    accent = "maroon";
   };
 
   roles.email =
@@ -56,37 +51,6 @@
         };
       };
     };
-
-  roles.fonts = {
-    enable = true;
-    packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "Iosevka" ]; })
-      noto-fonts
-      noto-fonts-extra
-      noto-fonts-emoji
-      libertinus
-      lxgw-wenkai
-      lxgw-neoxihei
-      rubik
-      rethink-sans
-    ];
-
-    defaults = {
-      serif = [
-        "Libertinus Serif"
-        "LXGW WenKai"
-      ];
-      sansSerif = [
-        "Rethink Sans"
-        "LXGW Neo XiHei"
-      ];
-      emoji = [ "Noto Color Emoji" ];
-      monospace = [
-        "Iosevka Nerd Font"
-        "LXGW Neo XiHei"
-      ];
-    };
-  };
 
   roles.fish = {
     enable = true;

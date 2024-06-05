@@ -1,14 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
-  inherit (config.hm) gtk;
-
-  optionalPackage = opt: lib.optional (opt != null && opt.package != null) opt.package;
-in
+{ pkgs, ... }:
 {
   imports = [
     ./sddm.nix
@@ -25,8 +15,4 @@ in
   #hm.gtk.enable = lib.mkForce false;
 
   hm.home.packages = with pkgs; [ wl-clipboard ];
-  #++ lib.concatMap optionalPackage [
-  #  gtk.theme
-  #  gtk.cursorTheme
-  #];
 }

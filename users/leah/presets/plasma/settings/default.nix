@@ -30,11 +30,6 @@
 
     workspace = {
       clickItemTo = "select";
-      theme = "default"; # Actually Catppuccin
-      colorScheme = "CatppuccinMochaMaroon";
-      cursorTheme = "Catppuccin-Mocha-Maroon-Cursors";
-      lookAndFeel = "org.kde.breezedark.desktop";
-      iconTheme = "breeze-dark";
       wallpaper = "${./wallpaper.jpg}";
     };
 
@@ -86,16 +81,5 @@
     };
   };
 
-  hm.programs.konsole = {
-    enable = true;
-    defaultProfile = "Catppuccin";
-    profiles.catppuccin = {
-      name = "Catppuccin";
-      colorScheme = "Catppuccin-Mocha";
-      font = {
-        name = "Iosevka Nerd Font";
-        size = 12;
-      };
-    };
-  };
+  hm.programs.konsole.enable = true;
 }

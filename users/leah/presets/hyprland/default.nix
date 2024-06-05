@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ./waybar
@@ -15,9 +15,23 @@
 
   roles.hyprland.enable = true;
 
+  hm.wayland.windowManager.hyprland.catppuccin.enable = true;
+
   hm.home.packages = with pkgs; [
     networkmanagerapplet # necessary for icons
   ];
+
+  roles.qt =
+    let
+      common.settings.Appearance = {
+        color_scheme_path = "${pkgs.catppuccin-qt5ct}/share/qt5ct/colors/Catppuccin-Mocha.conf";
+        custom_palette = true;
+      };
+    in
+    lib.genAttrs [
+      "qt5ct"
+      "qt6ct"
+    ] (_: common);
 
   hm.programs = {
     kitty.enable = true;

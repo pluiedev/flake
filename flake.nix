@@ -91,7 +91,7 @@
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        ./hm-plus
+        ./hm-modules
         ./packages
         ./systems
       ];
