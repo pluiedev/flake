@@ -41,6 +41,7 @@
               title = "CPU Usage";
               sensors = [
                 {
+                  label = "CPU %";
                   name = "cpu/all/usage";
                   color = "250,179,135"; # Peach
                 }
@@ -57,6 +58,7 @@
               title = "GPU Usage";
               sensors = [
                 {
+                  label = "GPU %";
                   name = "gpu/gpu1/usage";
                   color = "180,190,254"; # Lavender
                 }
@@ -76,6 +78,7 @@
               title = "Memory Usage";
               sensors = [
                 {
+                  label = "Memory %";
                   name = "memory/physical/usedPercent";
                   color = "166,227,161"; # Green
                 }

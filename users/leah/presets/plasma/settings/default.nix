@@ -63,6 +63,13 @@
           "InputMethod[$e]".value = "${config.hm.i18n.inputMethod.package}/share/applications/org.fcitx.Fcitx5.desktop";
         };
 
+        "org.kde.kdecoration2" = {
+          BorderSize = "Tiny";
+          BorderSizeAuto = false;
+          library = "org.kde.breeze";
+          theme = "Breeze";
+        };
+
         Plugins = {
           cubeEnabled.value = true;
           dimscreenEnabled.value = true;
@@ -78,6 +85,23 @@
       kcminputrc.Mouse.cursorSize.value = 32;
 
       kxkbrc.Layout.Options.value = "terminate:ctrl_alt_bksp,compose:ralt";
+
+      spectaclerc = {
+        General = {
+          autoSaveImage = true;
+          clipboardGroup = "PostScreenshotCopyImage";
+          onLaunchAction = "UseLastUsedCapturemode"; # Pressing the Spectacle shortcut while Spectacle is NOT running
+          launchAction = "UseLastUsedCapturemode"; # Pressing the Spectacle shortcut while Spectacle is running
+        };
+        ImageSave = {
+          imageFilenameTemplate = "<yyyy>-<MM>-<dd>_<hh>-<mm>-<ss>";
+          imageSaveLocation = "file:///home/leah/Pictures/screenshots/";
+        };
+        VideoSave = {
+          videoFilenameTemplate = "<yyyy>-<MM>-<dd>_<hh>-<mm>-<ss>";
+          videoSaveLocation = "file:///home/leah/Videos/screencasts/";
+        };
+      };
     };
   };
 
