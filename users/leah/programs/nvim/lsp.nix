@@ -12,14 +12,14 @@
     nodePackages_latest.svelte-language-server
     quick-lint-js
     ruff-lsp
-
     taplo
     typescript
     vscode-langservers-extracted
+    zls
 
     # Formatters
-    alejandra
     black
+    nixfmt-rfc-style
     prettierd
     shfmt
     stylua

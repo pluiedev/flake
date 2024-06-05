@@ -30,7 +30,7 @@ local default = {
   capabilities = capabilities,
 }
 
--- See `rust-tools.lua` for Rust configs
+-- See `rust.lua` for Rust configs
 for k, v in pairs {
   cssls = default,
   html = default,
@@ -69,6 +69,7 @@ for k, v in pairs {
     -- nix installs it as tsserver and not typescript-language-server
     cmd = { "tsserver", "--stdio" },
   }),
+  zls = default,
 } do
   lspconfig[k].setup(v)
 end

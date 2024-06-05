@@ -15,7 +15,7 @@ require("format-on-save").setup {
     yaml = formatters.prettierd,
 
     lua = formatters.stylua,
-    nix = formatters.shell { cmd = { "alejandra", "-qq", "-" } },
+    nix = formatters.shell { cmd = { "nixfmt", "-" } },
     python = formatters.black,
     sh = formatters.shfmt,
   },
