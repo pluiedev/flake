@@ -1,17 +1,17 @@
 { pkgs, ... }:
 let
   # TODO: upstream
-  format-on-save = pkgs.vimUtils.buildVimPlugin {
-    pname = "format-on-save.nvim";
-    version = "0-unstable-20231104";
-    src = pkgs.fetchFromGitHub {
-      owner = "elentok";
-      repo = "format-on-save.nvim";
-      rev = "b7ea8d72391281d14ea1fa10324606c1684180da";
-      hash = "sha256-y5zAZRuRIQEh6pEj/Aq5+ah2Qd+iNzbZgC5Z5tN1MXw=";
-    };
-    meta.homepage = "https://github.com/elentok/format-on-save.nvim";
-  };
+  #format-on-save = pkgs.vimUtils.buildVimPlugin {
+  #  pname = "format-on-save.nvim";
+  #  version = "0-unstable-20231104";
+  #  src = pkgs.fetchFromGitHub {
+  #    owner = "elentok";
+  #    repo = "format-on-save.nvim";
+  #    rev = "b7ea8d72391281d14ea1fa10324606c1684180da";
+  #    hash = "sha256-y5zAZRuRIQEh6pEj/Aq5+ah2Qd+iNzbZgC5Z5tN1MXw=";
+  #  };
+  #  meta.homepage = "https://github.com/elentok/format-on-save.nvim";
+  #};
 
   luaConf =
     plugin: filename:
@@ -32,7 +32,8 @@ in
     (luaConf barbar-nvim "barbar")
 
     # Formatting
-    (luaConf format-on-save "format-on-save")
+    #(luaConf format-on-save "format-on-save")
+    (luaConf none-ls-nvim "none-ls")
 
     # Completion
     (luaConf nvim-cmp "cmp")
@@ -47,7 +48,7 @@ in
     friendly-snippets
 
     # Rust
-    (luaConf rust-vim "rust")
+    #(luaConf rust-vim "rust")
     (luaConf crates-nvim "crates")
     rustaceanvim
 
@@ -57,11 +58,6 @@ in
     # Syntax highlighting
     (luaConf nvim-treesitter.withAllGrammars "tree-sitter")
 
-    # File browser
-    (luaConf neo-tree-nvim "neo-tree")
-    nvim-web-devicons
-    nui-nvim
-
     # Telescope
     (luaConf telescope-nvim "telescope")
 
@@ -70,6 +66,7 @@ in
     (luaConf gitsigns-nvim "gitsigns") # Git status display
     (luaConf nvim-colorizer-lua "colorizer") # Highlight color codes like #21df47
     plenary-nvim # Common library for a lot of plugins
+    nvim-web-devicons
 
     # Keymap display
     (luaConf which-key-nvim "which-key")

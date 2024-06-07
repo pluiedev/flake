@@ -85,6 +85,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+
+    treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
   outputs =
@@ -96,5 +98,17 @@
         ./systems
       ];
       systems = [ "x86_64-linux" ];
+
+      # perSystem =
+      #   { pkgs, ... }:
+      #   let
+      #     treefmt = inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+      #     formatter = treefmt.config.build.wrapper;
+      #   in
+      #   {
+      #     inherit formatter;
+      #     devShells.default = pkgs.mkShell { packages = [ formatter ]; };
+      #     checks.formatting = treefmt.config.build.check inputs.self;
+      #   };
     };
 }

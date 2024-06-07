@@ -19,17 +19,6 @@ in
     inherit flavor accent;
   };
 
-  hm.gtk = {
-    enable = true;
-    catppuccin = {
-      tweaks = [ "rimless" ];
-      size = "compact";
-      cursor.enable = true;
-    };
-
-    cursorTheme.size = 32;
-  };
-
   hm.programs.konsole.catppuccin.font = {
     name = "Iosevka Nerd Font";
     size = 12;

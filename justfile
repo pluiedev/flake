@@ -4,19 +4,20 @@ alias sw := switch
 alias t := test
 
 default:
-  @just --choose
+    @just --choose
 
 [linux]
 build *args: (_rebuild "build" args)
-  nix run nixpkgs#nvd -- diff /run/current-system/ result/
+    nix run nixpkgs#nvd -- diff /run/current-system/ result/
 
 [macos]
 build *args: (_rebuild "build" args)
 
 check:
-  nix flake check --option allow-import-from-derivation true
+    nix flake check --option allow-import-from-derivation true
 
 switch *args: (_rebuild "switch" args)
+
 test *args: (_rebuild "test" args)
 
 # blatantly stolen from getchoo
@@ -38,7 +39,6 @@ common_build_flags := "--flake .#$HOSTNAME --keep-going -L"
 additional_build_flags := if os() == "linux" { "${NIXOS_SPECIALISATION:+--specialisation $NIXOS_SPECIALISATION}" } else { "" }
 
 _rebuild cmd *args:
-  #!/usr/bin/env bash
-  set -o pipefail # fail if the build fails instead of blindly returning 0 as nom succeeds
-  {{rebuild}} {{cmd}} {{common_build_flags}} {{additional_build_flags}} {{args}} |& nix run n#nix-output-monitor
-
+    #!/usr/bin/env bash
+    set -o pipefail # fail if the build fails instead of blindly returning 0 as nom succeeds
+    {{ rebuild }} {{ cmd }} {{ common_build_flags }} {{ additional_build_flags }} {{ args }} |& nix run n#nix-output-monitor

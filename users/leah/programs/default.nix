@@ -18,7 +18,7 @@
 
   hm.home.packages = with pkgs; [
     # Apps
-    (inputs.blender-bin.packages.${pkgs.system}.default)
+    inputs.blender-bin.packages.${pkgs.system}.default
     chromium
     gimp
     inkscape-with-extensions
@@ -30,6 +30,8 @@
     nix-output-monitor
     nurl
     xclip
+
+    (inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix).config.build.wrapper
   ];
 
   programs = {
