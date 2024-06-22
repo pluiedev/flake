@@ -6,18 +6,18 @@
       minimizeToTray = "on";
       discordBranch = "stable";
       arRPC = "on";
-      splashColor = "rgb(235, 160, 172)"; # maroon
-      splashBackground = "rgb(30, 30, 46)"; # mantle
+      clickTrayToShowHide = true;
     };
 
     vencord = {
-      useSystemPackage = false;
+      enable = true;
+      catppuccin.splashTheming = true;
       css = builtins.readFile ./vencord.css;
     };
 
     vencord.settings = {
       notifyAboutUpdates = true;
-      autoUpdate = false;
+      autoUpdate = true;
       autoUpdateNotification = true;
       useQuickCss = true;
       enableReactDevtools = true;
@@ -27,6 +27,13 @@
       macosTranslucency = false;
       disableMinSize = false;
       winNativeTitleBar = false;
+
+      notifications = {
+        timeout = 5000;
+        position = "bottom-right";
+        useNative = "not-focused";
+        logLimit = 50;
+      };
 
       plugins = {
         BadgeAPI.enabled = true;
@@ -46,6 +53,7 @@
           settingsLocation = "aboveActivity";
         };
         AnonymiseFileNames.enabled = true;
+        AutomodContext.enabled = true;
         BetterFolders = {
           enabled = true;
           sidebar = false;
@@ -77,8 +85,10 @@
         BlurNSFW.enabled = true;
         CallTimer.enabled = true;
         ClearURLs.enabled = true;
+        CopyEmojiMarkdown.enabled = true;
         CrashHandler.enabled = true;
         Decor.enabled = true;
+        DontRoundMyTimestamps.enabled = true;
         EmoteCloner.enabled = true;
         Experiments = {
           enabled = true;
@@ -113,7 +123,9 @@
         ImageZoom.enabled = true;
         ImplicitRelationships = true;
         KeepCurrentChannel.enabled = true;
+        MaskedLinkPaste.enabled = true;
         MemberCount.enabled = true;
+        MessageLatency.enabled = true;
         MessageLinkEmbeds.enabled = true;
         MoreKaomoji.enabled = true;
         MoreUserTags = {
@@ -166,8 +178,10 @@
           role = false;
           showAllChannels = true;
         };
+        NoDefaultHangStatus.enabled = true;
         NoDevtoolsWarning.enabled = true;
         NoF1.enabled = true;
+        NoOnboardingDelay.enabled = true;
         NoReplyMention = {
           enabled = true;
           userList = "";
@@ -225,6 +239,8 @@
           friendRequestCancels = true;
           notices = false;
         };
+        ReplaceGoogleSearch.enabled = true;
+        ReplyTimestamp.enabled = true;
         RevealAllSpoilers.enabled = true;
         ReverseImageSearch.enabled = true;
         ReviewDB.enabled = false; # Fuck ReviewDB
@@ -253,7 +269,7 @@
           iconSpacing = 1;
           iconSize = 32;
         };
-        ShowTimeouts.enabled = true;
+        ShowTimeoutDuration.enabled = true;
         SilentMessageToggle.enabled = true;
         SortFriendRequests.enabled = true;
         SpotifyControls = {
@@ -300,6 +316,7 @@
           voiceBackground = true;
           nitroFirst = true;
         };
+        ValidReply.enabled = true;
         ValidUser.enabled = true;
         VcNarrator = {
           enabled = true;
@@ -315,15 +332,11 @@
         VencordToolbox.enabled = true;
         ViewIcons.enabled = true;
         VoiceChatDoubleClick.enabled = true;
+        VoiceDownload.enabled = true;
         VoiceMessages.enabled = true;
+        WatchTogetherAdblock.enabled = true;
         WhoReacted.enabled = true;
         Wikisearch.enabled = true;
-      };
-      notifications = {
-        timeout = 5000;
-        position = "bottom-right";
-        useNative = "not-focused";
-        logLimit = 50;
       };
     };
   };

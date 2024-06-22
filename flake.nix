@@ -13,7 +13,6 @@
 
     catppuccin.url = "github:catppuccin/nix";
 
-    # Only ever used for tracking and locking revs
     ctp-discord-compiled = {
       url = "github:catppuccin/discord/gh-pages";
       flake = false;

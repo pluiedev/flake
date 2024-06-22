@@ -5,29 +5,48 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
-  cfg = config.programs.vencord.catppuccin;
+  inherit (lib) mkIf mkMerge mkEnableOption;
   inherit (lib.ctp) mkCatppuccinOpt mkAccentOpt;
 
-  settings = {
-    themeLinks = [
-      "https://raw.githubusercontent.com/catppuccin/discord/${inputs.ctp-discord-compiled.rev}/dist/catppuccin-${cfg.flavor}-${cfg.accent}.theme.css"
-    ];
+  mkConfig =
+    cfg:
+    xdgConfigPath:
+    settingPath:
+    let
+      discordThemeFile = "catppuccin-${cfg.catppuccin.flavor}-${cfg.catppuccin.accent}.theme.css";
+      vscodeTheme = lib.importJSON "${inputs.ctp-vscode-compiled}/${cfg.catppuccin.flavor}.json";
+    in
+    mkIf (cfg.enable && cfg.catppuccin.enable) {
+      programs.${settingPath} = {
+        vencord.settings = {
+          enabledThemes = [ discordThemeFile ];
+          plugins.ShikiCodeblocks.theme = "https://esm.sh/@catppuccin/vscode@3.14.0/themes/${cfg.catppuccin.flavor}.json";
+        };
 
-    plugins.ShikiCodeblocks.theme = "https://raw.githubusercontent.com/catppuccin/vscode/${inputs.ctp-vscode-compiled.rev}/${cfg.flavor}.json";
-  };
+        settings = mkIf (cfg.catppuccin ? splashTheming && cfg.catppuccin.splashTheming) {
+          splashTheming = true;
+          splashBackground = vscodeTheme.colors."editor.background";
+          splashColor = vscodeTheme.colors."editor.foreground";
+        };
+      };
+
+      xdg.configFile."${xdgConfigPath}/themes/${discordThemeFile}".source = "${inputs.ctp-discord-compiled}/dist/${discordThemeFile}";
+    };
 in
 {
-  # TODO: separate options for Vencord + Discord and Vesktop
-  options.programs.vencord.catppuccin = mkCatppuccinOpt "Vencord" // {
-    accent = mkAccentOpt "Vencord";
+  # Reproducible 🔥🚀 tracking of latest theme version
+
+  options.programs.discord.vencord.catppuccin = mkCatppuccinOpt "Vencord for Discord" // {
+    accent = mkAccentOpt "Vencord for Discord";
+  };
+  options.programs.vesktop.vencord.catppuccin = mkCatppuccinOpt "Vencord for Vesktop" // {
+    accent = mkAccentOpt "Vencord for Vesktop";
+
+    splashTheming = mkEnableOption "Splash theming for Vesktop";
   };
 
-  # Reproducible 🔥🚀 tracking of latest theme version
-  config = {
-    programs.discord.vencord.settings = mkIf (
-      cfg.enable && config.programs.discord.vencord.enable
-    ) settings;
-    programs.vesktop.vencord.settings = mkIf (cfg.enable && config.programs.vesktop.enable) settings;
-  };
+  config = mkMerge [
+    (mkConfig config.programs.discord.vencord "Vencord" "discord")
+    (mkConfig config.programs.vesktop.vencord "vesktop" "vesktop")
+  ];
 }

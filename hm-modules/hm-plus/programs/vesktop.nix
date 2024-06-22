@@ -11,6 +11,7 @@ let
     mkOption
     mkIf
     types
+    optionalAttrs
     ;
   cfg = config.programs.vesktop;
   format = pkgs.formats.json { };
@@ -30,10 +31,12 @@ in
     };
 
     vencord = {
+      enable = mkEnableOption "Vencord";
+
       useSystemPackage = mkOption {
         type = types.bool;
         description = "Use the Vencord package in Nixpkgs, instead of allowing Vesktop to manage its own Vencord install";
-        default = true;
+        default = false;
       };
 
       settings = mkOption {
@@ -59,7 +62,7 @@ in
 
     xdg.configFile = {
       "vesktop/settings.json".source = format.generate "vesktop-settings.json" cfg.settings;
-
+    } // optionalAttrs cfg.vencord.enable {
       "vesktop/settings/settings.json".source = format.generate "vencord-settings.json" cfg.vencord.settings;
       "vesktop/settings/quickCss.css".text = cfg.vencord.css;
     };
