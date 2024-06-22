@@ -17,6 +17,9 @@
     inputs.self.hmModules.hm-plus
   ];
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  nix.settings.extra-platforms = [ "aarch64-linux" ];
+
   roles.base = {
     username = "leah";
     realName = "Leah";
@@ -71,6 +74,6 @@
     ];
   };
 
-  nix.package = pkgs.nixVersions.nix_2_21;
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  nix.package = pkgs.nixVersions.latest;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 }

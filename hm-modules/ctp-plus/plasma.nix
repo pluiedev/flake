@@ -39,7 +39,7 @@ in
     programs.plasma.workspace = {
       theme = "default"; # Actually Catppuccin
       colorScheme = "Catppuccin${mkUpper cfg.flavor}${mkUpper cfg.accent}";
-      cursorTheme = lib.mkIf cursorCfg.enable "Catppuccin-${mkUpper cursorCfg.flavor}-${mkUpper cursorCfg.accent}-Cursors";
+      cursor.theme = lib.mkIf cursorCfg.enable "Catppuccin-${mkUpper cursorCfg.flavor}-${mkUpper cursorCfg.accent}-Cursors";
       inherit (darkModeSettings) lookAndFeel iconTheme;
     };
   };

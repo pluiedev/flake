@@ -26,7 +26,6 @@ in
         "nix-command"
         "flakes"
         "auto-allocate-uids"
-        "repl-flake"
       ];
       trusted-users = [ "@wheel" ];
     };

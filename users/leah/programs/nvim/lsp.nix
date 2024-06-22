@@ -6,10 +6,7 @@
     ltex-ls
     marksman
     nil
-    nodePackages_latest.diagnostic-languageserver
-    nodePackages_latest.pyright
-    nodePackages_latest.graphql-language-service-cli
-    nodePackages_latest.svelte-language-server
+    pyright
     quick-lint-js
     ruff-lsp
     taplo
@@ -25,5 +22,9 @@
     stylua
 
     tree-sitter
-  ];
+  ] ++ (with pkgs.nodePackages_latest; [
+    diagnostic-languageserver
+    graphql-language-service-cli
+    svelte-language-server
+  ]);
 }
