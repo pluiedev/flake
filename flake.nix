@@ -18,9 +18,8 @@
       flake = false;
     };
 
-    # Only ever used for tracking and locking revs
     ctp-vscode-compiled = {
-      url = "github:catppuccin/vscode/compiled";
+      url = "github:catppuccin/vscode";
       flake = false;
     };
 

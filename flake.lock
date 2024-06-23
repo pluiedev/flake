@@ -76,16 +76,15 @@
     "ctp-vscode-compiled": {
       "flake": false,
       "locked": {
-        "lastModified": 1704411842,
-        "narHash": "sha256-LsXypzhaOKdFuF55xdjIkfcFkCmJWAXIQsDgTrAJSuY=",
+        "lastModified": 1716179347,
+        "narHash": "sha256-DPiP4yLRcPgWgrnCC/tRp5vUk9teZIfsCT2r8jr1V8A=",
         "owner": "catppuccin",
         "repo": "vscode",
-        "rev": "75805b74e052fe6673a1bdf3948bfa5b481edb7e",
+        "rev": "b7a8806f7532a091b0170f281dbc7f35c3fc7761",
         "type": "github"
       },
       "original": {
         "owner": "catppuccin",
-        "ref": "compiled",
         "repo": "vscode",
         "type": "github"
       }
