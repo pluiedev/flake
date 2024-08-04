@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.programs.plasma.catppuccin;
-  cursorCfg = config.gtk.catppuccin.cursor;
+  cursorCfg = config.catppuccin.pointerCursor;
   enable = cfg.enable && config.programs.plasma.enable;
 
   inherit (lib.ctp) mkCatppuccinOpt mkAccentOpt mkUpper;
@@ -24,7 +24,7 @@ let
       };
 in
 {
-  options.programs.plasma.catppuccin = mkCatppuccinOpt "Plasma" // {
+  options.programs.plasma.catppuccin = mkCatppuccinOpt { name = "Plasma"; } // {
     accent = mkAccentOpt "Plasma";
   };
 

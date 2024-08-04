@@ -23,6 +23,7 @@
     gimp
     inkscape-with-extensions
     vlc
+    inputs.ghostty.packages.${pkgs.system}.default
 
     # Command-line apps
     just

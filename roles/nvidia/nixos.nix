@@ -6,7 +6,7 @@ in
 {
   config = mkIf cfg.enable {
     hardware = {
-      opengl.enable = true;
+      graphics.enable = true;
 
       nvidia = {
         # Modesetting is needed for most Wayland compositors

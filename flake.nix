@@ -2,7 +2,7 @@
   description = "Leah's NixOS configurations + more";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # NOTE: please keep this in alphabetical order.
 
@@ -19,7 +19,7 @@
     };
 
     ctp-vscode-compiled = {
-      url = "github:catppuccin/vscode";
+      url = "github:catppuccin/vscode/catppuccin-vsc-v3.14.0";
       flake = false;
     };
 
@@ -38,6 +38,14 @@
 
     # Only for input deduplication
     flake-utils.url = "github:numtide/flake-utils";
+
+    ghostty = {
+      url = "git+ssh://git@github.com/ghostty-org/ghostty";
+      inputs = {
+        nixpkgs-stable.follows = "nixpkgs";
+        nixpkgs-unstable.follows = "nixpkgs";
+      };
+    };
 
     krunner-nix = {
       url = "github:pluiedev/krunner-nix";
@@ -81,7 +89,6 @@
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     treefmt-nix.url = "github:numtide/treefmt-nix";

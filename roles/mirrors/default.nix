@@ -33,7 +33,7 @@ in
       description = "A list of Chinese mirror sites to use.";
       type = types.attrsOf types.str;
       default = {
-        sjtu = "https://mirrors.sjtug.sjtu.edu.cn";
+        sjtu = "https://mirror.sjtu.edu.cn";
         tuna = "https://mirrors.tuna.tsinghua.edu.cn";
         ustc = "https://mirrors.ustc.edu.cn";
       };

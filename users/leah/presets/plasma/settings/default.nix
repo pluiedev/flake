@@ -2,6 +2,8 @@
 {
   imports = [ ./panels.nix ];
 
+  hm.programs.konsole.enable = true;
+
   hm.programs.plasma = {
     enable = true;
 
@@ -31,12 +33,42 @@
     workspace = {
       clickItemTo = "select";
       wallpaper = "${./wallpaper.jpg}";
+      cursor.size = 32;
     };
 
     kwin = {
-      effects.shakeCursor.enable = true;
+      effects = {
+        blur.enable = true;
+        cube.enable = true;
+        desktopSwitching.animation = "slide";
+        dimAdminMode.enable = true;
+        minimization.animation = "squash";
+        shakeCursor.enable = true;
+        windowOpenClose.animation = "scale";
+        wobblyWindows.enable = true;
+      };
+      nightLight = {
+        enable = true;
+        mode = "times";
+        temperature = {
+          day = 6500;
+          night = 5000;
+        };
+        time = {
+          evening = "22:00";
+          morning = "06:00";
+        };
+        transitionTime = 120;
+      };
+      titlebarButtons = {
+        left = [ "more-window-actions" ];
+        right = [
+          "minimize"
+          "maximize"
+          "close"
+        ];
+      };
       virtualDesktops = {
-        animation = "slide";
         rows = 1;
         names = [
           "Default"
@@ -49,13 +81,6 @@
     configFile = {
       kwinrc = {
         Tiling.padding.value = 2;
-
-        NightColor = {
-          Active.value = true;
-          EveningBeginFixed.value = 2200;
-          Mode.value = "Times";
-          TransitionTime.value = 120;
-        };
 
         Wayland = lib.mkIf (config.hm.i18n.inputMethod.enabled == "fcitx5") {
           # Fcitx 5
@@ -70,19 +95,12 @@
           theme = "Breeze";
         };
 
-        Plugins = {
-          cubeEnabled.value = true;
-          dimscreenEnabled.value = true;
-          shakecursorEnabled.value = true;
-          sheetEnabled.value = true;
-          wobblywindowsEnabled.value = true;
-        };
+        # TODO: migrate to programs.plasma.kwin.effects
+        Plugins.sheetEnabled.value = true;
       };
 
       # Make KRunner appear in the center of the screen, like macOS Spotlight
       krunnerrc.General.FreeFloating.value = true;
-
-      kcminputrc.Mouse.cursorSize.value = 32;
 
       kxkbrc.Layout.Options.value = "terminate:ctrl_alt_bksp,compose:ralt";
 
@@ -104,6 +122,4 @@
       };
     };
   };
-
-  hm.programs.konsole.enable = true;
 }

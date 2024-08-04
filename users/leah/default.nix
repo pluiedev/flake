@@ -4,7 +4,7 @@
   inputs,
   ...
 }:
-{
+builtins.trace builtins.nixVersion {
   imports = [
     ./appearance.nix
     ./containers
@@ -74,6 +74,6 @@
     ];
   };
 
-  nix.package = pkgs.nixVersions.latest;
+  nix.package = pkgs.nixVersions.nix_2_18;
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 }

@@ -62,7 +62,7 @@
           # Language
           furiganaize
           immersive-translate
-          languagetool
+          # languagetool
 
           # Styling
           darkreader

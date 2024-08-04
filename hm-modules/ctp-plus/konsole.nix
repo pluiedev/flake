@@ -10,7 +10,7 @@ let
   enable = cfg.enable && config.programs.konsole.enable;
 in
 {
-  options.programs.konsole.catppuccin = mkCatppuccinOpt "Konsole" // {
+  options.programs.konsole.catppuccin = mkCatppuccinOpt { name = "Konsole"; } // {
     profileName = lib.mkOption {
       type = lib.types.str;
       default = "Catppuccin";

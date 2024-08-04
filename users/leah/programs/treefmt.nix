@@ -13,7 +13,7 @@
     stylua.enable = true;
     zig.enable = true;
 
-    nixfmt-rfc-style.enable = true;
+    nixfmt.enable = true;
     statix.enable = true;
   };
 }
