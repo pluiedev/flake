@@ -42,9 +42,9 @@ in
 
   config = mkIf cfg.chinese.enable {
     roles.rust = {
-      rust-bin = pkgs.rust-bin // {
-        distRoot = "${defaultSite}/rust-static/dist";
-      };
+      # rust-bin = pkgs.rust-bin // {
+      #   distRoot = "${defaultSite}/rust-static/dist";
+      # };
 
       settings.source = {
         crates-io.replace-with = cfg.chinese.defaultSite;
