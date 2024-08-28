@@ -1,23 +1,50 @@
-{ self, inputs, ... }:
-{
-  flake =
-    let
-      inherit (inputs.nixpkgs) lib;
-      inherit (import ./profiles/lib.nix) mkSystems;
+{ withSystem, inputs, self, ... }:
+let
+  mkMachine =
+    name: { system, modules, builder }:
+    withSystem system ({ inputs', self', ... }:
+      builder {
+        specialArgs = { inherit inputs inputs' self self'; };
+        modules = modules ++ [
+          ./${name}
+          {
+            networking.hostName = name;
+            nixpkgs.hostPlatform = system;
+          }
+        ];
+      }
+    );
 
-      profiles = import ./profiles inputs;
-      machines = import ./machines profiles;
-    in
-    builtins.mapAttrs (_: mkSystems) machines
-    // {
-      hydraJobs =
-        let
-          ciSystems = [ "x86_64-linux" ];
-          mapCfgsToDerivs = lib.mapAttrs (_: cfg: cfg.activationPackage or cfg.config.system.build.toplevel);
-          getCompatibleCfgs = lib.filterAttrs (_: cfg: lib.elem cfg.pkgs.system ciSystems);
-        in
-        {
-          nixosConfigurations = mapCfgsToDerivs (getCompatibleCfgs self.nixosConfigurations);
-        };
+  mkMachines = builtins.mapAttrs mkMachine;
+
+  # Composable parts
+  personal = [
+    inputs.home-manager.nixosModules.home-manager
+    ../users/personal.nix
+  ];
+  nixos = [ ../roles/nixos.nix ];
+  darwin = [ ../roles/darwin.nix ];
+
+  # Presets
+  nixos-pc = {
+    system = "x86_64-linux";
+    modules = nixos ++ personal;
+    builder = inputs.nixpkgs.lib.nixosSystem;
+  };
+  darwin-pc = {
+    system = "x86_64-darwin";
+    modules = darwin ++ personal;
+    builder = inputs.nix-darwin.lib.darwinSystem;
+  };
+in
+{
+  flake = {
+    nixosConfigurations = mkMachines {
+      fettuccine = nixos-pc;
+      tagliatelle = nixos-pc;
     };
+    darwinConfigurations = mkMachines {
+      fromage = darwin-pc;
+    };
+  };
 }
