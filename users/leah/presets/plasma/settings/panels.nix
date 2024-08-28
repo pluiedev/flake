@@ -4,14 +4,14 @@
       base = {
         hiding = "dodgewindows";
         floating = true;
-        height = 36;
+        height = 50;
         location = "top";
         lengthMode = "fit";
       };
     in
     map (p: base // p) [
       {
-        height = 60;
+        height = 80;
         location = "bottom";
         alignment = "center";
         widgets = [
