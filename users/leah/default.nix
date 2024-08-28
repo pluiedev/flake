@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  inputs,
+  self,
   ...
 }:
 {
@@ -12,10 +12,7 @@
     ./programs
   ];
 
-  hm.imports = [
-    inputs.nix-index-database.hmModules.nix-index
-    inputs.self.hmModules.hm-plus
-  ];
+  hm.imports = [ self.hmModules.hm-plus ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   nix.settings.extra-platforms = [ "aarch64-linux" ];

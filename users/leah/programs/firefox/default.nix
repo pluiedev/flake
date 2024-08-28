@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  inputs,
+  inputs',
   ...
 }:
 {
@@ -20,7 +20,7 @@
           # Use this one dirty trick to make the FSF mad! :trolley:
           gaslight = pkgs: pkgs.overrideAttrs { meta.license.free = true; };
         in
-        with inputs.firefox-addons.packages.${pkgs.system};
+        with inputs'.firefox-addons.packages;
         map gaslight [
           # Essentials
           auto-tab-discard

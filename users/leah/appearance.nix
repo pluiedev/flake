@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ self, inputs, pkgs, ... }:
 let
   flavor = "mocha";
   accent = "maroon";
@@ -12,7 +12,7 @@ in
 
   hm.imports = [
     inputs.catppuccin.homeManagerModules.catppuccin
-    inputs.self.hmModules.ctp-plus
+    self.hmModules.ctp-plus
   ];
   hm.catppuccin = {
     enable = true;

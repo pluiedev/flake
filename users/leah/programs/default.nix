@@ -3,6 +3,7 @@
   pkgs,
   lib,
   inputs,
+  inputs',
   ...
 }:
 {
@@ -17,9 +18,11 @@
     #./virt-manager
   ];
 
+  hm.imports = [ inputs.nix-index-database.hmModules.nix-index ];
+
   hm.home.packages = with pkgs; [
     # Apps
-    inputs.blender-bin.packages.${pkgs.system}.default
+    inputs'.blender-bin.packages.default
     chromium
     gimp
     inkscape-with-extensions
@@ -72,6 +75,7 @@
         };
       };
     };
+
     eza = {
       enable = true;
       git = true;

@@ -1,4 +1,4 @@
-{ lib, inputs, ... }:
+{ lib, inputs, self, ... }:
 let
   inherit (lib) mkDefault;
 in
@@ -34,6 +34,6 @@ in
     # I'm not part of the FSF and I don't care
     config.allowUnfree = true;
 
-    overlays = [ (import ../../packages/overlay.nix) ];
+    overlays = [ self.overlays.default ];
   };
 }

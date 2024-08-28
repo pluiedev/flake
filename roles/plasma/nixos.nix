@@ -3,6 +3,7 @@
   lib,
   pkgs,
   inputs,
+  inputs',
   ...
 }:
 let
@@ -28,9 +29,7 @@ in
     hm = {
       imports = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
 
-      home.packages =
-        lib.optional cfg.krunner-nix.enable
-          inputs.krunner-nix.packages.${pkgs.system}.default;
+      home.packages = lib.optional cfg.krunner-nix.enable inputs'.krunner-nix.packages.default;
 
       # Janky workaround
       # https://github.com/nix-community/home-manager/issues/1586
