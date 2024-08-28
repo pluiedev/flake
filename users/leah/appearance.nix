@@ -28,23 +28,22 @@ in
     enable = true;
     packages = with pkgs; [
       (nerdfonts.override { fonts = [ "Iosevka" ]; })
+      lilex
       noto-fonts
-      noto-fonts-extra
       noto-fonts-emoji
       libertinus
       lxgw-wenkai
       lxgw-neoxihei
-      rubik
-      rethink-sans
+      dm-sans-unstable
     ];
 
     defaults = {
       serif = [
-        "Libertinus Serif"
+        "DM Serif Text"
         "LXGW WenKai"
       ];
       sansSerif = [
-        "Rethink Sans"
+        "DM Sans"
         "LXGW Neo XiHei"
       ];
       emoji = [ "Noto Color Emoji" ];
