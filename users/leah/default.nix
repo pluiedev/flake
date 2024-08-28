@@ -74,6 +74,6 @@
     ];
   };
 
-  nix.package = pkgs.nixVersions.nix_2_18;
+  nix.package = pkgs.lix;
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 }
