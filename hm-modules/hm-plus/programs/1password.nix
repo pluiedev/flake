@@ -58,8 +58,6 @@ in
         Note that setting `sshAgent.enabled` in these settings also enables the 1Password SSH agent automatically.
       '';
     };
-
-    sshAgent.enable = mkEnableOption "1Password's SSH agent";
   };
   config = mkIf cfg.enable {
     home.packages =
@@ -75,9 +73,7 @@ in
       format.generate "1password-settings.json"
         (pathify ({ version = 1; } // cfg.settings));
 
-    programs = mkIf cfg.sshAgent.enable {
-      _1password.settings.sshAgent.enabled = true;
-
+    programs = mkIf cfg.settings.sshAgent.enabled {
       git.signer = getExe' cfg.package "op-ssh-sign";
       ssh.enable = mkDefault true;
       ssh.extraConfig = "IdentityAgent ${config.home.homeDirectory}/.1password/agent.sock";
