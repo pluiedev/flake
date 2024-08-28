@@ -101,15 +101,25 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
-  outputs =
-    inputs:
+  outputs = inputs:
+    let
+      packages' = pkgs': pkgs'.lib.packagesFromDirectoryRecursive {
+        inherit (pkgs') callPackage;
+        directory = ./packages;
+      };
+    in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         ./hm-modules
-        ./packages
         ./systems
       ];
-      systems = [ "x86_64-linux" ];
+      systems = [ "x86_64-linux" "x86_64-darwin" ];
+
+      flake.overlays.default = _: packages';
+
+      perSystem = { pkgs, ... }: {
+        packages = packages' pkgs;
+      };
 
       # perSystem =
       #   { pkgs, ... }:
