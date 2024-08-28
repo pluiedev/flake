@@ -23,6 +23,11 @@
       flake = false;
     };
 
+    fenix = {
+      url = "github:nix-community/fenix/monthly";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     firefox-addons = {
       url = "sourcehut:~rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs = {
@@ -57,7 +62,6 @@
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
-        rust-overlay.follows = "rust-overlay";
       };
     };
 
@@ -84,11 +88,6 @@
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
       };
-    };
-
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     treefmt-nix.url = "github:numtide/treefmt-nix";

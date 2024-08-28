@@ -2,7 +2,7 @@
   lib,
   pkgs,
   config,
-  inputs,
+  inputs',
   ...
 }:
 let
@@ -18,21 +18,17 @@ in
   options.roles.rust = {
     enable = mkEnableOption "Rust";
 
-    rust-bin = mkOption {
-      type = types.attrsOf types.anything;
-      default = pkgs.rust-bin;
-      example = pkgs.rust-bin // {
-        distRoot = "some-root";
-      };
-    };
-
     package = mkOption {
       type = types.package;
-      default = cfg.rust-bin.selectLatestNightlyWith (
-        toolchain: toolchain.default.override { extensions = [ "rust-analyzer" ]; }
-      );
-      example = cfg.rust-bin.stable.latest.default;
-      description = "Version of Rust to install. Defaults to latest nightly with rust-analyzer";
+      default =
+        let
+          fenix = inputs'.fenix.packages;
+        in
+        fenix.combine [
+          fenix.default.toolchain
+          fenix.rust-analyzer
+        ];
+      description = "Version of Rust to install. Defaults to nightly with rust-analyzer";
     };
 
     linker = mkOption {
@@ -58,34 +54,26 @@ in
     };
   };
 
-  config =
+  config.hm =
     let
-      toTOMLFile = pkgs.formats.toml { };
-    in
-    mkIf cfg.enable {
-      nixpkgs.overlays = [ inputs.rust-overlay.overlays.default ];
-
-      hm = {
-        home.packages = [ cfg.package ];
-
-        xdg.configFile."rustfmt/rustfmt.toml" = mkIf (cfg.rustfmt.settings != null) {
-          source = toTOMLFile.generate "rustfmt.toml" cfg.rustfmt.settings;
-        };
-
-        home.file.".cargo/config.toml" = mkIf (cfg.settings != null) {
-          source = toTOMLFile.generate "config.toml" (
-            (lib.optionalAttrs (cfg.linker != null) {
-              target.${pkgs.rust.toRustTarget pkgs.hostPlatform} = {
-                linker = "${lib.getExe pkgs.clang_16}";
-                rustflags = [
-                  "-C"
-                  "link-arg=-fuse-ld=${cfg.linker}"
-                ];
-              };
-            })
-            // cfg.settings
-          );
+      toml = pkgs.formats.toml { };
+      linkerSettings = lib.optionalAttrs (cfg.linker != null) {
+        target.${pkgs.rust.toRustTarget pkgs.hostPlatform} = {
+          linker = "${lib.getExe pkgs.clang_16}";
+          rustflags = [
+            "-C"
+            "link-arg=-fuse-ld=${cfg.linker}"
+          ];
         };
       };
+    in
+    mkIf cfg.enable {
+      home.packages = [ cfg.package ];
+
+      xdg.configFile."rustfmt/rustfmt.toml".source = mkIf (cfg.rustfmt.settings != null)
+          (toml.generate "rustfmt.toml" cfg.rustfmt.settings);
+
+      home.file.".cargo/config.toml".source = mkIf (cfg.settings != null)
+          (toml.generate "config.toml" (linkerSettings // cfg.settings));
     };
 }
