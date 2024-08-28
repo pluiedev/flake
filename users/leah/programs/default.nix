@@ -11,6 +11,7 @@
     ./discord
     ./fcitx5
     ./firefox
+    ./ghostty
     ./nvim
     ./rust
     #./virt-manager
@@ -23,7 +24,6 @@
     gimp
     inkscape-with-extensions
     vlc
-    inputs.ghostty.packages.${pkgs.system}.default
 
     # Command-line apps
     just
@@ -41,10 +41,7 @@
       extraCompatPackages = [ pkgs.proton-ge-bin ];
       remotePlay.openFirewall = true;
     };
-    nix-ld = {
-      enable = true;
-      package = pkgs.nix-ld-rs;
-    };
+    nix-ld.enable = true;
   };
 
   hm.programs = {
