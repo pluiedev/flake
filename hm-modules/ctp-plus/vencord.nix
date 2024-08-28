@@ -18,7 +18,7 @@ let
       # We get the latest stable version by reading the package.json. Cursed? Absolutely.
       vscodeVersion = (lib.importJSON "${inputs.ctp-vscode-compiled}/packages/catppuccin-vsc/package.json").version;
 
-      # palette = (lib.importJSON "${config.catppuccin.sources.palette}/palette.json").${cfg.catppuccin.flavor}.colors;
+      palette = (lib.importJSON "${config.catppuccin.sources.palette}/palette.json").${cfg.catppuccin.flavor}.colors;
     in
     mkIf (cfg.enable && cfg.catppuccin.enable) {
       programs.${settingPath} = {
@@ -29,8 +29,8 @@ let
 
         settings = mkIf (cfg.catppuccin ? splashTheming && cfg.catppuccin.splashTheming) {
           splashTheming = true;
-          # splashBackground = palette.base.hex;
-          # splashColor = palette.text.hex;
+          splashBackground = palette.base.hex;
+          splashColor = palette.text.hex;
         };
       };
 
@@ -49,8 +49,8 @@ in
     splashTheming = mkEnableOption "Splash theming for Vesktop";
   };
 
-  config = lib.traceSeq inputs.ctp-vscode-compiled (mkMerge [
+  config = mkMerge [
     (mkConfig config.programs.discord.vencord "Vencord" "discord")
     (mkConfig config.programs.vesktop.vencord "vesktop" "vesktop")
-  ]);
+  ];
 }

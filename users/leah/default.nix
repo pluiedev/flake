@@ -4,7 +4,7 @@
   inputs,
   ...
 }:
-builtins.trace builtins.nixVersion {
+{
   imports = [
     ./appearance.nix
     ./containers
