@@ -57,6 +57,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    kwin-effects-forceblur = {
+      url = "github:taj-ny/kwin-effects-forceblur";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        utils.follows = "flake-utils";
+      };
+    };
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs = {
@@ -83,7 +91,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     plasma-manager = {
-      url = "github:pjones/plasma-manager";
+      url = "github:nix-community/plasma-manager";
       inputs = {
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";

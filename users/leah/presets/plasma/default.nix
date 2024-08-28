@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs', ... }:
 {
   imports = [
     ./sddm.nix
@@ -14,5 +14,8 @@
   # KDE manages GTK stuff by itself
   #hm.gtk.enable = lib.mkForce false;
 
-  hm.home.packages = with pkgs; [ wl-clipboard ];
+  hm.home.packages = with pkgs; [
+    wl-clipboard
+    inputs'.kwin-effects-forceblur.packages.default
+  ];
 }
