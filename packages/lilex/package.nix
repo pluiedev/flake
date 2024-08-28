@@ -2,13 +2,13 @@
   lib,
 
   stdenvNoCC,
-  fetchFromGithub,
+  fetchFromGitHub,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "lilex";
   version = "2.530";
 
-  src = fetchFromGithub {
+  src = fetchFromGitHub {
     owner = "mishamyrt";
     repo = "Lilex";
     rev = finalAttrs.version;
