@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  inputs,
+  inputs',
   ...
 }:
 let
@@ -21,8 +21,8 @@ in
   options.programs.ghostty = {
     enable = mkEnableOption "Ghostty";
 
-    package = mkPackageOption pkgs "Ghostty" // {
-      default = inputs.ghostty.packages.${pkgs.system}.ghostty;
+    package = (mkPackageOption pkgs "Ghostty" {}) // {
+      inherit (inputs'.ghostty.packages) default;
     };
 
     settings = mkOption {
