@@ -6,4 +6,6 @@ inputs@{ lib, ... }:
       (map (s: /${s}/darwin.nix))
       (builtins.filter builtins.pathExists)
     ]);
+
+  system.stateVersion = 4;
 }
