@@ -58,7 +58,7 @@ in
     let
       toml = pkgs.formats.toml { };
       linkerSettings = lib.optionalAttrs (cfg.linker != null) {
-        target.${pkgs.rust.toRustTarget pkgs.hostPlatform} = {
+        target.${pkgs.hostPlatform.rust.rustcTarget} = {
           linker = "${lib.getExe pkgs.clang_16}";
           rustflags = [
             "-C"

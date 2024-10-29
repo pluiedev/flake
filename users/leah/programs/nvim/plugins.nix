@@ -48,7 +48,7 @@ in
     friendly-snippets
 
     # Rust
-    #(luaConf rust-vim "rust")
+    (luaConf rust-vim "rust")
     (luaConf crates-nvim "crates")
     rustaceanvim
 

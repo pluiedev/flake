@@ -65,10 +65,7 @@ for k, v in pairs({
 	ruff_lsp = default,
 	svelte = default,
 	taplo = default,
-	tsserver = vim.tbl_extend("force", default, {
-		-- nix installs it as tsserver and not typescript-language-server
-		cmd = { "tsserver", "--stdio" },
-	}),
+	ts_ls = default,
 	zls = default,
 }) do
 	lspconfig[k].setup(v)

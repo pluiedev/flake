@@ -5,17 +5,12 @@ let
 in
 {
   config = mkIf cfg.enable {
-    hardware = {
-      graphics.enable = true;
+    hardware.nvidia = {
+      open = true;
 
-      nvidia = {
-        # Modesetting is needed for most Wayland compositors
-        modesetting.enable = true;
-
-        powerManagement = {
-          enable = true;
-          finegrained = true;
-        };
+      powerManagement = {
+        enable = true;
+        # finegrained = true;
       };
     };
     services.xserver = {

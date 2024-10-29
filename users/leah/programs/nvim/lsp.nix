@@ -12,7 +12,7 @@
       quick-lint-js
       ruff-lsp
       taplo
-      typescript
+      typescript-language-server
       vscode-langservers-extracted
       zls
 

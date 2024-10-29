@@ -15,7 +15,11 @@
   hm.imports = [ self.hmModules.hm-plus ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-  nix.settings.extra-platforms = [ "aarch64-linux" ];
+
+  nix = {
+    settings.extra-platforms = [ "aarch64-linux" ];
+    daemonCPUSchedPolicy = "idle";
+  };
 
   roles.base = {
     username = "leah";
@@ -70,6 +74,8 @@
       5173
     ];
   };
+
+  services.cloudflare-warp.enable = true;
 
   nix.package = pkgs.lix;
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;

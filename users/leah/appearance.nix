@@ -1,4 +1,4 @@
-{ self, inputs, pkgs, ... }:
+{ self, inputs, pkgs, lib, ... }:
 let
   flavor = "mocha";
   accent = "maroon";
@@ -14,33 +14,65 @@ in
     inputs.catppuccin.homeManagerModules.catppuccin
     self.hmModules.ctp-plus
   ];
+
   hm.catppuccin = {
     enable = true;
     inherit flavor accent;
   };
 
+  hm.programs.fish.interactiveShellInit = ''
+    set -x LS_COLORS (${lib.getExe pkgs.vivid} generate catppuccin-${flavor})
+  '';
+
   hm.programs.konsole.catppuccin.font = {
     name = "Iosevka Nerd Font";
-    size = 12;
+    size = 14;
   };
+
+  hm.programs.plasma.fonts =
+    let
+      rethink = {
+        family = "Rethink Sans";
+        pointSize = 12;
+      };
+    in
+    {
+      general = rethink // {
+        pointSize = 14;
+      };
+      fixedWidth = {
+        family = "Iosevka Nerd Font";
+        pointSize = 14;
+      };
+      small = rethink // {
+        pointSize = 11;
+      };
+      toolbar = rethink;
+      menu = rethink;
+      windowTitle = rethink;
+    };
 
   roles.fonts = {
     enable = true;
     packages = with pkgs; [
       (nerdfonts.override { fonts = [ "Iosevka" ]; })
-      lilex
       noto-fonts
       noto-fonts-emoji
       libertinus
-      lxgw-wenkai
+      (i-dot-ming.overrideAttrs (final: _: {
+        version = "8.10";
+        src = pkgs.fetchurl {
+          url = "https://raw.githubusercontent.com/ichitenfont/I.Ming/${final.version}/${final.version}/I.Ming-${final.version}.ttf";
+          hash = "sha256-y6E7dbBQ1nG2EdAGMUcmLkIeFDWa1FMJSLBw9WER8PM=";
+        };
+      }))
       lxgw-neoxihei
       dm-sans-unstable
     ];
 
     defaults = {
       serif = [
-        "DM Serif Text"
-        "LXGW WenKai"
+        "I.Ming"
       ];
       sansSerif = [
         "DM Sans"

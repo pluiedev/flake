@@ -7,29 +7,6 @@
   hm.programs.plasma = {
     enable = true;
 
-    fonts =
-      let
-        rethink = {
-          family = "Rethink Sans";
-          pointSize = 10;
-        };
-      in
-      {
-        general = rethink // {
-          pointSize = 11;
-        };
-        fixedWidth = {
-          family = "Iosevka Nerd Font";
-          pointSize = 11;
-        };
-        small = rethink // {
-          pointSize = 8;
-        };
-        toolbar = rethink;
-        menu = rethink;
-        windowTitle = rethink;
-      };
-
     workspace = {
       clickItemTo = "select";
       wallpaper = "${./wallpaper.jpg}";

@@ -39,6 +39,8 @@
   ];
 
   programs = {
+    gamemode.enable = true;
+    localsend.enable = true;
     steam = {
       enable = true;
       extraCompatPackages = [ pkgs.proton-ge-bin ];
@@ -102,6 +104,7 @@
       extraConfig = {
         init.defaultBranch = "main";
         push.autoSetupRemote = true;
+        url."https://github.com/".insteadOf = "gh:";
       };
     };
 
