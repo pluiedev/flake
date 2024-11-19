@@ -29,6 +29,11 @@ in
       example = "Cave Johnson";
       description = "The primary user's full name.";
     };
+    publicKey = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = "The primary user's public key.";
+    };
 
     canSudo = mkEnableOption "admin permissions for the primary user";
   };

@@ -14,17 +14,23 @@
 
   hm.imports = [ self.hmModules.hm-plus ];
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot = {
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
+    kernelParams = [ "plymouth.use-simpledrm" ];
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  };
 
   nix = {
     settings.extra-platforms = [ "aarch64-linux" ];
     daemonCPUSchedPolicy = "idle";
+    package = pkgs.lix;
   };
 
   roles.base = {
     username = "leah";
     realName = "Leah";
     fullName = "Leah Amelia Chen";
+    publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC7uJGE2/25M4a3DIVxtnTA5INqWsFGw+49qHXaN/kqy";
     canSudo = true;
   };
 
@@ -74,9 +80,4 @@
       5173
     ];
   };
-
-  services.cloudflare-warp.enable = true;
-
-  nix.package = pkgs.lix;
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 }

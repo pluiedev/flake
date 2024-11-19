@@ -78,5 +78,8 @@ in
       ssh.enable = mkDefault true;
       ssh.extraConfig = "IdentityAgent ${config.home.homeDirectory}/.1password/agent.sock";
     };
+
+    # Some tools like Jujutsu don't care about ~/.ssh/config, so we have to set this manually
+    home.sessionVariables.SSH_AUTH_SOCK = "${config.home.homeDirectory}/.1password/agent.sock";
   };
 }
