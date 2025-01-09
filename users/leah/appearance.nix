@@ -1,4 +1,10 @@
-{ self, inputs, pkgs, lib, ... }:
+{
+  self,
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 let
   flavor = "mocha";
   accent = "maroon";
@@ -41,7 +47,7 @@ in
         pointSize = 14;
       };
       fixedWidth = {
-        family = "Iosevka Nerd Font";
+        family = "Iosevka";
         pointSize = 14;
       };
       small = rethink // {
@@ -55,17 +61,10 @@ in
   roles.fonts = {
     enable = true;
     packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "Iosevka" ]; })
-      noto-fonts
+      iosevka
       noto-fonts-emoji
       libertinus
-      (i-dot-ming.overrideAttrs (final: _: {
-        version = "8.10";
-        src = pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/ichitenfont/I.Ming/${final.version}/${final.version}/I.Ming-${final.version}.ttf";
-          hash = "sha256-y6E7dbBQ1nG2EdAGMUcmLkIeFDWa1FMJSLBw9WER8PM=";
-        };
-      }))
+      i-dot-ming
       lxgw-neoxihei
       dm-sans-unstable
     ];
@@ -80,7 +79,7 @@ in
       ];
       emoji = [ "Noto Color Emoji" ];
       monospace = [
-        "Iosevka Nerd Font"
+        "Iosevka"
         "LXGW Neo XiHei"
       ];
     };

@@ -23,8 +23,9 @@
   nix = {
     settings.extra-platforms = [ "aarch64-linux" ];
     daemonCPUSchedPolicy = "idle";
-    package = pkgs.lix;
   };
+
+  i18n.supportedLocales = [ "all" ];
 
   roles.base = {
     username = "leah";

@@ -1,11 +1,11 @@
 { pkgs, ... }:
 {
+  hm.catppuccin.fcitx5.enable = false; # TODO
+
   hm.i18n.inputMethod = {
     enabled = "fcitx5";
     fcitx5 = {
       addons = [ pkgs.fcitx5-mozc ];
-
-      catppuccin.enable = false; # TODO
 
       # settings.groups = [
       #   {

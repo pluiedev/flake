@@ -1,4 +1,6 @@
 {
+  hm.catppuccin.vesktop.splashTheming = true;
+
   hm.programs.vesktop = {
     enable = true;
 
@@ -11,7 +13,6 @@
 
     vencord = {
       enable = true;
-      catppuccin.splashTheming = true;
       css = builtins.readFile ./vencord.css;
     };
 

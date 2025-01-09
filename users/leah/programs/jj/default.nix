@@ -17,8 +17,8 @@
           "$right"
         ];
         log-word-wrap = true;
-        pager = "nvimpager";
-        editor = "nvim";
+        pager = ":builtin";
+        editor = "hx";
       };
       template-aliases = {
         "format_short_id(id)" = ''id.shortest(12).prefix() ++ "[" ++ id.shortest(12).rest() ++ "]"'';

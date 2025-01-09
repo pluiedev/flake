@@ -4,11 +4,11 @@
   lib,
   pkgs,
   ...
-}:
+}@args:
 let
-  args' = {
-    inherit config pkgs inputs;
-    lib = import "${inputs.catppuccin}/modules/lib/mk-ext-lib.nix" { inherit config lib pkgs; };
+  args' = args // {
+    inherit inputs;
+    ctpLib = import "${inputs.catppuccin}/modules/lib" { inherit config lib pkgs; };
   };
 in
 {

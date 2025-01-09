@@ -45,24 +45,16 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     ghostty = {
-      url = "git+ssh://git@github.com/ghostty-org/ghostty";
+      url = "github:pluiedev/ghostty/edge";
       inputs = {
-        nixpkgs-stable.follows = "nixpkgs";
         nixpkgs-unstable.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs";
       };
     };
 
     krunner-nix = {
       url = "github:pluiedev/krunner-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    kwin-effects-forceblur = {
-      url = "github:taj-ny/kwin-effects-forceblur";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "flake-utils";
-      };
     };
 
     lanzaboote = {
@@ -101,25 +93,33 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
-  outputs = inputs:
+  outputs =
+    inputs:
     let
-      packages' = pkgs': pkgs'.lib.packagesFromDirectoryRecursive {
-        inherit (pkgs') callPackage;
-        directory = ./packages;
-      };
+      packages' =
+        pkgs':
+        pkgs'.lib.packagesFromDirectoryRecursive {
+          inherit (pkgs') callPackage;
+          directory = ./packages;
+        };
     in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         ./hm-modules
         ./systems
       ];
-      systems = [ "x86_64-linux" "x86_64-darwin" ];
+      systems = [
+        "x86_64-linux"
+        "x86_64-darwin"
+      ];
 
       flake.overlays.default = _: packages';
 
-      perSystem = { pkgs, ... }: {
-        packages = packages' pkgs;
-      };
+      perSystem =
+        { pkgs, ... }:
+        {
+          packages = packages' pkgs;
+        };
 
       # perSystem =
       #   { pkgs, ... }:

@@ -1,4 +1,4 @@
-{ pkgs, inputs', ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./sddm.nix
@@ -16,6 +16,5 @@
 
   hm.home.packages = with pkgs; [
     wl-clipboard
-    inputs'.kwin-effects-forceblur.packages.default
   ];
 }

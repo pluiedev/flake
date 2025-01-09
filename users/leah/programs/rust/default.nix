@@ -6,7 +6,7 @@
 }:
 {
   roles.rust = {
-    enable = true;
+    # enable = true;
     settings = {
       build.rustc-wrapper = lib.getExe' pkgs.sccache "sccache";
       build.target-dir = "${config.roles.base.user.home}/.cargo/target";

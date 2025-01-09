@@ -1,3 +1,6 @@
+# Uses &&
+set unstable
+
 alias b := build
 alias c := check
 alias sw := switch
@@ -36,9 +39,10 @@ ci:
 
 rebuild := if os() == "macos" { "darwin-rebuild" } else { "nixos-rebuild" }
 common_build_flags := "--flake .#$HOSTNAME --keep-going -L"
-additional_build_flags := if os() == "linux" { "${NIXOS_SPECIALISATION:+--specialisation $NIXOS_SPECIALISATION}" } else { "" }
+specialisation := env("NIXOS_SPECIALISATION", "")
+additional_build_flags := if os() == "linux" { specialisation && "-c " + specialisation } else { "" }
 
 _rebuild cmd *args:
     #!/usr/bin/env bash
     set -o pipefail # fail if the build fails instead of blindly returning 0 as nom succeeds
-    {{ rebuild }} {{ cmd }} {{ common_build_flags }} {{ additional_build_flags }} {{ args }} |& nix run n#nix-output-monitor
+    {{ rebuild }} {{ cmd }} {{ common_build_flags }} {{ if cmd != "build" { additional_build_flags } else { " " } }} {{ args }} |& nix run n#nix-output-monitor

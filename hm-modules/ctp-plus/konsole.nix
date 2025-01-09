@@ -1,16 +1,16 @@
 {
   config,
   lib,
+  ctpLib,
   pkgs,
   ...
 }:
 let
   cfg = config.programs.konsole.catppuccin;
-  inherit (lib.ctp) mkCatppuccinOpt mkUpper;
   enable = cfg.enable && config.programs.konsole.enable;
 in
 {
-  options.programs.konsole.catppuccin = mkCatppuccinOpt { name = "Konsole"; } // {
+  options.programs.konsole.catppuccin = ctpLib.mkCatppuccinOption { name = "Konsole"; } // {
     profileName = lib.mkOption {
       type = lib.types.str;
       default = "Catppuccin";
@@ -48,7 +48,7 @@ in
       defaultProfile = cfg.profileName;
       profiles.catppuccin = {
         name = cfg.profileName;
-        colorScheme = "Catppuccin-${mkUpper cfg.flavor}";
+        colorScheme = "Catppuccin-${ctpLib.mkUpper cfg.flavor}";
         inherit (cfg) font;
       };
     };

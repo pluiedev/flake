@@ -1,28 +1,36 @@
 {
+  inputs',
+  ...
+}:
+{
   hm.programs.ghostty = {
     enable = true;
 
+    package = inputs'.ghostty.packages.default;
+
+    enableFishIntegration = true;
+
     settings = {
-      font-family = "Iosevka NF";
+      font-family = "Iosevka";
       font-size = 14;
 
       background = "#1e1e2e";
 
-      # FIXME: buggy as shit
-      # minimum-contrast = 1.4;
+      # Who likes CSDs?
+      window-decoration = "server";
+      window-theme = "ghostty";
 
-      unfocused-split-opacity = 0.7;
+      unfocused-split-opacity = 0.8;
       background-opacity = 0.85;
+      background-blur-radius = true;
 
       # Massively improves the nvim experience
       mouse-hide-while-typing = true;
 
-      # I do not like the GTK forehead
-      gtk-titlebar = false;
-      gtk-wide-tabs = false;
-
       keybind = [
+        "ctrl+shift+up=new_split:up"
         "ctrl+shift+down=new_split:down"
+        "ctrl+shift+left=new_split:left"
         "ctrl+shift+right=new_split:right"
 
         # No tabs here

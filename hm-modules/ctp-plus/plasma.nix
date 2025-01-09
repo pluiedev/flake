@@ -1,15 +1,14 @@
 {
   config,
   lib,
+  ctpLib,
   pkgs,
   ...
 }:
 let
   cfg = config.programs.plasma.catppuccin;
-  cursorCfg = config.catppuccin.pointerCursor;
+  cursorCfg = config.catppuccin.cursors;
   enable = cfg.enable && config.programs.plasma.enable;
-
-  inherit (lib.ctp) mkCatppuccinOpt mkAccentOpt mkUpper;
 
   darkModeSettings =
     if cfg.flavor == "latte" then
@@ -24,8 +23,9 @@ let
       };
 in
 {
-  options.programs.plasma.catppuccin = mkCatppuccinOpt { name = "Plasma"; } // {
-    accent = mkAccentOpt "Plasma";
+  options.programs.plasma.catppuccin = ctpLib.mkCatppuccinOption {
+    name = "Plasma";
+    accentSupport = true;
   };
 
   config = lib.mkIf enable {
@@ -38,8 +38,8 @@ in
 
     programs.plasma.workspace = {
       theme = "default"; # Actually Catppuccin
-      colorScheme = "Catppuccin${mkUpper cfg.flavor}${mkUpper cfg.accent}";
-      cursor.theme = lib.mkIf cursorCfg.enable "Catppuccin-${mkUpper cursorCfg.flavor}-${mkUpper cursorCfg.accent}-Cursors";
+      colorScheme = "Catppuccin${ctpLib.mkUpper cfg.flavor}${ctpLib.mkUpper cfg.accent}";
+      cursor.theme = lib.mkIf cursorCfg.enable "Catppuccin-${ctpLib.mkUpper cursorCfg.flavor}-${ctpLib.mkUpper cursorCfg.accent}-Cursors";
       inherit (darkModeSettings) lookAndFeel iconTheme;
     };
   };

@@ -13,8 +13,9 @@
     ./fcitx5
     ./firefox
     ./ghostty
+    ./helix
     ./jj
-    ./nvim
+    #./nvim
     ./rust
     #./virt-manager
   ];
@@ -39,12 +40,15 @@
     (inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix).config.build.wrapper
   ];
 
+  services.touchegg.enable = true;
+
+  environment.systemPackages = [ pkgs.nekoray ];
+
   programs = {
     appimage.enable = true;
-
     gamemode.enable = true;
-
     localsend.enable = true;
+
     steam = {
       enable = true;
       extraCompatPackages = [ pkgs.proton-ge-bin ];

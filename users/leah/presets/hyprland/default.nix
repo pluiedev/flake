@@ -15,7 +15,7 @@
 
   roles.hyprland.enable = true;
 
-  hm.wayland.windowManager.hyprland.catppuccin.enable = true;
+  hm.catppuccin.hyprland.enable = true;
 
   hm.home.packages = with pkgs; [
     networkmanagerapplet # necessary for icons

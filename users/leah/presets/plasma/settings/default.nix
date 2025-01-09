@@ -15,7 +15,11 @@
 
     kwin = {
       effects = {
-        blur.enable = true;
+        blur = {
+          enable = true;
+          strength = 4;
+          noiseStrength = 4;
+        };
         cube.enable = true;
         desktopSwitching.animation = "slide";
         dimAdminMode.enable = true;
@@ -62,7 +66,8 @@
         Wayland = lib.mkIf (config.hm.i18n.inputMethod.enabled == "fcitx5") {
           # Fcitx 5
           VirtualKeyboardEnabled.value = true;
-          "InputMethod[$e]".value = "${config.hm.i18n.inputMethod.package}/share/applications/org.fcitx.Fcitx5.desktop";
+          "InputMethod[$e]".value =
+            "${config.hm.i18n.inputMethod.package}/share/applications/org.fcitx.Fcitx5.desktop";
         };
 
         "org.kde.kdecoration2" = {
