@@ -42,7 +42,13 @@
 
   services.touchegg.enable = true;
 
-  environment.systemPackages = [ pkgs.nekoray ];
+  xdg.icons.enable = true;
+  environment.systemPackages = [
+    pkgs.nekoray
+    pkgs.adwaita-icon-theme
+  ];
+
+  services.flatpak.enable = true;
 
   programs = {
     appimage.enable = true;

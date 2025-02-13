@@ -23,40 +23,7 @@
 
     autostart = true;
 
-    settings = {
-      app.useHardwareAcceleration = true;
-      advanced.EnableDebuggingTools = true;
-
-      security = {
-        # Use system auth (PolKit) to unlock 1Pass
-        authenticatedUnlock.enabled = true;
-        autolock.onDeviceLock = true;
-      };
-
-      # Check vulnerable passwords
-      privacy.checkHibp = true;
-
-      # Integrate with 1Password CLI
-      developers.cliSharedLockState.enabled = true;
-
-      sshAgent = {
-        enabled = true;
-
-        # Ask approval for each new application.
-        # (1Pass misspelled it, not me.)
-        sshAuthorizatonModel = "application";
-
-        # Display key names when authorizing connections
-        storeKeyTitles = true;
-        storeSshKeyTitlesResponseGiven = true;
-        authPromptsV2.enabled = true;
-
-        sshSessionDuration = "lock";
-      };
-
-      # Scan disk for dev credentials
-      devWatchtower.localDiskScanning = true;
-    };
+    enableSshAgent = true;
   };
 
   # Use the 1Password CLI plugins

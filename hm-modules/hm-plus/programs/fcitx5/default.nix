@@ -31,14 +31,6 @@ in
   imports = [ ./rime.nix ];
 
   options.i18n.inputMethod.fcitx5 = {
-    waylandFrontend = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-        Use the Wayland input method frontend.
-        See [Using Fcitx 5 on Wayland](https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland).
-      '';
-    };
     plasma6Support = mkOption {
       type = types.bool;
       default = osConfig.services.desktopManager.plasma6.enable;
@@ -139,11 +131,6 @@ in
       ];
 
     home.sessionVariables = mkMerge [
-      (mkIf cfg.waylandFrontend {
-        # TODO: bad fix
-        GTK_IM_MODULE = "";
-        QT_IM_MODULE = "";
-      })
       (mkIf cfg.ignoreUserConfig { SKIP_FCITX_USER_PATH = "1"; })
     ];
   };

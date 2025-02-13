@@ -2,6 +2,7 @@
   lib,
   pkgs,
   inputs,
+  config,
   ...
 }:
 {
@@ -20,11 +21,9 @@
   hardware.bluetooth.enable = true;
 
   # Other Nvidia settings are set via nixos-hardware
-  #hardware.nvidia.dynamicBoost.enable = true;
 
   hardware.nvidia.prime.offload.enable = lib.mkForce true;
-  # hardware.nvidia.prime.sync.enable = true;
-
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
   # Disable Nvidia's HDMI audio
   boot.blacklistedKernelModules = [ "snd_hda_codec_hdmi" ];
 

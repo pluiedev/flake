@@ -16,6 +16,10 @@ in
     inherit flavor accent;
   };
 
+  catppuccin.plymouth.enable = false;
+  boot.plymouth.themePackages = [ pkgs.plymouth-blahaj-theme ];
+  boot.plymouth.theme = "blahaj";
+
   hm.imports = [
     inputs.catppuccin.homeManagerModules.catppuccin
     self.hmModules.ctp-plus
@@ -24,6 +28,11 @@ in
   hm.catppuccin = {
     enable = true;
     inherit flavor accent;
+  };
+
+  hm.gtk.cursorTheme = {
+    name = "BreezeX-Dark";
+    package = pkgs.breezex-cursor;
   };
 
   hm.programs.fish.interactiveShellInit = ''

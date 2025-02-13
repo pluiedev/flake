@@ -24,6 +24,14 @@
         popup-border = "all";
         rulers = [ 100 ];
 
+        end-of-line-diagnostics = "hint";
+        inline-diagnostics = {
+          cursor-line = "info";
+          other-lines = "error";
+        };
+
+        soft-wrap.enable = true;
+
         cursor-shape = {
           insert = "bar";
           normal = "block";
@@ -56,6 +64,7 @@
 
         lsp = {
           display-messages = true;
+          display-progress-messages = true;
           display-inlay-hints = true;
         };
 
@@ -149,28 +158,16 @@
         bg = "base";
       };
 
-      "ui.popup" = {
-        fg = "rosewater";
-      };
-      "ui.popup.info" = {
-        fg = "maroon";
-      };
-      "ui.help" = {
-        fg = "maroon";
-      };
-      "ui.menu" = {
-        fg = "text";
-      };
+      "ui.popup".fg = "rosewater";
+      "ui.popup.info".fg = "maroon";
+      "ui.help".fg = "maroon";
+      "ui.menu".fg = "text";
       "ui.menu.selected" = {
         fg = "maroon";
         modifiers = [ "bold" ];
       };
-      "ui.menu.scroll" = {
-        fg = "maroon";
-      };
-      "ui.background" = {
-        bg = "";
-      }; # Transparent
+      "ui.menu.scroll".fg = "maroon";
+      "ui.background".bg = ""; # Transparent
 
       # Why the heck is it *blue*?;
       "diff.delta" = "yellow";
