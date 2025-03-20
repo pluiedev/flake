@@ -32,19 +32,7 @@
         "ctrl+shift+down=new_split:down"
         "ctrl+shift+left=new_split:left"
         "ctrl+shift+right=new_split:right"
-
-        # No tabs here
-        "ctrl+shift+t=unbind"
-        "ctrl+page_up=unbind"
-        "ctrl+page_down=unbind"
-        "alt+two=unbind"
-        "alt+three=unbind"
-        "alt+four=unbind"
-        "alt+five=unbind"
-        "alt+six=unbind"
-        "alt+seven=unbind"
-        "alt+eight=unbind"
-        "alt+nine=unbind"
+        "ctrl+grave_accent=toggle_quick_terminal"
       ];
     };
   };

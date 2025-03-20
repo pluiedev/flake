@@ -10,7 +10,10 @@
     workspace = {
       clickItemTo = "select";
       wallpaper = "${./wallpaper.jpg}";
-      cursor.size = 32;
+      cursor = {
+        size = 32;
+        theme = "BreezeX-Black";
+      };
     };
 
     kwin = {

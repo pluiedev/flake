@@ -13,7 +13,7 @@
       isDefault = true;
       name = config.roles.base.realName;
 
-      extensions =
+      extensions.packages =
         let
           # FIXME: firefox-addons currently receives free-only nixpkgs,
           # and so unfree plugins are blocked from evaluation.
@@ -62,7 +62,7 @@
           # Language
           furiganaize
           immersive-translate
-          # languagetool
+          languagetool
 
           # Styling
           darkreader
@@ -106,7 +106,7 @@
               "@no"
             ];
             "NixOS Wiki" = {
-              urls = [ (search "https://nixos.wiki/index.php" "search") ];
+              urls = [ (search "https://wiki.nixos.org/index.php" "search") ];
               icon = nixIcon;
               definedAliases = [ "@nw" ];
             };

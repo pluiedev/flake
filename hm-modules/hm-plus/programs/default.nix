@@ -4,6 +4,7 @@
     ./discord.nix
     ./fcitx5
     ./git.nix
+    ./moar.nix
     ./vesktop.nix
   ];
 }

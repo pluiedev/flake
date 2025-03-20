@@ -30,19 +30,16 @@ in
     inherit flavor accent;
   };
 
-  hm.gtk.cursorTheme = {
-    name = "BreezeX-Dark";
-    package = pkgs.breezex-cursor;
-  };
-
   hm.programs.fish.interactiveShellInit = ''
     set -x LS_COLORS (${lib.getExe pkgs.vivid} generate catppuccin-${flavor})
   '';
 
   hm.programs.konsole.catppuccin.font = {
-    name = "Iosevka Nerd Font";
+    name = "Iosevka";
     size = 14;
   };
+
+  hm.programs.moar.settings.style = "catppuccin-${flavor}";
 
   hm.programs.plasma.fonts =
     let
@@ -71,7 +68,7 @@ in
     enable = true;
     packages = with pkgs; [
       iosevka
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       libertinus
       i-dot-ming
       lxgw-neoxihei

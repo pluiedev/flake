@@ -23,7 +23,7 @@ in
       };
     };
 
-    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-kde ];
+    xdg.portal.extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
     roles.qt.platform = "kde";
 
     hm = {

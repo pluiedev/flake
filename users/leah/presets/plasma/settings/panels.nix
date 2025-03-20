@@ -63,7 +63,7 @@
                   color = "180,190,254"; # Lavender
                 }
               ];
-              totalSensors = [ "gpu/gpu1/usage" ];
+              totalSensors = [ "gpu/gpu0/usage" ];
               textOnlySensors = [
                 "gpu/gpu0/temperature"
                 "gpu/gpu0/frequency"

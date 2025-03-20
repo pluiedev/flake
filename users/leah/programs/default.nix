@@ -36,6 +36,7 @@
     nix-output-monitor
     nurl
     xclip
+    moar
 
     (inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix).config.build.wrapper
   ];
@@ -65,6 +66,7 @@
     };
     nix-ld.enable = true;
   };
+
 
   hm.programs = {
     bat = {
@@ -133,6 +135,15 @@
         lightness = 0.6;
         color_align.mode = "horizontal";
         backend = "fastfetch";
+      };
+    };
+
+    moar = {
+      enable = true;
+      settings = {
+        style = "catppuccin-mocha";
+        no-statusbar = true;
+        wrap = true;
       };
     };
 

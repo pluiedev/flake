@@ -1,6 +1,11 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 {
   hm.programs.git.difftastic.enable = true;
+
+  hm.home.packages = with pkgs; [
+    watchman
+    meld
+  ];
 
   hm.programs.jujutsu = {
     enable = true;
@@ -10,14 +15,17 @@
         email = "hi@pluie.me";
       };
       ui = {
+        default-command = ["log"];
         diff.tool = [
           "difft"
           "--color=always"
           "$left"
           "$right"
         ];
+        pager = "moar -no-linenumbers";
+        diff-editor = "meld";
+        merge-editor = "meld";
         log-word-wrap = true;
-        pager = ":builtin";
         editor = "hx";
       };
       template-aliases = {
@@ -34,9 +42,19 @@
       };
 
       signing = {
-        sign-all = true;
+        behavior = "drop";
         backend = "ssh";
         key = config.roles.base.publicKey;
+      };
+
+      git = {
+        sign-on-push = true;
+        private-commits = "description(glob:'wip:*')";
+      };
+
+      core = {
+        fsmonitor = "watchman";
+        watchman.register_snapshot_trigger = true;
       };
     };
   };
