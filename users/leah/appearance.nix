@@ -21,7 +21,7 @@ in
   boot.plymouth.theme = "blahaj";
 
   hm.imports = [
-    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.catppuccin.homeModules.catppuccin
     self.hmModules.ctp-plus
   ];
 

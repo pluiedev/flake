@@ -97,7 +97,7 @@
           };
         in
         {
-          default = "DuckDuckGo";
+          default = "ddg";
           force = true;
           engines = {
             "Nixpkgs" = nixosSearch "" [ "@np" ];
