@@ -1,43 +1,66 @@
 {
-  lib,
-  pkgs,
-  inputs,
   config,
+  pkgs,
+  lib,
+  inputs,
   ...
 }:
 {
   imports = with inputs.nixos-hardware.nixosModules; [
+    ../common.nix
     ./hardware-configuration.nix
 
     common-hidpi
     asus-zephyrus-gu603h
   ];
 
-  roles = {
-    # boot.lanzaboote.enable = true;
-    # nvidia.enable = true;
+  networking.hostName = "fettuccine";
+
+  boot = {
+    # Disable Nvidia's HDMI audio
+    blacklistedKernelModules = [ "snd_hda_codec_hdmi" ];
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
   };
 
-  hardware.bluetooth.enable = true;
+  # Enable building and testing aarch64 packages for Nixpkgs dev
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  nix.settings.extra-platforms = [ "aarch64-linux" ];
 
-  # Other Nvidia settings are set via nixos-hardware
+  hardware = {
+    bluetooth.enable = true;
 
-  hardware.nvidia.prime.offload.enable = lib.mkForce true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
-  # Disable Nvidia's HDMI audio
-  boot.blacklistedKernelModules = [ "snd_hda_codec_hdmi" ];
+    nvidia = {
+      # PCI bus IDs are already conveniently set by nixos-hardware
+      prime.offload.enable = lib.mkForce true;
 
+      # Beta can sometimes be more stable than, well, stable
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
+    };
+  };
+
+  # Nix can sometimes overload my poor, poor laptop CPU
+  # so much that it can freeze my entire system. Amazing.
+  # Please don't do that.
+  nix.daemonCPUSchedPolicy = "idle";
+
+  # This is an ASUS computer after all
   services.asusd.enable = true;
 
+  networking.firewall = {
+    enable = true;
+
+    # Allow previewing local Vite builds on other devices via LAN
+    allowedTCPPorts = [ 5173 ];
+  };
+
   specialisation.china.configuration = {
-    roles.mirrors.chinese.enable = true;
-    environment.variables.NIXOS_SPECIALISATION = "china";
-
-    environment.systemPackages = [ pkgs.nekoray ];
-
-    nix.settings = {
-      experimental-features = [ "configurable-impure-env" ];
-      impure-env = [ "all_proxy=http://127.0.0.1:2080" ];
-    };
+    # cache.nixos.org is *unbearably* slow when accessed from Mainland China.
+    # Fortunately, mirror sites exist... Hooray(?)
+    nix.settings.substituters = map (url: "${url}/nix-channels/store") [
+        "https://mirrors.ustc.edu.cn"
+        "https://mirrors6.tuna.tsinghua.edu.cn"
+        "https://mirrors.tuna.tsinghua.edu.cn"
+        # "https://mirror.sjtu.edu.cn" # FIXME: buggy?
+    ];
   };
 }

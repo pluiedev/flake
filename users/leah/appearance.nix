@@ -1,6 +1,4 @@
 {
-  self,
-  inputs,
   pkgs,
   lib,
   ...
@@ -8,59 +6,44 @@
 let
   flavor = "mocha";
   accent = "maroon";
+
+  mkUpper = str: (lib.toUpper (lib.substring 0 1 str)) + (lib.substring 1 (lib.stringLength str) str);
+  fcitx5ini = pkgs.formats.iniWithGlobalSection { };
 in
 {
-  imports = [ inputs.catppuccin.nixosModules.catppuccin ];
-  catppuccin = {
-    enable = true;
-    inherit flavor accent;
+  boot.plymouth = {
+    themePackages = [ pkgs.plymouth-blahaj-theme ];
+    theme = "blahaj";
   };
 
-  catppuccin.plymouth.enable = false;
-  boot.plymouth.themePackages = [ pkgs.plymouth-blahaj-theme ];
-  boot.plymouth.theme = "blahaj";
+  hjem.users.leah = {
+    packages = [ pkgs.breezex-cursor ];
 
-  hm.imports = [
-    inputs.catppuccin.homeModules.catppuccin
-    self.hmModules.ctp-plus
-  ];
+    files = {
+      ".local/share/fcitx5/themes/catppuccin-${flavor}-${accent}".source =
+        "${pkgs.catppuccin-fcitx5}/share/fcitx5/themes/catppuccin-${flavor}-${accent}";
 
-  hm.catppuccin = {
-    enable = true;
-    inherit flavor accent;
-  };
-
-  hm.programs.fish.interactiveShellInit = ''
-    set -x LS_COLORS (${lib.getExe pkgs.vivid} generate catppuccin-${flavor})
-  '';
-
-  hm.programs.moar.settings.style = "catppuccin-${flavor}";
-
-  hm.programs.plasma.fonts =
-    let
-      rethink = {
-        family = "Rethink Sans";
-        pointSize = 12;
+      ".config/fcitx5/conf/classicui.conf".source = fcitx5ini.generate "fcitx5-classicui.conf" {
+        globalSection = {
+          Theme = "catppuccin-${flavor}-${accent}";
+        };
       };
-    in
-    {
-      general = rethink // {
-        pointSize = 14;
-      };
-      fixedWidth = {
-        family = "Iosevka";
-        pointSize = 14;
-      };
-      small = rethink // {
-        pointSize = 11;
-      };
-      toolbar = rethink;
-      menu = rethink;
-      windowTitle = rethink;
+
+      ".config/fish/themes/Catppuccin ${mkUpper flavor}.theme".source =
+        "${pkgs.catppuccin-fish}/share/fish/themes/Catppuccin ${mkUpper flavor}.theme";
     };
 
-  roles.fonts = {
-    enable = true;
+    rum.programs.fish.earlyConfigFiles.theme = ''
+      fish_config theme choose "Catppuccin ${mkUpper flavor}"
+      set -x LS_COLORS (${lib.getExe pkgs.vivid} generate catppuccin-${flavor})
+    '';
+
+    ext.programs.moar.settings.style = "catppuccin-${flavor}";
+  };
+
+  fonts = {
+    enableDefaultPackages = true;
+
     packages = with pkgs; [
       iosevka
       noto-fonts-color-emoji
@@ -70,19 +53,21 @@ in
       dm-sans-unstable
     ];
 
-    defaults = {
-      serif = [
-        "I.Ming"
-      ];
-      sansSerif = [
-        "DM Sans"
-        "LXGW Neo XiHei"
-      ];
-      emoji = [ "Noto Color Emoji" ];
-      monospace = [
-        "Iosevka"
-        "LXGW Neo XiHei"
-      ];
+    fontconfig = {
+      defaultFonts = {
+        serif = [
+          "I.Ming"
+        ];
+        sansSerif = [
+          "DM Sans"
+          "LXGW Neo XiHei"
+        ];
+        emoji = [ "Noto Color Emoji" ];
+        monospace = [
+          "Iosevka"
+          "LXGW Neo XiHei"
+        ];
+      };
     };
   };
 }

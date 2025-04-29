@@ -2,8 +2,6 @@
 {
   imports = [ ./panels.nix ];
 
-  hm.programs.konsole.enable = true;
-
   hm.programs.plasma = {
     enable = true;
 

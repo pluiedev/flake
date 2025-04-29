@@ -1,7 +1,7 @@
 {
-  hm.catppuccin.vesktop.splashTheming = true;
+  # hm.catppuccin.vesktop.splashTheming = true;
 
-  hm.programs.vesktop = {
+  hjem.users.leah.ext.programs.vesktop = {
     enable = true;
 
     settings = {

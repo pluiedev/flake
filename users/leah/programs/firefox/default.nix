@@ -1,147 +1,59 @@
 {
-  config,
   lib,
   pkgs,
-  inputs',
   ...
 }:
-{
-  hm.programs.firefox = {
-    enable = true;
-
-    profiles.${config.roles.base.username} = {
-      isDefault = true;
-      name = config.roles.base.realName;
-
-      extensions.packages =
-        let
-          # FIXME: firefox-addons currently receives free-only nixpkgs,
-          # and so unfree plugins are blocked from evaluation.
-          # Use this one dirty trick to make the FSF mad! :trolley:
-          gaslight = pkgs: pkgs.overrideAttrs { meta.license.free = true; };
-        in
-        with inputs'.firefox-addons.packages;
-        map gaslight [
-          # Essentials
-          auto-tab-discard
-          onepassword-password-manager
-          ublock-origin
-
-          # Avoid annoyances
-          consent-o-matic
-          don-t-fuck-with-paste
-          enhanced-h264ify
-          fastforwardteam
-          faststream
-          gaoptout
-          istilldontcareaboutcookies
-          link-cleaner
-          musescore-downloader
-          native-mathml
-          privacy-possum
-          re-enable-right-click
-          sponsorblock
-          terms-of-service-didnt-read
-          youtube-nonstop
-
-          # Redirectors
-          indie-wiki-buddy
-          libredirect
-          localcdn
-          modrinthify
-
-          # Augmentations
-          augmented-steam
-          github-file-icons
-          octolinker
-          protondb-for-steam
-          refined-github
-          widegithub
-          wikiwand-wikipedia-modernized
-
-          # Language
-          furiganaize
-          immersive-translate
-          languagetool
-
-          # Styling
-          darkreader
-          firefox-color
-          stylus
-
-          # Dev
-          a11ycss
-          header-editor
-          rust-search-extension
-
-          disconnect
-          pronoundb
-          search-by-image
-          unpaywall
-          wayback-machine
-        ];
-
-      search =
-        let
-          mkParams = lib.mapAttrsToList lib.nameValuePair;
-          nixIcon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-          nixosSearch = path: aliases: {
-            urls = [ { template = "https://nixpkgs.dev${path}/{searchTerms}"; } ];
-            icon = nixIcon;
-            definedAliases = aliases;
-          };
-
-          search = path: queryKey: {
-            template = path;
-            params = mkParams { ${queryKey} = "{searchTerms}"; };
-          };
-        in
-        {
-          default = "ddg";
-          force = true;
-          engines = {
-            "Nixpkgs" = nixosSearch "" [ "@np" ];
-            "NixOS Options" = nixosSearch "/option" [
-              "@ns"
-              "@no"
-            ];
-            "NixOS Wiki" = {
-              urls = [ (search "https://wiki.nixos.org/index.php" "search") ];
-              icon = nixIcon;
-              definedAliases = [ "@nw" ];
-            };
-            "Nixpkgs PR Tracker" = {
-              urls = [ (search "https://nixpk.gs/pr-tracker.html" "pr") ];
-              icon = nixIcon;
-              definedAliases = [ "@npr" ];
-            };
-            "Home Manager Settings" = {
-              urls = [ (search "https://home-manager-options.extranix.com" "query") ];
-              icon = nixIcon;
-              definedAliases = [ "@hm" ];
-            };
-            "Wiktionary" = {
-              urls = [ (search "https://en.wiktionary.org/wiki/Special:Search" "search") ];
-              icon = "https://en.wiktionary.org/favicon.ico";
-              definedAliases = [ "@wkt" ];
-            };
-            "GitHub" = {
-              urls = [ (search "https://github.com/search" "q") ];
-              icon = "https://github.com/favicon.ico";
-              definedAliases = [ "@gh" ];
-            };
-            "docs.rs" = {
-              urls = [ (search "https://docs.rs/releases/search" "query") ];
-              icon = "https://docs.rs/-/static/favicon.ico";
-              definedAliases = [ "@rs" ];
-            };
-            "lib.rs" = {
-              urls = [ (search "https://lib.rs/search" "q") ];
-              icon = "https://lib.rs/favicon.ico";
-              definedAliases = [ "@lrs" ];
-            };
-          };
-        };
-    };
+let
+  json = pkgs.formats.json { };
+  wrappedFirefox = pkgs.firefox.override {
+    extraPoliciesFiles = [(json.generate "firefox-policies.json" policies)];
   };
+
+  addons = [
+    # Styling
+    "addon@darkreader.org" # Dark Reader
+    "{85860b32-02a8-431a-b2b1-40fbd64c9c69}" # File Icons for Git{Hub,Lab}
+    "FirefoxColor@mozilla.com" # Firefox Color
+    "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}" # Stylus
+    "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}" # Refined GitHub
+    "{72742915-c83b-4485-9023-b55dc5a1e730}" # Wide GitHub
+
+    # Privacy
+    "gdpr@cavi.au.dk" # Consent-O-Matic
+    "addon@fastforward.team" # FastForward
+    "{6d96bb5e-1175-4ebf-8ab5-5f56f1c79f65}" # Google Analytics Opt-out
+    "{6d85dea2-0fb4-4de3-9f8c-264bce9a2296}" # Link Cleaner
+    "uBlock0@raymondhill.net" # uBlock Origin
+
+    # "Stop Websites from Doing Stupid Things I Don't Want"
+    "{278b0ae0-da9d-4cc6-be81-5aa7f3202672}" # Allow Right Click
+    "DontFuckWithPaste@raim.ist" # Don't Fuck With Paste
+
+    # YouTube
+    "{9a41dee2-b924-4161-a971-7fb35c053a4a}" # enhanced-h264ify
+    "sponsorBlocker@ajay.app" # SponsorBlock for YouTube
+    "{0d7cafdd-501c-49ca-8ebb-e3341caaa55e}" # YouTube NonStop
+  
+    # Utilities
+    "{d634138d-c276-4fc8-924b-40a0ea21d284}" # 1Password
+    "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}" # Auto Tab Discard
+    "{cb31ec5d-c49a-4e5a-b240-16c767444f62}" # Indie Wiki Buddy
+    "octolinker@stefanbuck.com" # OctoLinker
+    "firefox-addon@pronoundb.org" # PronounDB
+    "wayback_machine@mozilla.org" # Wayback Machine
+  ];
+
+  policies = {
+    ExtensionSettings = lib.listToAttrs (
+      map (id: lib.nameValuePair id {
+        installation_mode = "normal_installed";
+        install_url = "https://addons.mozilla.org/firefox/downloads/latest/${id}/latest.xpi";
+      }) addons);
+  };
+
+  # TODO: Specifying custom search engines is *very* cursed.
+  # I've seen how HM does it, and I don't think it's worth it at all...
+in
+{
+  hjem.users.leah.packages = [ wrappedFirefox ];
 }
