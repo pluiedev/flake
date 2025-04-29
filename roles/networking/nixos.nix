@@ -14,6 +14,5 @@ in
     roles.base.user.extraGroups = mkIf config.roles.base.canSudo [ "networkmanager" ];
 
     hm.home.packages = [ pkgs.networkmanagerapplet ];
-    roles.hyprland.settings.exec-once = [ (getExe pkgs.networkmanagerapplet) ];
   };
 }

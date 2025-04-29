@@ -8,16 +8,13 @@
 }:
 {
   imports = [
-    ./1password
     ./discord
     ./fcitx5
     ./firefox
     ./ghostty
     ./helix
     ./jj
-    #./nvim
     ./rust
-    #./virt-manager
   ];
 
   hm.imports = [ inputs.nix-index-database.hmModules.nix-index ];

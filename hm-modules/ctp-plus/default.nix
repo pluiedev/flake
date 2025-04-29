@@ -13,7 +13,6 @@ let
 in
 {
   imports = map (p: import p args') [
-    ./konsole.nix
     ./plasma.nix
     ./vencord.nix
   ];

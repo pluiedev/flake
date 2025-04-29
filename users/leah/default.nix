@@ -7,7 +7,6 @@
 {
   imports = [
     ./appearance.nix
-    ./containers
     ./presets/plasma
     ./programs
   ];

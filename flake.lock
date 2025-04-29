@@ -272,6 +272,46 @@
         "type": "github"
       }
     },
+    "hjem": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1743956496,
+        "narHash": "sha256-LguszqsDBTtdBxblQTtN7vOAYmfoe43aHkB8aK1dChE=",
+        "owner": "feel-co",
+        "repo": "hjem",
+        "rev": "e3b63f300f23f2ffeb6efac046cf71b94352fed2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "feel-co",
+        "repo": "hjem",
+        "type": "github"
+      }
+    },
+    "hjem-rum": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1745861051,
+        "narHash": "sha256-L1B2KkvbNHCtNbmYNli/DqCwEhshcwrt/p904iIYPNs=",
+        "owner": "snugnug",
+        "repo": "hjem-rum",
+        "rev": "1ad4898417031a6b280894f80f041118b6964432",
+        "type": "github"
+      },
+      "original": {
+        "owner": "snugnug",
+        "repo": "hjem-rum",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -503,6 +543,8 @@
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "ghostty": "ghostty",
+        "hjem": "hjem",
+        "hjem-rum": "hjem-rum",
         "home-manager": "home-manager",
         "krunner-nix": "krunner-nix",
         "lanzaboote": "lanzaboote",

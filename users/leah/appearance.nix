@@ -34,11 +34,6 @@ in
     set -x LS_COLORS (${lib.getExe pkgs.vivid} generate catppuccin-${flavor})
   '';
 
-  hm.programs.konsole.catppuccin.font = {
-    name = "Iosevka";
-    size = 14;
-  };
-
   hm.programs.moar.settings.style = "catppuccin-${flavor}";
 
   hm.programs.plasma.fonts =

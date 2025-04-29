@@ -24,7 +24,6 @@ in
     };
 
     xdg.portal.extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
-    roles.qt.platform = "kde";
 
     hm = {
       imports = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
