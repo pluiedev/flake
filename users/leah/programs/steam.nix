@@ -4,22 +4,18 @@
   lib,
   ...
 }:
-let
-  # Helper script for running Steam games with
-  # a *reasonable* preset
-  steam-assist =
-    lib.optionalString config.hardware.nvidia.prime.offload.enable ''
-      export __NV_PRIME_RENDER_OFFLOAD=1
-      export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    '' + ''
-      ${lib.getExe' pkgs.gamemode "gamemoderun"} $@
-    '';
-in
 {
   programs.gamemode.enable = true;
 
   programs.steam = {
     enable = true;
+
+    package = pkgs.steam.override {
+      extraEnv = lib.optionalAttrs config.hardware.nvidia.prime.offload.enable {
+        __NV_PRIME_RENDER_OFFLOAD = 1;
+        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      };
+    };
 
     # Install Proton GE by default
     extraCompatPackages = [ pkgs.proton-ge-bin ];
@@ -33,8 +29,4 @@ in
     protontricks.enable = true;
     remotePlay.openFirewall = true;
   };
-
-  hjem.users.leah.packages = [
-    (pkgs.writeShellScriptBin "steam-assist" steam-assist)
-  ];
 }

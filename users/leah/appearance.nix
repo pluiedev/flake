@@ -39,6 +39,10 @@ in
     '';
 
     ext.programs.moar.settings.style = "catppuccin-${flavor}";
+
+    ext.programs.vesktop.vencord.settings.themeLinks = [
+      "https://catppuccin.github.io/discord/dist/catppuccin-${flavor}-${accent}.theme.css"
+    ];
   };
 
   fonts = {
