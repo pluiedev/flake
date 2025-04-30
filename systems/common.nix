@@ -1,21 +1,12 @@
+# Common configs for all machines.
 {
   config,
-  self,
   pkgs,
   lib,
   inputs,
   ...
 }:
 {
-  imports = [
-    inputs.hjem.nixosModules.hjem
-  ];
-
-  hjem.extraModules = [
-    inputs.hjem-rum.hjemModules.default
-    self.hjemModules.hjem-ext
-  ];
-
   system.stateVersion = "24.11";
 
   nix = {
@@ -49,7 +40,7 @@
     config.allowUnfree = true;
     flake.setNixPath = true;
 
-    overlays = [ self.overlays.default ];
+    overlays = [ inputs.self.overlays.default ];
   };
 
   boot = {
@@ -57,9 +48,9 @@
       limine = {
         enable = true;
         maxGenerations = 10;
+        enrollConfig = true;
 
         style.wallpapers = [ ];
-
         style.graphicalTerminal = {
           palette = "1e1e2e;f38ba8;a6e3a1;f9e2af;89b4fa;f5c2e7;94e2d5;cdd6f4";
           brightPalette = "585b70;f38ba8;a6e3a1;f9e2af;89b4fa;f5c2e7;94e2d5;cdd6f4";
@@ -67,7 +58,6 @@
           foreground = "cdd6f4";
           brightBackground = "585b70";
           brightForeground = "cdd6f4";
-
           font.scale = "2x2";
         };
       };
@@ -91,6 +81,8 @@
     NIXOS_OZONE_WL = "1";
     SDL_VIDEODRIVER = "wayland,x11";
   };
+
+  i18n.supportedLocales = [ "all" ];
 
   services = {
     flatpak.enable = true;
@@ -135,6 +127,6 @@
       flags = [ "--refresh" ];
     };
 
-    configurationRevision = self.rev or self.dirtyRev or "unknown-dirty";
+    configurationRevision = inputs.self.rev or inputs.self.dirtyRev or "unknown-dirty";
   };
 }

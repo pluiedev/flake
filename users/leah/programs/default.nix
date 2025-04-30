@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   ...
 }:
@@ -13,6 +14,8 @@
     ./helix.nix
     ./vcs.nix
     ./steam.nix
+
+    inputs.nix-index-database.nixosModules.nix-index
   ];
 
   programs = {

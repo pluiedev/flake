@@ -6,16 +6,6 @@
 
     # NOTE: please keep this in alphabetical order.
 
-    # ctp-discord-compiled = {
-    #   url = "github:catppuccin/discord/gh-pages";
-    #   flake = false;
-    # };
-
-    # ctp-vscode-compiled = {
-    #   url = "github:catppuccin/vscode/catppuccin-vsc-v3.14.0";
-    #   flake = false;
-    # };
-
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -39,33 +29,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # lanzaboote = {
-    #   url = "github:nix-community/lanzaboote";
-    #   inputs = {
-    #     flake-parts.follows = "flake-parts";
-    #     nixpkgs.follows = "nixpkgs";
-    #   };
-    # };
-
-    # home-manager = {
-    #   url = "github:nix-community/home-manager";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
-    # plasma-manager = {
-    #   url = "github:nix-community/plasma-manager";
-    #   inputs = {
-    #     home-manager.follows = "home-manager";
-    #     nixpkgs.follows = "nixpkgs";
-    #   };
-    # };
   };
 
   outputs =
@@ -80,19 +49,19 @@
         };
     in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [ ./systems ];
-
       systems = lib.systems.flakeExposed;
 
       flake = {
         overlays.default = _: packages';
+
+        nixosConfigurations.fettuccine = lib.nixosSystem {
+          modules = [ ./systems/fettuccine ];
+          specialArgs = { inherit inputs; };
+        };
+
         hjemModules = {
-          hjem-ext.imports = lib.fileset.toList (
-            lib.fileset.fileFilter (file: file.hasExt "nix") ./modules/hjem-ext
-          );
-          hjem-ctp.imports = lib.fileset.toList (
-            lib.fileset.fileFilter (file: file.hasExt "nix") ./modules/hjem-ctp
-          );
+          hjem-ext = import ./modules/hjem-ext;
+          hjem-ctp = import ./modules/hjem-ctp;
         };
       };
 

@@ -5,24 +5,16 @@
   ...
 }:
 let
-  inherit (lib)
-    mkEnableOption
-    mkPackageOption
-    mkOption
-    mkIf
-    types
-    optionalAttrs
-    ;
   cfg = config.ext.programs.vesktop;
   format = pkgs.formats.json { };
 in
 {
   options.ext.programs.vesktop = {
-    enable = mkEnableOption "Vesktop";
+    enable = lib.mkEnableOption "Vesktop";
 
-    package = mkPackageOption pkgs "Vesktop" { default = [ "vesktop" ]; };
+    package = lib.mkPackageOption pkgs "vesktop" { };
 
-    settings = mkOption {
+    settings = lib.mkOption {
       inherit (format) type;
       description = ''
         Configuration written to {file}`$XDG_CONFIG_HOME/vesktop/settings.json`.
@@ -31,15 +23,15 @@ in
     };
 
     vencord = {
-      enable = mkEnableOption "Vencord";
+      enable = lib.mkEnableOption "Vencord";
 
-      useSystemPackage = mkOption {
-        type = types.bool;
+      useSystemPackage = lib.mkOption {
+        type = lib.types.bool;
         description = "Use the Vencord package in Nixpkgs, instead of allowing Vesktop to manage its own Vencord install";
         default = false;
       };
 
-      settings = mkOption {
+      settings = lib.mkOption {
         inherit (format) type;
         description = ''
           Configuration of the bundled client mod, Vencord, written to {file}`$XDG_CONFIG_HOME/vesktop/settings/settings.json`.
@@ -47,8 +39,8 @@ in
         default = { };
       };
 
-      css = mkOption {
-        type = types.lines;
+      css = lib.mkOption {
+        type = lib.types.lines;
         description = ''
           Style sheet of the bundled client mod, Vencord, written to {file}`$XDG_CONFIG_HOME/vesktop/settings/quickCss.css`.
         '';
@@ -57,7 +49,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     packages = [
       (cfg.package.override {
         withSystemVencord = cfg.vencord.useSystemPackage;
@@ -68,7 +60,7 @@ in
       {
         ".config/vesktop/settings.json".source = format.generate "vesktop-settings.json" cfg.settings;
       }
-      // optionalAttrs cfg.vencord.enable {
+      // lib.optionalAttrs cfg.vencord.enable {
         ".config/vesktop/settings/settings.json".source =
           format.generate "vencord-settings.json" cfg.vencord.settings;
 

@@ -1,23 +1,10 @@
 {
-  config,
-  inputs,
-  ...
-}:
-{
   imports = [
+    ../common.nix
     ./appearance.nix
     # ./presets/plasma
     ./programs
-
-    inputs.hjem.nixosModules.hjem
-    inputs.nix-index-database.nixosModules.nix-index
   ];
-
-  hjem.extraModules = [
-    inputs.hjem-rum.hjemModules.default
-  ];
-
-  i18n.supportedLocales = [ "all" ];
 
   users.users.leah = {
     isNormalUser = true;
@@ -32,6 +19,4 @@
 
   # Name and directory should be populated by users.users
   hjem.users.leah.enable = true;
-
-  hjem.clobberByDefault = true;
 }

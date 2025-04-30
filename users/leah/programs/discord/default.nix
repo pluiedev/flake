@@ -1,6 +1,4 @@
 {
-  # hm.catppuccin.vesktop.splashTheming = true;
-
   hjem.users.leah.ext.programs.vesktop = {
     enable = true;
 
@@ -53,8 +51,11 @@
           enabled = true;
           settingsLocation = "aboveActivity";
         };
+
+        AccountPanelServerProfile.enabled = true;
+        AlwaysExpandRoles.enabled = true;
+        AlwaysTrust.enabled = true;
         AnonymiseFileNames.enabled = true;
-        AutomodContext.enabled = true;
         BetterFolders = {
           enabled = true;
           sidebar = false;
@@ -66,12 +67,11 @@
         };
         BetterGifAltText.enabled = true;
         BetterGifPicker.enabled = true;
+        BetterRoleContext.enabled = true;
         BetterRoleDot = {
           enabled = true;
           bothStyles = false;
         };
-        BetterRoleContext.enabled = true;
-        BetterUploadButton.enabled = true;
         BetterSessions = {
           enabled = true;
           backgroundCheck = true;
@@ -82,13 +82,17 @@
           organizeMenu = true;
           eagerLoad = true;
         };
+        BetterUploadButton.enabled = true;
         BiggerStreamPreview.enabled = true;
         BlurNSFW.enabled = true;
         CallTimer.enabled = true;
         ClearURLs.enabled = true;
+        ConsoleJanitor.enabled = true;
         CopyEmojiMarkdown.enabled = true;
+        CopyFileContents.enabled = true;
         CrashHandler.enabled = true;
         Decor.enabled = true;
+        DisableCallIdle.enabled = true;
         DontRoundMyTimestamps.enabled = true;
         EmoteCloner.enabled = true;
         Experiments = {
@@ -112,58 +116,25 @@
         };
         FavoriteGifSearch.enabled = true;
         FixCodeblockGap.enabled = true;
-        FixInbox.enabled = true;
         FixImagesQuality.enabled = true;
         FixSpotifyEmbeds.enabled = true;
         FixYoutubeEmbeds.enabled = true;
         FriendsSince.enabled = true;
+        FullSearchContext.enabled = true;
+        FullUserInChatbox.enabled = true;
+        GameActivityToggle.enabled = true;
         GifPaste.enabled = true;
         GreetStickerPicker.enabled = true;
-        HideAttachments.enabled = true;
+        HideMedia.enabled = true;
         iLoveSpam.enabled = true;
         ImageZoom.enabled = true;
-        ImplicitRelationships = true;
+        ImplicitRelationships.enabled = true;
         KeepCurrentChannel.enabled = true;
-        MaskedLinkPaste.enabled = true;
         MemberCount.enabled = true;
+        MentionAvatars.enabled = true;
         MessageLatency.enabled = true;
         MessageLinkEmbeds.enabled = true;
         MoreKaomoji.enabled = true;
-        MoreUserTags = {
-          enabled = true;
-          tagSettings = {
-            WEBHOOK = {
-              text = "Webhook";
-              showInChat = true;
-              showInNotChat = true;
-            };
-            OWNER = {
-              text = "Owner";
-              showInChat = true;
-              showInNotChat = true;
-            };
-            ADMINISTRATOR = {
-              text = "Admin";
-              showInChat = true;
-              showInNotChat = true;
-            };
-            MODERATOR_STAFF = {
-              text = "Staff";
-              showInChat = true;
-              showInNotChat = true;
-            };
-            MODERATOR = {
-              text = "Mod";
-              showInChat = true;
-              showInNotChat = true;
-            };
-            VOICE_MODERATOR = {
-              text = "VC Mod";
-              showInChat = true;
-              showInNotChat = true;
-            };
-          };
-        };
         Moyai = {
           enabled = true;
           ignoreBots = true;
@@ -179,7 +150,6 @@
           role = false;
           showAllChannels = true;
         };
-        NoDefaultHangStatus.enabled = true;
         NoDevtoolsWarning.enabled = true;
         NoF1.enabled = true;
         NoOnboardingDelay.enabled = true;
@@ -189,11 +159,11 @@
           shouldPingListed = true;
           inverseShiftReply = false;
         };
+        NormalizeMessageLinks.enabled = true;
         NotificationVolume = {
           enabled = true;
           notificationVolume = 50;
         };
-        NormalizeMessageLinks.enabled = true;
         NoTypingAnimation.enabled = true;
         NoUnblockToJump.enabled = true;
         OnePingPerDM.enabled = true;
@@ -203,6 +173,8 @@
           steam = true;
           epic = true;
         };
+        OverrideForumDefaults.enabled = true;
+        PauseInvitesForever.enabled = true;
         PermissionsViewer = {
           enabled = true;
           permissionsSortOrder = 0; # Highest role
@@ -219,17 +191,7 @@
           messages = true;
         };
         PreviewMessage.enabled = true;
-        PronounDB = {
-          enabled = true;
-          showInMessages = true;
-          showSelf = true;
-          # Prefer Discord, fall back to PronounDB
-          pronounSource = 1;
-          pronounsFormat = "LOWERCASE";
-          showInProfile = true;
-        };
         QuickMention.enabled = true;
-        ReactErrorDecoder.enabled = true;
         ReadAllNotificationsButton.enabled = true;
         RelationshipNotifier = {
           enabled = true;
@@ -251,13 +213,12 @@
           memberList = true;
           voiceUsers = true;
         };
-        SearchReply.enabled = true;
         SendTimestamps.enabled = true;
+        ServerInfo.enabled = true;
         ServerListIndicators = {
           enabled = true;
           mode = 2; # Only online friend count
         };
-        ServerProfile.enabled = true;
         ShikiCodeblocks = {
           enabled = true;
           useDevIcon = "COLOR";
@@ -289,7 +250,7 @@
           superReactByDefault = false;
           superReactionPlayingLimit = 10;
         };
-        SupportHelper.enabled = true;
+        ThemeAttributes.enabled = true;
         Translate = {
           enabled = true;
           autoTranslate = false;
@@ -306,6 +267,7 @@
           showAvatars = true;
         };
         Unindent.enabled = true;
+        UnlockedAvatarZoom.enabled = true;
         UnsuppressEmbeds.enabled = true;
         UserVoiceShow = {
           enabled = true;
@@ -335,9 +297,11 @@
         VoiceChatDoubleClick.enabled = true;
         VoiceDownload.enabled = true;
         VoiceMessages.enabled = true;
-        WatchTogetherAdblock.enabled = true;
+        VolumeBooster.enabled = true;
+        WebKeybinds.enabled = true;
+        WebScreenShareFixes.enabled = true;
         WhoReacted.enabled = true;
-        Wikisearch.enabled = true;
+        YoutubeAdblock.enabled = true;
       };
     };
   };

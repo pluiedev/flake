@@ -9,6 +9,7 @@
   imports = with inputs.nixos-hardware.nixosModules; [
     ../common.nix
     ./hardware-configuration.nix
+    ../../users/leah
 
     common-hidpi
     asus-zephyrus-gu603h
