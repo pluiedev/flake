@@ -1,0 +1,23 @@
+{
+  "$schema": "/etc/xdg/swaync/configSchema.json",
+  "positionX": "right",
+  "positionY": "top",
+  "layer": "overlay",
+  "control-center-margin-bottom": 10,
+  "control-center-margin-right": 10,
+  "control-center-margin-left": 10,
+  "fit-to-screen": false,
+  "timeout": 5,
+  "timeout-low": 3,
+  "timeout-critical": 0,
+  "relative-timestamps": true,
+  "control-center-width": 400,
+  "control-center-height": 600,
+  "widgets": [
+    "inhibitors",
+    "title",
+    "dnd",
+    "notifications",
+    "mpris"
+  ]
+}

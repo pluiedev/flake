@@ -1,0 +1,147 @@
+[
+  {
+    "name": "top",
+    "layer": "top",
+    "position": "top",
+    "reload_style_on_change": true,
+    "modules-left": ["group/dials"],
+    "modules-center": ["clock"],
+    "modules-right": [
+      "group/apps",
+      "privacy",
+      "group/appearance",
+      "group/connectivity",
+      "group/energy",
+    ],
+    "group/apps": {
+      "orientation": "inherit",
+      "modules": ["custom/notification", "tray"],
+      "drawer": {},
+    },
+    "group/dials": {
+      "orientation": "inherit",
+      "modules": ["cpu", "custom/gpu", "memory"],
+    },
+    "group/appearance": {
+      "orientation": "inherit",
+      "modules": [
+        "pulseaudio",
+        "backlight",
+      ],
+      "drawer": {},
+    },
+    "group/connectivity": {
+      "orientation": "inherit",
+      "modules": [
+        "network",
+        "bluetooth",
+      ],
+      "drawer": {},
+    },
+    "group/energy": {
+      "orientation": "inherit",
+      "modules": [
+        "battery",
+        "power-profiles-daemon",
+      ],
+      "drawer": {},
+    },
+    "tray": {
+      "icon-size": 24,
+      "spacing": 6
+    },
+    "custom/gpu": {
+      "exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits",
+      "format": " {}%",
+      "interval": 5,
+      "return-type": ""
+    },
+    "cpu": {
+      "format": " {usage}%",
+    },
+    "memory": {
+      "format": " {percentage}%",
+    },
+    "network": {
+      "format-wifi": " {essid}",
+      "format-ethernet": "{essid}",
+      "format-disconnected": "",
+    },
+    "pulseaudio": {
+      "format": " {volume}%"
+    },
+    "backlight": {
+      "format": " {percent}%"
+    },
+    "clock": {
+      "format": "<b>{0:%H:%M}</b> <span size='small' color='#a6adc8'>{0:%e %b '%y / %a}</span>"
+    },
+    "bluetooth": {
+      "format-off": " ",
+      "format-on": " ",
+      "format-connected": " {device_alias}",
+	    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    },
+    "battery": {
+      "interval": 15,
+      "states": {
+        "full": 100,
+        "not-quite-full": 65,
+        "warning": 25,
+        "critical": 10
+      },
+      "format": "{icon} {capacity}%",
+      "format-plugged": " {capacity}%",
+      "format-charging": " {capacity}%",
+      "format-critical": "󰂃 {capacity}%",
+      "format-icons": ["", "", "", "", ""],
+    },
+    "custom/notification": {
+      "tooltip": false,
+      "format": "{icon} {}",
+      "format-icons": {
+        "notification": "",
+        "none": "",
+        "dnd-notification": "",
+        "dnd-none": "",
+        "inhibited-notification": "",
+        "inhibited-none": "",
+        "dnd-inhibited-notification": "",
+        "dnd-inhibited-none": ""
+      },
+      "return-type": "json",
+      "exec-if": "which swaync-client",
+      "exec": "swaync-client -swb",
+      "on-click": "swaync-client -t -sw",
+      "on-click-right": "swaync-client -d -sw",
+      "escape": true
+    },
+  },
+  {
+    "layer": "top",
+    "position": "bottom",
+    "name": "dock",
+    "reload_style_on_change": true,
+    "modules-center": ["wlr/taskbar"],
+    "wlr/taskbar": {
+      "icon-size": 64,
+      "on-click": "activate",
+    },
+  },
+  {
+    "layer": "top",
+    "position": "left",
+    "reload_style_on_change": true,
+    "modules-center": ["niri/workspaces"],
+
+    "niri/workspaces": {
+	    "format": "{icon}",
+	    "format-icons": {
+		    "chat": "<b></b>",
+		    "dev": "",
+		    "gaming": "",
+		    "default": "•"
+	    }
+    }
+  }
+]

@@ -4,6 +4,9 @@
   ...
 }:
 {
+  # Required by apps like Fuzzel for determing the default terminal
+  hjem.users.leah.environment.sessionVariables.TERMINAL = "ghostty";
+
   hjem.users.leah.rum.programs.ghostty = {
     enable = true;
     package = inputs.ghostty.packages.${pkgs.system}.default;

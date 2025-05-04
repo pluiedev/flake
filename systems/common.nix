@@ -31,7 +31,7 @@
         "configurable-impure-env"
       ];
       trusted-users = [ "@wheel" ];
-      impure-env = [ "all_proxy=http://127.0.0.1:2080" ];
+      # impure-env = [ "all_proxy=http://127.0.0.1:2080" ];
     };
   };
 
@@ -49,17 +49,6 @@
         enable = true;
         maxGenerations = 10;
         enrollConfig = true;
-
-        style.wallpapers = [ ];
-        style.graphicalTerminal = {
-          palette = "1e1e2e;f38ba8;a6e3a1;f9e2af;89b4fa;f5c2e7;94e2d5;cdd6f4";
-          brightPalette = "585b70;f38ba8;a6e3a1;f9e2af;89b4fa;f5c2e7;94e2d5;cdd6f4";
-          background = "1e1e2e";
-          foreground = "cdd6f4";
-          brightBackground = "585b70";
-          brightForeground = "cdd6f4";
-          font.scale = "2x2";
-        };
       };
       efi.canTouchEfiVariables = true;
     };
@@ -82,19 +71,8 @@
     SDL_VIDEODRIVER = "wayland,x11";
   };
 
-  i18n.supportedLocales = [ "all" ];
-
   services = {
     flatpak.enable = true;
-
-    desktopManager.plasma6.enable = true;
-    displayManager = {
-      defaultSession = "plasma";
-      sddm = {
-        enable = true;
-        wayland.enable = true;
-      };
-    };
 
     pulseaudio.enable = false;
     pipewire = {
