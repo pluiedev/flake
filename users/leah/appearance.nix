@@ -26,13 +26,34 @@ in
     };
   };
 
+  # programs.dconf.profiles.user.databases = [
+  #   {
+  #     settings = {
+  #       "org/gnome/desktop/interface" = {
+  #         font-name = "DM Sans 13";
+  #         gtk-theme = "Adwaita";
+  #         icon-theme = "Adwaita";
+  #         color-scheme = "prefer-dark";
+  #         # Not exactly maroon, but close enough
+  #         accent-color = "pink";
+  #         cursor-theme = "BreezeX-Dark";
+  #         cursor-size = lib.gvariant.mkInt32 32;
+  #       };
+  #     };
+  #   }
+  # ];
+
   hjem.users.leah = {
     ctp = {
       enable = true;
       inherit flavor accent;
     };
 
-    packages = [ pkgs.breezex-cursor ];
+    packages = with pkgs; [
+      breezex-cursor
+      adw-gtk3
+      adwaita-icon-theme
+    ];
 
     rum.programs.fish.earlyConfigFiles.ctp-eza = ''
       set -x LS_COLORS (${lib.getExe pkgs.vivid} generate catppuccin-${flavor})

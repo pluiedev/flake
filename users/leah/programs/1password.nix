@@ -18,12 +18,6 @@
 
   # Add 1Pass as SSH agent
   hjem.users.leah = {
-    files.".ssh/config".text = ''
-      Host *
-        IdentityAgent ${config.hjem.users.leah.directory}/.1password/agent.sock
-    '';
-
-    ext.programs.git.settings.gpg.ssh.program =
-      lib.getExe' config.programs._1password-gui.package "op-ssh-sign";
+    environment.sessionVariables.SSH_AUTH_SOCK = "${config.hjem.users.leah.directory}/.1password/agent.sock";
   };
 }

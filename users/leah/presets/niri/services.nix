@@ -2,9 +2,11 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 let
+
   mkStartupService = run: {
     enable = true;
     wantedBy = [ "graphical-session.target" ];
@@ -50,8 +52,8 @@ let
   swayidle' = pkgs.writeShellScript "swayidle-wrapped" ''
     ${lib.getExe pkgs.swayidle} -w \
       timeout 300 ${swaylock'} \
-      timeout 600 'niri msg action power-off-monitors' \
-        resume 'niri msg action power-on-monitors' \
+      timeout 600 '${pkgs.niri} msg action power-off-monitors' \
+        resume '${pkgs.niri} msg action power-on-monitors' \
       before-sleep ${swaylock'} \
       lock ${swaylock'} \
       unlock 'pkill -SIGUSR1 -ux $USER ${swaylock'}'
@@ -64,7 +66,18 @@ in
     xwayland-satellite
   ];
 
+  hjem.users.leah.files = {
+    ".config/systemd/user/default.target.wants/swaync.service".source =
+      "${pkgs.swaynotificationcenter}/lib/systemd/user/swaync.service";
+    ".config/systemd/user/default.target.wants/xwayland-satellite.service".source =
+      "${pkgs.xwayland-satellite}/lib/systemd/user/xwayland-satellite.service";
+    ".config/systemd/user/default.target.wants/waybar.service".source =
+      "${pkgs.waybar}/lib/systemd/user/waybar.service";
+  };
+
   systemd.user.services = {
+    # waybar.serviceConfig.ExecReload = 
+
     polkit-gnome-authentication-agent-1 = mkStartupService "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
 
     swaybg = mkStartupService "${lib.getExe pkgs.swaybg} -i ${../../wallpaper.jpg}";

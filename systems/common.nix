@@ -37,7 +37,11 @@
 
   nixpkgs = {
     # I'm not part of the FSF and I don't care
-    config.allowUnfree = true;
+    config = {
+      allowUnfree = true;
+      cudaSupport = true;
+    };
+    
     flake.setNixPath = true;
 
     overlays = [ inputs.self.overlays.default ];
@@ -59,7 +63,6 @@
     plymouth.enable = true;
     kernelParams = [
       "quiet"
-      "splash"
       "plymouth.use-simpledrm"
       "i915.fastboot=1"
     ];
@@ -73,6 +76,7 @@
 
   services = {
     flatpak.enable = true;
+    udisks2.enable = true;
 
     pulseaudio.enable = false;
     pipewire = {

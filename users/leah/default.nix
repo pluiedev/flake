@@ -17,6 +17,9 @@
       "wheel" # 1984 powers
       "rtkit" # Some apps may need to adjust audio priority at runtime
       "networkmanager" # Manage networks
+
+      "qemu-libvirtd"
+      "libvirtd"
     ];
     home = "/home/leah";
 
@@ -36,4 +39,5 @@
     ];
     extraLocaleSettings.LC_TIME = "de_DE.UTF-8";
   };
+
 }

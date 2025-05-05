@@ -71,6 +71,7 @@ window-rule {
 
 window-rule {
     match app-id=r#"^org\.gnome\.World\.Secrets$"#
+    match app-id="1Password"
 
     block-out-from "screen-capture"
 }
@@ -83,8 +84,8 @@ binds {
     Super+D repeat=false { spawn "bash" "-c" "pkill fuzzel || fuzzel"; }
     Super+Alt+L { spawn "swaylock"; }
 
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+" "-l" "1.0"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-" "-l" "1.0"; }
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
@@ -245,6 +246,8 @@ workspace "chat"
 workspace "dev"
 workspace "gaming"
 
+// TODO: I do not know why 1Pass doesn't work on Wayland
+spawn-at-startup "1password --ozone-platform-hint=x11"
 spawn-at-startup "ghostty"
 spawn-at-startup "firefox"
 

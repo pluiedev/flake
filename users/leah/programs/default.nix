@@ -24,6 +24,12 @@
     nix-index-database.comma.enable = true;
   };
 
+  services.spice-webdavd.enable = true;
+  virtualisation = {
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
+  };
+
   hjem.users.leah = {
     packages = with pkgs; [
       # Apps
@@ -32,6 +38,7 @@
       vlc
       thunderbird
       telegram-desktop
+      gnome-boxes
 
       # Command-line apps
       just

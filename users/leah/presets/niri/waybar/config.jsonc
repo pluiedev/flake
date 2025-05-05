@@ -74,7 +74,13 @@
       "format": " {percent}%"
     },
     "clock": {
-      "format": "<b>{0:%H:%M}</b> <span size='small' color='#a6adc8'>{0:%e %b '%y / %a}</span>"
+      "format": "<b>{0:%H:%M}</b> <span size='small' color='#a6adc8'>{0:%e %b '%y / %a (%Ez)}</span>",
+      "locale": "de_DE.UTF-8",
+      "tooltip-format": "{tz_list}",
+      "timezones": [
+        "Europe/Berlin",
+        "Asia/Shanghai",
+      ],
     },
     "bluetooth": {
       "format-off": " ",

@@ -5,19 +5,25 @@
 }:
 {
   hjem.users.leah.packages = with pkgs; [
-    darkly
-    darkly-qt5
-    adw-gtk3
-    adwaita-icon-theme
+    qadwaitadecorations
+    qadwaitadecorations-qt6
   ];
 
   # Theme Qt apps via qt{5,6}ct + Darkly
-  qt = {
-    enable = true;
-    platformTheme = "qt5ct";
-  };
+  # TODO: Declaratively configure qt*ct
+  qt.enable = true;
+  environment.variables.QT_QPA_PLATFORMTHEME = "adwaita";
 
-  # TODO: Declaratively configure qt*ct and GTK3/4 gsettings appearance flags
+  programs.dconf.profiles.user.databases = [
+    {
+      settings = {
+        "org/gnome/desktop/wm/preferences" = {
+          # Both minimize and maximize do nothing in niri
+          button-layout = "icon:close";
+        };
+      };
+    }
+  ];
 
   # On native Wayland compositors that support text-input-v3
   # (incl. Niri), it's recommended to set this flag to true,
