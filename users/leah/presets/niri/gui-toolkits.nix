@@ -9,8 +9,6 @@
     qadwaitadecorations-qt6
   ];
 
-  # Theme Qt apps via qt{5,6}ct + Darkly
-  # TODO: Declaratively configure qt*ct
   qt.enable = true;
   environment.variables.QT_QPA_PLATFORMTHEME = "adwaita";
 

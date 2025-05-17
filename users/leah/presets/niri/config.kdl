@@ -246,6 +246,11 @@ workspace "chat"
 workspace "dev"
 workspace "gaming"
 
+spawn-at-startup "waybar"
+spawn-at-startup "swaync"
+spawn-at-startup "xwayland-satellite"
+spawn-at-startup "fcitx5"
+spawn-at-startup "swayidle"
 // TODO: I do not know why 1Pass doesn't work on Wayland
 spawn-at-startup "1password --ozone-platform-hint=x11"
 spawn-at-startup "ghostty"

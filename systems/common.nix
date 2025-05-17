@@ -7,7 +7,7 @@
   ...
 }:
 {
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 
   nix = {
     # Add `n` as an alias of `nixpkgs`
@@ -53,28 +53,45 @@
         enable = true;
         maxGenerations = 10;
         enrollConfig = true;
+        secureBoot.enable = true;
       };
       efi.canTouchEfiVariables = true;
     };
 
     # Silence NixOS Stage 1 logs, jump straight into plymouth
     consoleLogLevel = 0;
-    initrd.verbose = false;
+    initrd = {
+      verbose = false;
+      systemd.enable = true;
+    };
     plymouth.enable = true;
     kernelParams = [
       "quiet"
       "plymouth.use-simpledrm"
       "i915.fastboot=1"
     ];
+
+    tmp.useTmpfs = true;
   };
+
+  # Make Nix use /var/tmp for building, so that
+  # large files don't have to live in tmpfs
+  systemd.services.nix-daemon.environment.TMPDIR = "/var/tmp";
 
   # Use native Wayland when possible
   environment.variables = {
     NIXOS_OZONE_WL = "1";
-    SDL_VIDEODRIVER = "wayland,x11";
+
+    # Some SDL 2 apps are very naughty and don't work nicely under Wayland
+    SDL_VIDEODRIVER = "x11";
+
+    # SDL 3 should be able to use native Wayland just fine.
+    SDL_VIDEO_DRIVER = "wayland";
   };
 
   services = {
+    dbus.implementation = "broker";
+    fstrim.enable = true;
     flatpak.enable = true;
     udisks2.enable = true;
 
@@ -90,7 +107,17 @@
 
   security.rtkit.enable = true;
 
-  networking.networkmanager.enable = true;
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+  };
+
+  networking.networkmanager = {
+    enable = true;
+
+    # Fuck wpa_supplicant
+    wifi.backend = "iwd";
+  };
 
   system = {
     # Thank @luishfonseca for this

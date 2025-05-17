@@ -2,7 +2,7 @@
   description = "Leah's NixOS configurations + more";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
 
     # NOTE: please keep this in alphabetical order.
 

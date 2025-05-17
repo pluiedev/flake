@@ -34,8 +34,8 @@
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocales = [
-      "zh_CN.UTF-8"
-      "de_DE.UTF-8"
+      "zh_CN.UTF-8/UTF-8"
+      "de_DE.UTF-8/UTF-8"
     ];
     extraLocaleSettings.LC_TIME = "de_DE.UTF-8";
   };

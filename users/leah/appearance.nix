@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   ...
 }:
 let
@@ -47,6 +46,8 @@ in
     ctp = {
       enable = true;
       inherit flavor accent;
+
+      # fcitx5.withRoundedCorners = true;
     };
 
     packages = with pkgs; [
@@ -55,11 +56,12 @@ in
       adwaita-icon-theme
     ];
 
-    rum.programs.fish.earlyConfigFiles.ctp-eza = ''
-      set -x LS_COLORS (${lib.getExe pkgs.vivid} generate catppuccin-${flavor})
-    '';
-
     ext.programs.moar.settings.style = "catppuccin-${flavor}";
+  };
+
+  programs.vivid = {
+    enable = true;
+    theme = "catppuccin-${flavor}";
   };
 
   fonts = {

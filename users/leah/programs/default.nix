@@ -19,15 +19,8 @@
   ];
 
   programs = {
-    gamemode.enable = true;
     localsend.enable = true;
     nix-index-database.comma.enable = true;
-  };
-
-  services.spice-webdavd.enable = true;
-  virtualisation = {
-    libvirtd.enable = true;
-    spiceUSBRedirection.enable = true;
   };
 
   hjem.users.leah = {
@@ -38,7 +31,6 @@
       vlc
       thunderbird
       telegram-desktop
-      gnome-boxes
 
       # Command-line apps
       just

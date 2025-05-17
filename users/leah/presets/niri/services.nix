@@ -2,22 +2,9 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }:
 let
-
-  mkStartupService = run: {
-    enable = true;
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" ];
-    serviceConfig = {
-      ExecStart = run;
-      Restart = "on-failure";
-    };
-  };
-
   swaylock-config = {
     screenshots = true;
     scaling = "fit";
@@ -45,11 +32,11 @@ let
     datestr = "%e %b '%y / %a";
   };
 
-  swaylock' = pkgs.writeShellScript "swaylock-wrapped" ''
+  swaylock' = pkgs.writeShellScript "swaylock" ''
     ${lib.getExe pkgs.swaylock} -f ${lib.cli.toGNUCommandLineShell { } swaylock-config}
   '';
 
-  swayidle' = pkgs.writeShellScript "swayidle-wrapped" ''
+  swayidle' = pkgs.writeShellScriptBin "swayidle" ''
     ${lib.getExe pkgs.swayidle} -w \
       timeout 300 ${swaylock'} \
       timeout 600 '${pkgs.niri} msg action power-off-monitors' \
@@ -60,37 +47,15 @@ let
   '';
 in
 {
-  systemd.packages = with pkgs; [
-    waybar
-    swaynotificationcenter
-    xwayland-satellite
+  hjem.users.leah.packages = [
+    swayidle'
   ];
 
-  hjem.users.leah.files = {
-    ".config/systemd/user/default.target.wants/swaync.service".source =
-      "${pkgs.swaynotificationcenter}/lib/systemd/user/swaync.service";
-    ".config/systemd/user/default.target.wants/xwayland-satellite.service".source =
-      "${pkgs.xwayland-satellite}/lib/systemd/user/xwayland-satellite.service";
-    ".config/systemd/user/default.target.wants/waybar.service".source =
-      "${pkgs.waybar}/lib/systemd/user/waybar.service";
+  security = {
+    polkit.enable = true;
+    soteria.enable = true;
   };
-
-  systemd.user.services = {
-    # waybar.serviceConfig.ExecReload = 
-
-    polkit-gnome-authentication-agent-1 = mkStartupService "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-
-    swaybg = mkStartupService "${lib.getExe pkgs.swaybg} -i ${../../wallpaper.jpg}";
-
-    fcitx5 = lib.mkIf (config.i18n.inputMethod.type == "fcitx5") (
-      mkStartupService (lib.getExe config.i18n.inputMethod.package)
-    );
-
-    swayidle = mkStartupService swayidle';
-  };
-
-  security.polkit.enable = true;
-
+  
   # Needed by the Waybar config
   services.power-profiles-daemon.enable = true;
 

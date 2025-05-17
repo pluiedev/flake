@@ -27,7 +27,7 @@
       # Massively improves the nvim experience
       mouse-hide-while-typing = true;
 
-      quick-terminal-size = "20%,80%";
+      quick-terminal-size = "30%";
       quick-terminal-autohide = true;
 
       keybind = [
@@ -35,7 +35,9 @@
         "ctrl+shift+down=new_split:down"
         "ctrl+shift+left=new_split:left"
         "ctrl+shift+right=new_split:right"
-        "global:ctrl+grave_accent=toggle_quick_terminal"
+        "alt+shift+left=next_tab"
+        "alt+shift+right=previous_tab"
+        "global:ctrl+backquote=toggle_quick_terminal"
       ];
     };
   };

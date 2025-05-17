@@ -10,11 +10,13 @@
     watchman
   ];
 
+  hjem.users.leah.environment.sessionVariables.DFT_DISPLAY = "inline";
+
   hjem.users.leah.ext.programs = {
     git = {
       enable = true;
       settings = {
-        diff.external = "${lib.getExe pkgs.difftastic} --color auto --background light --display side-by-side";
+        diff.external = lib.getExe pkgs.difftastic;
 
         init.defaultBranch = "main";
         push.autoSetupRemote = true;
@@ -36,21 +38,42 @@
           name = "Leah Amelia Chen";
           email = "hi@pluie.me";
         };
+
         ui = {
           default-command = [ "log" ];
-          diff.tool = [
-            "${lib.getExe pkgs.difftastic}"
-            "--color=always"
-            "$left"
-            "$right"
-          ];
+          diff.tool = "difft";
           pager = "${lib.getExe pkgs.moar} -no-linenumbers";
           log-word-wrap = true;
         };
+
+        aliases = {
+          tug = [
+            "bookmark"
+            "move"
+            "--from"
+            "closest_bookmark(@-)"
+            "--to"
+            "closest_pushable(@-)"
+          ];
+        };
+
+        revsets = {
+          log = "current()";
+          short-prefixes = "current()";
+        };
+
+        revset-aliases = {
+          "current()" = "(trunk()..@)::";
+          "closest_bookmark(to)" = "heads(::to & bookmarks())";
+          "closest_pushable(to)" =
+            "heads(::to & mutable() & ~description(exact:\"\") & (~empty() | merges()))";
+        };
+
         template-aliases = {
-          "format_short_id(id)" = ''id.shortest(12).prefix() ++ "[" ++ id.shortest(12).rest() ++ "]"'';
+          "format_short_id(id)" = ''id.shortest(12).prefix() ++ "'" ++ id.shortest(12).rest()'';
           "format_timestamp(timestamp)" = "timestamp.ago()";
-          "format_short_signature(signature)" = "signature";
+          "commit_timestamp(commit)" = "commit.author().timestamp()";
+          "format_short_signature(signature)" = "signature.name()";
         };
 
         fix.tools = {
@@ -69,12 +92,15 @@
         git = {
           sign-on-push = true;
           private-commits = "description(glob:'wip:*')";
+          push-bookmark-prefix = "pluie/jj-";
         };
 
         core = {
           fsmonitor = "watchman";
           watchman.register-snapshot-trigger = true;
         };
+
+        snapshot.auto-track = ''~(root:".direnv" | root:".zig-cache" | root:"zig-out")'';
       };
     };
   };
