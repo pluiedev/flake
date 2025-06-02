@@ -8,9 +8,13 @@
     jujutsu
     difftastic
     watchman
+    hwatch
   ];
 
-  hjem.users.leah.environment.sessionVariables.DFT_DISPLAY = "inline";
+  hjem.users.leah.environment.sessionVariables = {
+    DFT_DISPLAY = "inline";
+    HWATCH = "--no-title --color --mouse --keymap q=force_cancel";
+  };
 
   hjem.users.leah.ext.programs = {
     git = {
@@ -54,6 +58,20 @@
             "closest_bookmark(@-)"
             "--to"
             "closest_pushable(@-)"
+          ];
+
+          monitor = [
+            "util"
+            "exec"
+            "--"
+            "hwatch"
+            "--exec"
+            "--limit=1"
+            "--"
+            "jj"
+            "--ignore-working-copy"
+            "log"
+            "--color=always"
           ];
         };
 
@@ -99,8 +117,6 @@
           fsmonitor = "watchman";
           watchman.register-snapshot-trigger = true;
         };
-
-        snapshot.auto-track = ''~(root:".direnv" | root:".zig-cache" | root:"zig-out")'';
       };
     };
   };
