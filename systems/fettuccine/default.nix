@@ -20,7 +20,9 @@
   boot = {
     # Disable Nvidia's HDMI audio
     blacklistedKernelModules = [ "snd_hda_codec_hdmi" ];
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+
+    # FIXME: switch back to latest xanmod after 6.15.5
+    kernelPackages = pkgs.linuxPackages_xanmod_stable;
   };
 
   # Enable building and testing aarch64 packages for Nixpkgs dev
@@ -63,5 +65,7 @@
       "https://mirrors.tuna.tsinghua.edu.cn"
       # "https://mirror.sjtu.edu.cn" # FIXME: buggy?
     ];
+
+    environment.sessionVariables.all_proxy = "http://127.0.0.1:2080";
   };
 }
