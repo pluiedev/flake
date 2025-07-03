@@ -23,7 +23,8 @@ in
 
   config = lib.mkIf cfg.enable {
     packages = [ cfg.package ];
-    files.".config/git/config".source = lib.mkIf (cfg.settings != { })
-      (format.generate "git-config" cfg.settings);
+    files.".config/git/config".source = lib.mkIf (cfg.settings != { }) (
+      format.generate "git-config" cfg.settings
+    );
   };
 }

@@ -18,11 +18,10 @@ let
   };
 in
 {
-  options.ctp.fish = ctp-lib.mkCatppuccinOptions "Fish" {};
+  options.ctp.fish = ctp-lib.mkCatppuccinOptions "Fish" { };
 
   config = lib.mkIf cfg.enable {
-    files.".config/fish/themes/${themeName}.theme".source =
-        "${src}/themes/${themeName}.theme";
+    files.".config/fish/themes/${themeName}.theme".source = "${src}/themes/${themeName}.theme";
 
     rum.programs.fish.earlyConfigFiles.ctp-fish = ''
       fish_config theme choose "${themeName}"

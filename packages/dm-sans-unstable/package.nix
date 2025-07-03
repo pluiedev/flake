@@ -26,7 +26,9 @@ dm-sans.overrideAttrs {
     mkdir -p $out/share/fonts/{opentype,truetype,woff}
     cp Sans/fonts/otf/*.otf $out/share/fonts/opentype
 
-    cp Sans/fonts/ttf/${lib.optionalString (!enableSizeSpecialization) "DMSans-"}*.ttf $out/share/fonts/truetype
+    cp Sans/fonts/ttf/${
+      lib.optionalString (!enableSizeSpecialization) "DMSans-"
+    }*.ttf $out/share/fonts/truetype
     cp Sans/fonts/variable/*.ttf $out/share/fonts/truetype
     ${lib.optionalString enableWebFonts ''cp Sans/fonts/webfonts/*.woff2 $out/share/fonts/woff''}
 

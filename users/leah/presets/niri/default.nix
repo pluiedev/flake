@@ -21,7 +21,6 @@
       waybar
       xwayland-satellite
       brightnessctl
-      swaylock-effects
     ];
 
     files.".config/niri/config.kdl".source = ./config.kdl;

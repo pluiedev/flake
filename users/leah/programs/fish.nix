@@ -1,5 +1,7 @@
 {
   config,
+  lib,
+  pkgs,
   ...
 }:
 {
@@ -10,7 +12,7 @@
   hjem.users.leah.rum.programs.fish = {
     enable = true;
     inherit (config.programs.fish) package;
-    
+
     functions.eza = "eza --git --icons=auto";
     abbrs = {
       ls = "eza";
@@ -19,5 +21,11 @@
       lt = "eza --tree";
       lla = "eza -la";
     };
+
+    earlyConfigFiles.starship = ''
+      ${lib.getExe pkgs.starship} init fish | source
+    '';
   };
+
+  hjem.users.leah.files.".config/starship.toml".source = ./starship.toml;
 }

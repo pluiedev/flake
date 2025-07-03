@@ -17,17 +17,37 @@ input {
     workspace-auto-back-and-forth
 }
 
+// Place the monitors like so, in terms of logical coordinates:
+//
+//         0                       2560                4608
+//         v-----------------------v-------------------v
+//                   2560            2560 / 1.25 = 2048
+//    0 >  +-----------------------+                     
+//      |  |                       +-------------------+  < 160
+//      |  |                       |                   |  |
+// 1440 |  |       HDMI-A-1        |       eDP-1       |  | 1600 / 1.25
+//      |  |                       |      (125%)       |  | = 1280
+//      |  |                       |                   |  |
+// 1440 >  +-----------------------+-------------------+  < 1440
+
 output "eDP-1" {
-    mode "2560x1600"
+    mode "2560x1600@165.040"
     scale 1.25
-    transform "normal"
     variable-refresh-rate
+    position x=2560 y=160 // 1440 - (1600 / 1.25)
+}
+
+output "HDMI-A-1" {
+    mode "2560x1440@143.912"
+    // Main monitor is to the left of the laptop monitor
+    position x=0 y=0
 }
 
 layout {
     gaps 24
     center-focused-column "on-overflow"
     always-center-single-column
+    background-color "transparent" // Let backdrop shine through
 
     preset-column-widths {
         proportion 0.33333
@@ -35,12 +55,24 @@ layout {
         proportion 0.66667
     }
 
-    default-column-width {}
+    default-column-width {
+        proportion 0.6667
+    }
 
     focus-ring {
-        width 1.5
+        width 2.5
         active-color "#eba0ac"
-        inactive-color "#505050"
+        inactive-color "#00000000"
+    }
+
+    border {
+        off
+        width 2.5
+        urgent-color "#f38ba8"
+    }
+
+    insert-hint {
+        color "#eba0ac70"
     }
 
     shadow {
@@ -50,17 +82,56 @@ layout {
         offset x=0 y=5
         color "#0007"
     }
+
+    struts {
+        left -24
+        right -24
+        top -16
+        bottom -16
+    }
 }
 
-screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+overview {
+    zoom 0.6667
+    workspace-shadow {
+        off
+    }
+}
+
+screenshot-path "~/Pictures/Screenshots/screenshot-%Y-%m-%d-%H-%M-%S.png"
+
+// Swaybg
+layer-rule {
+    match namespace="wallpaper"
+    place-within-backdrop true
+}
+
+// Fuzzel
+layer-rule {
+    match namespace="launcher"
+    baba-is-float true
+    shadow {
+        on
+    }
+}
 
 window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
 }
 
+// Only enable borders for urgent windows
+window-rule {
+    match is-urgent=true
+
+    border {
+        on
+    }
+}
+
 window-rule {
     match app-id="com.mitchellh.ghostty"
+    // Allow terminal background to be transparent
     draw-border-with-background false
 }
 
@@ -243,7 +314,9 @@ environment {
 
 // Workspaces & default apps
 workspace "chat"
-workspace "dev"
+workspace "dev" {
+    open-on-output "HDMI-A-1"
+}
 workspace "gaming"
 
 spawn-at-startup "waybar"
@@ -251,10 +324,14 @@ spawn-at-startup "swaync"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "fcitx5"
 spawn-at-startup "swayidle"
+spawn-at-startup "swaybg"
+
 // TODO: I do not know why 1Pass doesn't work on Wayland
 spawn-at-startup "1password --ozone-platform-hint=x11"
 spawn-at-startup "ghostty"
 spawn-at-startup "firefox"
+spawn-at-startup "vesktop"
+spawn-at-startup "steam"
 
 window-rule {
     match at-startup=true app-id="vesktop"
@@ -266,6 +343,13 @@ window-rule {
     open-on-workspace "dev"
 }
 window-rule {
+    match at-startup=true app-id="steam"
+    match app-id=r#"^steam_app_"#
+    open-on-workspace "gaming"
+}
+window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
     default-floating-position x=10 y=10 relative-to="top-right"
+    // Never allow notifications steal focus
+    open-focused false
 }

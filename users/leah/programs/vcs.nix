@@ -45,7 +45,7 @@
 
         ui = {
           default-command = [ "log" ];
-          diff.tool = "difft";
+          diff-formatter = "difft";
           pager = "${lib.getExe pkgs.moar} -no-linenumbers";
           log-word-wrap = true;
         };
@@ -72,11 +72,12 @@
             "--ignore-working-copy"
             "log"
             "--color=always"
+            "-r"
+            "current()"
           ];
         };
 
         revsets = {
-          log = "current()";
           short-prefixes = "current()";
         };
 

@@ -31,7 +31,7 @@
         "configurable-impure-env"
       ];
       trusted-users = [ "@wheel" ];
-      # impure-env = [ "all_proxy=http://127.0.0.1:2080" ];
+      impure-env = [ "all_proxy=http://127.0.0.1:2080" ];
     };
   };
 
@@ -41,7 +41,7 @@
       allowUnfree = true;
       cudaSupport = true;
     };
-    
+
     flake.setNixPath = true;
 
     overlays = [ inputs.self.overlays.default ];
@@ -114,9 +114,6 @@
 
   networking.networkmanager = {
     enable = true;
-
-    # Fuck wpa_supplicant
-    wifi.backend = "iwd";
   };
 
   system = {
@@ -132,7 +129,7 @@
     # thanks to @getchoo
     autoUpgrade = {
       enable = true;
-      flake = "github:pluiedev/flake#${config.networking.hostName}";
+      flake = "git+https://tangled.sh/@pluie.me/flake#${config.networking.hostName}";
       flags = [ "--refresh" ];
     };
 

@@ -6,7 +6,7 @@
 let
   json = pkgs.formats.json { };
   wrappedFirefox = pkgs.firefox.override {
-    extraPoliciesFiles = [(json.generate "firefox-policies.json" policies)];
+    extraPoliciesFiles = [ (json.generate "firefox-policies.json" policies) ];
   };
 
   addons = [
@@ -33,7 +33,7 @@ let
     "{9a41dee2-b924-4161-a971-7fb35c053a4a}" # enhanced-h264ify
     "sponsorBlocker@ajay.app" # SponsorBlock for YouTube
     "{0d7cafdd-501c-49ca-8ebb-e3341caaa55e}" # YouTube NonStop
-  
+
     # Utilities
     "{d634138d-c276-4fc8-924b-40a0ea21d284}" # 1Password
     "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}" # Auto Tab Discard
@@ -45,10 +45,14 @@ let
 
   policies = {
     ExtensionSettings = lib.listToAttrs (
-      map (id: lib.nameValuePair id {
-        installation_mode = "normal_installed";
-        install_url = "https://addons.mozilla.org/firefox/downloads/latest/${id}/latest.xpi";
-      }) addons);
+      map (
+        id:
+        lib.nameValuePair id {
+          installation_mode = "normal_installed";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/${id}/latest.xpi";
+        }
+      ) addons
+    );
   };
 
   # TODO: Specifying custom search engines is *very* cursed.

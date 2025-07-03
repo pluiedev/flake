@@ -74,6 +74,7 @@ in
       i-dot-ming
       lxgw-neoxihei
       dm-sans-unstable
+      fontawesome-free
     ];
 
     fontconfig = {

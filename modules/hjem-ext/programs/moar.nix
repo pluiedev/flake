@@ -7,28 +7,32 @@
 let
   cfg = config.ext.programs.moar;
 
-  toFlag = k: v: if lib.isBool v then
-    lib.optionalString (v) "-${k}"
-  else if lib.isString v then
-    "-${k}=${v}"
-  else
-    throw "Unsupported type";
-    
+  toFlag =
+    k: v:
+    if lib.isBool v then
+      lib.optionalString (v) "-${k}"
+    else if lib.isString v then
+      "-${k}=${v}"
+    else
+      throw "Unsupported type";
+
 in
 {
   options.ext.programs.moar = {
     enable = lib.mkEnableOption "Moar";
 
-    package = lib.mkPackageOption pkgs "moar" {};
+    package = lib.mkPackageOption pkgs "moar" { };
 
     settings = lib.mkOption {
       type = lib.types.submodule {
-        freeformType = with lib.types; attrsOf (oneOf [
-          str
-          bool
-        ]);
+        freeformType =
+          with lib.types;
+          attrsOf (oneOf [
+            str
+            bool
+          ]);
       };
-      default = {};
+      default = { };
     };
   };
 
