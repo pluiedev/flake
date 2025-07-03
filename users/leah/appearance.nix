@@ -55,8 +55,8 @@ in
       libertinus
       i-dot-ming
       lxgw-neoxihei
-      dm-sans-unstable
       fontawesome-free
+      manrope
     ];
 
     fontconfig = {
@@ -65,7 +65,7 @@ in
           "I.Ming"
         ];
         sansSerif = [
-          "DM Sans"
+          "Manrope"
           "LXGW Neo XiHei"
         ];
         emoji = [ "Noto Color Emoji" ];

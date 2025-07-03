@@ -34,7 +34,7 @@
         "org/gnome/desktop/interface" = {
           accent-color = "pink";
           color-scheme = "prefer-dark";
-          font-name = "DM Sans 13";
+          font-name = "Manrope 13";
         };
       };
     }
