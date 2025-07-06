@@ -89,6 +89,7 @@
     dbus.implementation = "broker";
     flatpak.enable = true;
     udisks2.enable = true;
+    tlp.enable = true;
 
     pulseaudio.enable = false;
     pipewire = {

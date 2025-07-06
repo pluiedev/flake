@@ -21,6 +21,12 @@
       waybar
       xwayland-satellite
       brightnessctl
+
+      # Desktop utilities
+      file-roller
+      loupe
+      gnome-logs
+      resources
     ];
 
     files.".config/niri/config.kdl".source = ./config.kdl;

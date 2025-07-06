@@ -18,6 +18,7 @@ input {
 }
 
 // Place the monitors like so, in terms of logical coordinates:
+// fettuccine:
 //
 //         0                       2560                4608
 //         v-----------------------v-------------------v
@@ -29,15 +30,39 @@ input {
 //      |  |                       |      (125%)       |  | = 1280
 //      |  |                       |                   |  |
 // 1440 >  +-----------------------+-------------------+  < 1440
+// 
+// pappardelle:
+//
+//         0                       2560                4480
+//         v-----------------------v-------------------v
+//                   2560            2880 / 1.5 = 1920
+//    0 >  +-----------------------+                     
+//      |  |                       +-------------------+ < 240
+//      |  |                       |                   | 1800 / 1.5
+// 1440 |  |       HDMI-A-1        |      Builtin      | = 1200
+//      |  |                       |      (150%)       | 
+//      |  |                       |                   |
+// 1440 >  +-----------------------+-------------------+ < 1440
 
-output "eDP-1" {
+// Builtin display on fettuccine
+// TODO: Use model number
+/-output "eDP-1" {
     mode "2560x1600@165.040"
     scale 1.25
     variable-refresh-rate
     position x=2560 y=160 // 1440 - (1600 / 1.25)
 }
 
-output "HDMI-A-1" {
+// Builtin display on pappardelle
+output "Samsung Display Corp. ATNA40HQ01-0  Unknown" {
+    mode "2880x1800@120.000"
+    scale 1.5
+    variable-refresh-rate
+    position x=2560 y=240 // 1440 - (1800 / 2)
+}
+
+// External display
+output "PNP(AOC) Q32G2WG4 0x00000BCC" {
     mode "2560x1440@143.912"
     // Main monitor is to the left of the laptop monitor
     position x=0 y=0

@@ -45,9 +45,6 @@ in
     soteria.enable = true;
   };
 
-  # Needed by the Waybar config
-  services.power-profiles-daemon.enable = true;
-
   programs.regreet = {
     enable = true;
     settings = {
