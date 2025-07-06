@@ -37,11 +37,7 @@
 
   nixpkgs = {
     # I'm not part of the FSF and I don't care
-    config = {
-      allowUnfree = true;
-      cudaSupport = true;
-    };
-
+    config.allowUnfree = true;
     flake.setNixPath = true;
 
     overlays = [ inputs.self.overlays.default ];
@@ -91,7 +87,6 @@
 
   services = {
     dbus.implementation = "broker";
-    fstrim.enable = true;
     flatpak.enable = true;
     udisks2.enable = true;
 

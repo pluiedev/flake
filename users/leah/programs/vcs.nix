@@ -27,6 +27,8 @@
         url."https://github.com/".insteadOf = "gh:";
         gpg.format = "ssh";
 
+        http.proxy = "http://127.0.0.1:2080";
+
         user = {
           name = "Leah Amelia Chen";
           email = "hi@pluie.me";

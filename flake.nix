@@ -47,6 +47,8 @@
           inherit (pkgs') callPackage;
           directory = ./packages;
         };
+
+      specialArgs = { inherit inputs; };
     in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = lib.systems.flakeExposed;
@@ -56,7 +58,12 @@
 
         nixosConfigurations.fettuccine = lib.nixosSystem {
           modules = [ ./systems/fettuccine ];
-          specialArgs = { inherit inputs; };
+          inherit specialArgs;
+        };
+
+        nixosConfigurations.pappardelle = lib.nixosSystem {
+          modules = [ ./systems/pappardelle ];
+          inherit specialArgs;
         };
 
         hjemModules = {
