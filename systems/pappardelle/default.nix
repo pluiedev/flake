@@ -1,7 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
   inputs,
   ...
 }:
@@ -22,18 +20,24 @@
   # Specific to Alder Lake
   hardware.intelgpu.vaapiDriver = "intel-media-driver";
 
+  hardware.bluetooth.enable = true;
+
   networking.hostName = "pappardelle";
 
   boot = {
     # FIXME: switch back to latest xanmod after 6.15.5
     kernelPackages = pkgs.linuxPackages_xanmod;
+
+    # DSP-based SOF drivers currently don't work due to missing topology
+    # definitions, so we fall back to old snd_hda_intel drivers
+    extraModprobeConfig = ''
+      options snd-intel-dspcfg dsp_driver=1
+    '';
   };
 
   # Enable building and testing aarch64 packages for Nixpkgs dev
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   nix.settings.extra-platforms = [ "aarch64-linux" ];
-
-  hardware.bluetooth.enable = true;
 
   networking.firewall = {
     enable = true;
