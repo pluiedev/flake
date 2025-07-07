@@ -53,16 +53,18 @@ in
       iosevka
       noto-fonts-color-emoji
       libertinus
-      i-dot-ming
       lxgw-neoxihei
       fontawesome-free
       manrope
+      bitter
+      lxgw-neozhisong
     ];
 
     fontconfig = {
       defaultFonts = {
         serif = [
-          "I.Ming"
+          "Bitter"
+          "LXGW NeoZhiSong"
         ];
         sansSerif = [
           "Manrope"
