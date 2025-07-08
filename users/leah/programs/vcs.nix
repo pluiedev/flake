@@ -97,6 +97,10 @@
           "format_short_signature(signature)" = "signature.name()";
         };
 
+        templates = {
+          git_push_bookmark = ''"pluie/jj-" ++ change_id.short()'';
+        };
+
         fix.tools = {
           nixfmt = {
             command = [ "nixfmt" ];
@@ -113,7 +117,6 @@
         git = {
           sign-on-push = true;
           private-commits = "description(glob:'wip:*')";
-          push-bookmark-prefix = "pluie/jj-";
         };
 
         core = {
