@@ -17,7 +17,7 @@
     common-pc-laptop-ssd
   ];
 
-  # Specific to Alder Lake
+  # Specific to Meteor Lake and above
   hardware.intelgpu.vaapiDriver = "intel-media-driver";
 
   hardware.bluetooth.enable = true;
@@ -26,14 +26,20 @@
 
   boot = {
     # FIXME: switch back to latest xanmod after 6.15.5
-    kernelPackages = pkgs.linuxPackages_xanmod;
+    kernelPackages = pkgs.linuxPackages_latest;
 
     # DSP-based SOF drivers currently don't work due to missing topology
     # definitions, so we fall back to old snd_hda_intel drivers
     extraModprobeConfig = ''
       options snd-intel-dspcfg dsp_driver=1
     '';
-  };
+
+    # HACK HACK HACK: Disable PCIe Power Management to completely disallow
+    # the Wi-Fi adapter from turning off. This will be problematic for
+    # performance, but at least I would have working Wi-Fi after waking up
+    # from a suspend.
+    kernelParams = [ "pcie_port_pm=off" ];
+};
 
   # Enable building and testing aarch64 packages for Nixpkgs dev
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];

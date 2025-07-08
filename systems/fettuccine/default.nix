@@ -22,7 +22,7 @@
     blacklistedKernelModules = [ "snd_hda_codec_hdmi" ];
 
     # FIXME: switch back to latest xanmod after 6.15.5
-    kernelPackages = pkgs.linuxPackages_xanmod;
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   # Enable building and testing aarch64 packages for Nixpkgs dev
