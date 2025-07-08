@@ -13,10 +13,7 @@
 
     ghostty = {
       url = "github:pluiedev/ghostty/edge";
-      inputs = {
-        nixpkgs-unstable.follows = "nixpkgs";
-        nixpkgs-stable.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hjem = {

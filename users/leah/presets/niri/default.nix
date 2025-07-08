@@ -27,6 +27,9 @@
       loupe
       gnome-logs
       resources
+
+      # For Ghostty's gdbus activation
+      glib
     ];
 
     files.".config/niri/config.kdl".source = ./config.kdl;
