@@ -30,7 +30,6 @@
   hjem.users.leah = {
     packages = with pkgs; [
       # Apps
-      aseprite
       prismlauncher
       vlc
       thunderbird
