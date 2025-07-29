@@ -175,19 +175,19 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+T repeat=false { spawn "gdbus" "call" "--session" "--dest" "com.mitchellh.ghostty" "--object-path" "/com/mitchellh/ghostty" "--method" "org.gtk.Actions.Activate new-window" "[]" "[]"; }
+    Mod+T repeat=false { spawn "ghostty" "+new-window"; }
     Super+D repeat=false { spawn "bash" "-c" "pkill fuzzel || fuzzel"; }
     Super+Alt+L { spawn "swaylock"; }
 
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+" "-l" "1.0"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-" "-l" "1.0"; }
-    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume=raise"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume=lower"; }
+    XF86AudioMute allow-when-locked=true { spawn "swayosd-client" "--output-volume=mute-toggle"; }
+    XF86AudioMicMute allow-when-locked=true { spawn "swayosd-client" "--input-volume=mute-toggle"; }
 
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--device=intel_backlight" "s" "10%-"; }
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--device=intel_backlight" "s" "10%+"; }
-    XF86KbdBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--device=asus::kbd_backlight" "s" "1-"; }
-    XF86KbdBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--device=asus::kbd_backlight" "s" "1+"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "swayosd-client" "--device=intel_backlight" "--brightness=lower"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "swayosd-client" "--device=intel_backlight" "--brightness=raise"; }
+    XF86KbdBrightnessDown allow-when-locked=true { spawn "swayosd-client" "--device=asus::kbd_backlight" "--brightness=lower"; }
+    XF86KbdBrightnessUp allow-when-locked=true { spawn "swayosd-client" "--device=asus::kbd_backlight" "--brightness=raise"; }
 
     Mod+Q { close-window; }
 
@@ -349,6 +349,7 @@ spawn-at-startup "xwayland-satellite"
 spawn-at-startup "fcitx5"
 spawn-at-startup "swayidle"
 spawn-at-startup "swaybg"
+spawn-at-startup "swayosd-server"
 
 // TODO: I do not know why 1Pass doesn't work on Wayland
 spawn-at-startup "env" "ELECTRON_OZONE_PLATFORM_HINT=x11" "1password"

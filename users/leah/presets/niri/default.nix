@@ -27,9 +27,6 @@
       loupe
       gnome-logs
       resources
-
-      # For Ghostty's gdbus activation
-      glib
     ];
 
     files.".config/niri/config.kdl".source = ./config.kdl;
@@ -68,5 +65,11 @@
       radius = 8;
       width = 2;
     };
+  };
+
+  hjem.users.leah.ext.programs.swayosd = {
+    enable = true;
+    settings.server.show_percentage = true;
+    style = ./swayosd/style.css;
   };
 }

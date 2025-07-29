@@ -6,6 +6,7 @@
     ./programs/jujutsu.nix
     ./programs/moar.nix
     ./programs/swaylock.nix
+    ./programs/swayosd.nix
     ./programs/vesktop.nix
   ];
 }

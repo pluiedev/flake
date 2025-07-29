@@ -5,26 +5,28 @@
 }:
 {
   # Make both GTK 3 and Qt apps follow GTK 4-like theming... sorta
-  hjem.users.leah.packages = with pkgs; [
-    adw-gtk3
-    qadwaitadecorations
-    qadwaitadecorations-qt6
-  ];
+  hjem.users.leah = {
+    packages = with pkgs; [
+      adw-gtk3
+      qadwaitadecorations
+      qadwaitadecorations-qt6
+    ];
 
-  qt.enable = true;
+    environment.sessionVariables = {
+      # Make Qt apps look like GTK 3 apps.
+      # Ideally I want to make them look like GTK 4 + Adwaita apps instead,
+      # but it's not really viable with `adwaita-qt` being discontinued
+      QT_QPA_PLATFORMTHEME = "gtk3";
 
-  hjem.users.leah.environment.sessionVariables = {
-    # Make Qt apps look like GTK 3 apps.
-    # Ideally I want to make them look like GTK 4 + Adwaita apps instead,
-    # but it's not really viable with `adwaita-qt` being discontinued
-    QT_QPA_PLATFORMTHEME = "gtk3";
+      # At least we can have an Adwaita-style CSD
+      QT_WAYLAND_DECORATION = "adwaita";
+    };
 
-    # At least we can have an Adwaita-style CSD
-    QT_WAYLAND_DECORATION = "adwaita";
-
-    # GTK 3 apps are ignoring the dconf settings for some reason,
-    # which is causing Qt apps to also misbehave
-    GTK_THEME = "Adwaita:dark";
+    rum.misc.gtk.settings = {
+      # GTK 3 apps are ignoring the dconf settings for some reason,
+      # which is causing Qt apps to also misbehave
+      application-prefer-dark-theme = true;
+    };
   };
 
   programs.dconf.profiles.user.databases = [
@@ -32,7 +34,7 @@
       settings = {
         "org/gnome/desktop/wm/preferences" = {
           # Both minimize and maximize do nothing in niri
-          button-layout = "icon:close";
+          button-layout = ":menu,close";
         };
         "org/gnome/desktop/interface" = {
           accent-color = "pink";
