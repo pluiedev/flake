@@ -7,6 +7,10 @@
   ...
 }:
 {
+  imports = [
+    ../users
+  ];
+
   system.stateVersion = "25.05";
 
   nix = {
@@ -31,7 +35,6 @@
         "configurable-impure-env"
       ];
       trusted-users = [ "@wheel" ];
-      impure-env = [ "all_proxy=http://127.0.0.1:2080" ];
     };
   };
 
@@ -42,6 +45,10 @@
 
     overlays = [ inputs.self.overlays.default ];
   };
+
+  # Enable building and testing aarch64 packages for Nixpkgs dev
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  nix.settings.extra-platforms = [ "aarch64-linux" ];
 
   boot = {
     loader = {
@@ -76,6 +83,10 @@
 
   # Use native Wayland when possible
   environment.variables = {
+    # This *should* be enough for most Electron apps
+    ELECTRON_OZONE_PLATFORM_HINT = "auto";
+
+    # Apply Nixpkgs-specific flags too
     NIXOS_OZONE_WL = "1";
 
     # Some SDL 2 apps are very naughty and don't work nicely under Wayland
@@ -86,21 +97,39 @@
   };
 
   services = {
+    # Use dbus-broker for higher D-Bus performance
     dbus.implementation = "broker";
+
+    # Some things sadly don't like being in Nixpkgs
     flatpak.enable = true;
+
+    # Makes sure auto-mounting disks still work when not using a
+    # traditional desktop environment like GNOME or KDE
     udisks2.enable = true;
+
+    # Dynamically adjust performance settings based on load
+    # instead of power-profile-daemon's rigid profiles
     tlp.enable = true;
 
+    # Nobody likes PulseAudio in this household
     pulseaudio.enable = false;
+
     pipewire = {
       enable = true;
-      wireplumber.enable = true;
-      alsa.enable = true;
-      jack.enable = true;
       pulse.enable = true;
+
+      # Some weird apps still talk to ALSA directly
+      alsa.enable = true;
+
+      # JACK should only be necessary for some professional audio
+      # software (e.g. DAWs like Ardour or video editing software
+      # like DaVinci Resolve), but we enable it no matter what
+      jack.enable = true;
     };
   };
 
+  # Real-time audio software like DAWs are
+  # *crippled* without rtkit
   security.rtkit.enable = true;
 
   zramSwap = {
@@ -108,9 +137,7 @@
     algorithm = "zstd";
   };
 
-  networking.networkmanager = {
-    enable = true;
-  };
+  networking.networkmanager.enable = true;
 
   system = {
     # Thank @luishfonseca for this

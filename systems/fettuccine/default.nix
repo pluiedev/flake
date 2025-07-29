@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   inputs,
   ...
@@ -9,26 +8,17 @@
   imports = with inputs.nixos-hardware.nixosModules; [
     ../common.nix
     ./hardware-configuration.nix
-    ../../users/leah
-
-    common-hidpi
     asus-zephyrus-gu603h
   ];
 
   networking.hostName = "fettuccine";
 
-  boot = {
-    # Disable Nvidia's HDMI audio
-    blacklistedKernelModules = [ "snd_hda_codec_hdmi" ];
+  users.users.leah.enable = true;
 
-    # FIXME: switch back to latest xanmod after 6.15.5
-    kernelPackages = pkgs.linuxPackages_latest;
-  };
+  # Disable Nvidia's HDMI audio
+  boot.blacklistedKernelModules = [ "snd_hda_codec_hdmi" ];
 
-  # Enable building and testing aarch64 packages for Nixpkgs dev
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-  nix.settings.extra-platforms = [ "aarch64-linux" ];
-
+  # Allow CUDA
   nixpkgs.config.cudaSupport = true;
 
   hardware = {
@@ -50,24 +40,4 @@
 
   # This is an ASUS computer after all
   services.asusd.enable = true;
-
-  networking.firewall = {
-    enable = true;
-
-    # Allow previewing local Vite builds on other devices via LAN
-    allowedTCPPorts = [ 5173 ];
-  };
-
-  specialisation.china.configuration = {
-    # cache.nixos.org is *unbearably* slow when accessed from Mainland China.
-    # Fortunately, mirror sites exist... Hooray(?)
-    nix.settings.substituters = map (url: "${url}/nix-channels/store") [
-      "https://mirrors.ustc.edu.cn"
-      "https://mirrors6.tuna.tsinghua.edu.cn"
-      "https://mirrors.tuna.tsinghua.edu.cn"
-      # "https://mirror.sjtu.edu.cn" # FIXME: buggy?
-    ];
-
-    environment.sessionVariables.all_proxy = "http://127.0.0.1:2080";
-  };
 }
