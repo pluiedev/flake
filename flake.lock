@@ -98,11 +98,11 @@
         "zon2nix": "zon2nix"
       },
       "locked": {
-        "lastModified": 1753557429,
-        "narHash": "sha256-gy/K5KBktVbzq4u6wx0YytOAxefmKrEbcnEMNdcl8JY=",
+        "lastModified": 1753722074,
+        "narHash": "sha256-yGQ28k8iz2tGrj5oo/HBkn0ihWA5uUZ1ZErkMtegzTw=",
         "owner": "pluiedev",
         "repo": "ghostty",
-        "rev": "18831374caf2617235717cf30705c89b657934bb",
+        "rev": "92c1f4b0b9c6fde6d8f79109de71bf4e30831e86",
         "type": "github"
       },
       "original": {
