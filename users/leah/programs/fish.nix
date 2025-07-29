@@ -13,7 +13,8 @@
     enable = true;
     inherit (config.programs.fish) package;
 
-    functions.eza = "eza --git --icons=auto";
+    functions.eza = "command eza --git --icons=auto";
+
     abbrs = {
       ls = "eza";
       ll = "eza -l";

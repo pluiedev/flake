@@ -19,9 +19,9 @@
   hjem.users.leah.ext.programs = {
     git = {
       enable = true;
+      integrations.difftastic.enable = true;
+      
       settings = {
-        diff.external = lib.getExe pkgs.difftastic;
-
         init.defaultBranch = "main";
         push.autoSetupRemote = true;
         url."https://github.com/".insteadOf = "gh:";
