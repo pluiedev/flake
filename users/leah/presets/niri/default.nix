@@ -45,16 +45,28 @@
     enable = true;
 
     settings.main = {
-      font = "Sans:size=8";
+      font = "Sans:size=14";
       use-bold = true;
-      dpi-aware = "yes";
       show-actions = true;
-      lines = 10;
+      match-counter = true;
+
+      # Make Fuzzel take on-demand focus and stop it
+      # from closing automatically
       keyboard-focus = "on-demand";
-      horizontal-pad = 32;
-      vertical-pad = 24;
+      exit-on-keyboard-focus-loss = false;
+
+      lines = 8;
+      y-margin = 8;
+      horizontal-pad = 20;
+      vertical-pad = 16;
+      inner-pad = 8;
       anchor = "bottom";
       layer = "top";
+    };
+
+    settings.border = {
+      radius = 8;
+      width = 2;
     };
   };
 }

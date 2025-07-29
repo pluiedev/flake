@@ -13,8 +13,7 @@
 
   qt.enable = true;
 
-  # TODO: Use the corresponding `qt.*` options when they become available
-  environment.sessionVariables = {
+  hjem.users.leah.environment.sessionVariables = {
     # Make Qt apps look like GTK 3 apps.
     # Ideally I want to make them look like GTK 4 + Adwaita apps instead,
     # but it's not really viable with `adwaita-qt` being discontinued
@@ -22,6 +21,10 @@
 
     # At least we can have an Adwaita-style CSD
     QT_WAYLAND_DECORATION = "adwaita";
+
+    # GTK 3 apps are ignoring the dconf settings for some reason,
+    # which is causing Qt apps to also misbehave
+    GTK_THEME = "Adwaita:dark";
   };
 
   programs.dconf.profiles.user.databases = [
@@ -33,6 +36,7 @@
         };
         "org/gnome/desktop/interface" = {
           accent-color = "pink";
+          gtk-theme = "Adwaita";
           color-scheme = "prefer-dark";
           font-name = "Manrope 13";
         };

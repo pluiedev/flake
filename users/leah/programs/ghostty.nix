@@ -22,7 +22,7 @@
 
       unfocused-split-opacity = 0.8;
       background-opacity = 0.85;
-      background-blur-radius = true;
+      background-blur = true;
 
       # Massively improves the nvim experience
       mouse-hide-while-typing = true;
