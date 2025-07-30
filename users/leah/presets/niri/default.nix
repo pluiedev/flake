@@ -22,6 +22,7 @@
       waybar
       xwayland-satellite
       brightnessctl
+      wleave
 
       # Desktop utilities
       file-roller

@@ -34,6 +34,7 @@
       vlc
       thunderbird
       telegram-desktop
+      inkscape
 
       # Command-line apps
       just

@@ -21,7 +21,7 @@ let
 
     text = ''
       poll_rate=$1
-      intel_gpu_top -J -s $poll_rate | jq -c --unbuffered --stream '
+      intel_gpu_top -J -s "$poll_rate" | jq -c --unbuffered --stream '
         fromstream(2|truncate_stream(inputs))
           | select(has("Render/3D"))
           | {
@@ -44,6 +44,7 @@ map (v: common // v) [
       "group/appearance"
       "group/connectivity"
       "battery"
+      "custom/wleave"
     ];
 
     "group/apps" = {
@@ -175,6 +176,10 @@ map (v: common // v) [
       on-click = "swaync-client -t -sw";
       on-click-right = "swaync-client -d -sw";
       escape = true;
+    };
+    "custom/wleave" = {
+      format = "";
+      on-click = "wleave";
     };
   }
   {

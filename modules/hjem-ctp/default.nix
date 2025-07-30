@@ -21,6 +21,7 @@ in
     ./fuzzel.nix
     # ./plasma.nix
     ./vencord.nix
+    ./wleave.nix
   ];
 
   _module.args = { inherit ctp-lib; };

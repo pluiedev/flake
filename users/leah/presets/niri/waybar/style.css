@@ -77,7 +77,7 @@ window.top > * > box {
 #cpu {
   color: #fab387; /* Peach */
 }
-#custom-gpu {
+#custom-gpu-nvidia, #custom-gpu-intel {
   color: #b4befe; /* Lavender */
 }
 #memory {
@@ -110,6 +110,10 @@ window.top > * > box {
   color: #fab387; /* Peach */
 }
 #battery.critical {
+  color: #f38ba8; /* Red */
+}
+
+#custom-wleave {
   color: #f38ba8; /* Red */
 }
 
