@@ -10,6 +10,10 @@
 
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
+  # Allow GPU usage monitoring utilities like `intel_gpu_top`
+  # to function without superuser access
+  boot.kernel.sysctl."kernel.perf_event_paranoid" = 0;
+
   # Update the system timezone according to physical location
   systemd.services.automatic-timezoned.enable = true;
 
