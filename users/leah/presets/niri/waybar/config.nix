@@ -43,8 +43,7 @@ map (v: common // v) [
       "privacy"
       "group/appearance"
       "group/connectivity"
-      "battery"
-      "custom/wleave"
+      "group/power"
     ];
 
     "group/apps" = {
@@ -77,6 +76,14 @@ map (v: common // v) [
       modules = [
         "network"
         "bluetooth"
+      ];
+      drawer = { };
+    };
+    "group/power" = {
+      orientation = "inherit";
+      modules = [
+        "battery"
+        "custom/wleave"
       ];
       drawer = { };
     };
