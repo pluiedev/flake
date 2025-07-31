@@ -8,6 +8,7 @@
 }:
 {
   imports = [
+    inputs.nixos-generators.nixosModules.all-formats
     ../users
   ];
 
