@@ -109,8 +109,8 @@ layout {
     }
 
     struts {
-        left -24
-        right -24
+        left 32
+        right 32
         top -16
         bottom -16
     }
@@ -182,6 +182,8 @@ binds {
     XF86AudioRaiseVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume=raise"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume=lower"; }
     XF86AudioMute allow-when-locked=true { spawn "swayosd-client" "--output-volume=mute-toggle"; }
+    Shift+XF86AudioRaiseVolume allow-when-locked=true { spawn "swayosd-client" "--input-volume=raise"; }
+    Shift+XF86AudioLowerVolume allow-when-locked=true { spawn "swayosd-client" "--input-volume=lower"; }
     XF86AudioMicMute allow-when-locked=true { spawn "swayosd-client" "--input-volume=mute-toggle"; }
 
     XF86MonBrightnessDown allow-when-locked=true { spawn "swayosd-client" "--device=intel_backlight" "--brightness=lower"; }

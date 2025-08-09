@@ -8,6 +8,9 @@ window#osd {
 #container {
   margin: 16px;
 }
+#container * {
+  color: #cdd6f4;
+}
 progressbar:disabled,
 image:disabled {
   opacity: 0.5;

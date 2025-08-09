@@ -11,6 +11,9 @@
 
   programs.niri.enable = true;
 
+  services.udev.packages = [ pkgs.swayosd ];  
+  systemd.packages = [ pkgs.swayosd ];  
+
   hjem.users.leah = {
     packages = with pkgs; [
       # I'm using Nautilus here because it a) looks nice
