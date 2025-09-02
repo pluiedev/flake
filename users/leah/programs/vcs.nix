@@ -5,6 +5,7 @@
 }:
 {
   hjem.users.leah.packages = with pkgs; [
+    gh
     jujutsu
     difftastic
     watchman
@@ -21,12 +22,24 @@
     integrations.difftastic.enable = true;
 
     settings = {
+      advice = {
+        detachedHead = true;
+      };
+      
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       url."https://github.com/".insteadOf = "gh:";
       gpg.format = "ssh";
 
-      http.proxy = "http://127.0.0.1:2080";
+      # GH integration
+      credential =
+        let
+          github.helper = "!${lib.getExe pkgs.gh} auth git-credential";
+        in
+        {
+          "https://github.com" = github;
+          "https://gist.github.com" = github;
+        };
 
       user = {
         name = "Leah Amelia Chen";
