@@ -58,6 +58,7 @@
       flake = {
         overlays.default = _: packages';
 
+        # Personal computers
         nixosConfigurations.fettuccine = lib.nixosSystem {
           modules = [ ./systems/fettuccine ];
           inherit specialArgs;
@@ -65,6 +66,12 @@
 
         nixosConfigurations.pappardelle = lib.nixosSystem {
           modules = [ ./systems/pappardelle ];
+          inherit specialArgs;
+        };
+
+        # Servers
+        nixosConfigurations.focaccia = lib.nixosSystem {
+          modules = [ ./systems/focaccia ];
           inherit specialArgs;
         };
 
