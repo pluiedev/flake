@@ -39,6 +39,6 @@ in
       ++ lib.optional (cfg.settings.backend == "neofetch") pkgs.neofetch;
     # TODO: add qwqfetch when it's added to nixpkgs
 
-    files.".config/hyfetch.json".source = lib.mkIf (cfg.settings != { }) configFile;
+    xdg.config.files."hyfetch.json".source = lib.mkIf (cfg.settings != { }) configFile;
   };
 }

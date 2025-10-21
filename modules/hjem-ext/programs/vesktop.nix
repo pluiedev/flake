@@ -56,15 +56,15 @@ in
       })
     ];
 
-    files =
+    xdg.config.files =
       {
-        ".config/vesktop/settings.json".source = format.generate "vesktop-settings.json" cfg.settings;
+        "vesktop/settings.json".source = format.generate "vesktop-settings.json" cfg.settings;
       }
       // lib.optionalAttrs cfg.vencord.enable {
-        ".config/vesktop/settings/settings.json".source =
+        "vesktop/settings/settings.json".source =
           format.generate "vencord-settings.json" cfg.vencord.settings;
 
-        ".config/vesktop/settings/quickCss.css".text = cfg.vencord.css;
+        "vesktop/settings/quickCss.css".text = cfg.vencord.css;
       };
   };
 }

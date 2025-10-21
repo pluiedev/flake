@@ -3,8 +3,11 @@
     environment.sessionVariables.EDITOR = "hx";
 
     # TODO: upstream this
-    files.".config/helix/ignore".text = ''
+    xdg.config.files."helix/ignore".text = ''
       flake.lock
+      result/
+      zig-out/
+      .zig-cache/
     '';
 
     rum.programs.helix = {

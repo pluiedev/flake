@@ -19,10 +19,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    files.".local/share/fcitx5/themes/catppuccin-${cfg.flavor}-${cfg.accent}".source =
+    xdg.data.files."fcitx5/themes/catppuccin-${cfg.flavor}-${cfg.accent}".source =
       "${finalPackage}/share/fcitx5/themes/catppuccin-${cfg.flavor}-${cfg.accent}";
 
-    files.".config/fcitx5/conf/classicui.conf".source = format.generate "fcitx5-classicui.conf" {
+    xdg.config.files."fcitx5/conf/classicui.conf".source = format.generate "fcitx5-classicui.conf" {
       globalSection = {
         Theme = "catppuccin-${cfg.flavor}-${cfg.accent}";
       };

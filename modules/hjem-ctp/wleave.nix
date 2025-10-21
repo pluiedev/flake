@@ -38,7 +38,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    files.".config/wleave/style.css".source = pkgs.concatText "wleave-style.css" [
+    xdg.config.files."wleave/style.css".source = pkgs.concatText "wleave-style.css" [
       "${src}/themes/${cfg.flavor}/${cfg.accent}.css"
       (pkgs.writeText "wleave-icons.css" iconsCss)
     ];

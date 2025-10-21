@@ -25,7 +25,7 @@ in
       ${lib.getExe cfg.package} hook fish | source
     '';
 
-    files.".config/direnv/lib/hm-nix-direnv.sh".source =
+    xdg.config.files."direnv/lib/hm-nix-direnv.sh".source =
       lib.mkIf cfg.nix-direnv.enable "${cfg.nix-direnv.package}/share/nix-direnv/direnvrc";
   };
 }

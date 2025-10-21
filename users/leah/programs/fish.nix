@@ -28,5 +28,5 @@
     '';
   };
 
-  hjem.users.leah.files.".config/starship.toml".source = ./starship.toml;
+  hjem.users.leah.xdg.config.files."starship.toml".source = ./starship.toml;
 }

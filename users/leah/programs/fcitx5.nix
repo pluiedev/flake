@@ -27,15 +27,15 @@ in
     ];
   };
 
-  hjem.users.leah.files = {
-    ".local/share/fcitx5/rime/default.custom.yaml".source = yaml.generate "default.yaml" {
+  hjem.users.leah.xdg.data.files = {
+    "fcitx5/rime/default.custom.yaml".source = yaml.generate "default.yaml" {
       patch.schema_list = [
         { schema = "luna_pinyin_simp"; }
         { schema = "luna_pinyin"; }
       ];
     };
-    ".local/share/fcitx5/rime/luna_pinyin.custom.yaml".source = luna_pinyin;
-    ".local/share/fcitx5/rime/luna_pinyin_simp.custom.yaml".source = luna_pinyin;
+    "fcitx5/rime/luna_pinyin.custom.yaml".source = luna_pinyin;
+    "fcitx5/rime/luna_pinyin_simp.custom.yaml".source = luna_pinyin;
   };
 
 }

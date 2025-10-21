@@ -10,7 +10,9 @@ in
   hjem.users.leah = {
     packages = [ pkgs.waybar ];
 
-    files.".config/waybar/style.css".source = ./style.css;
-    files.".config/waybar/config.jsonc".source = jsonFormat.generate "waybar-config.jsonc" config;
+    xdg.config.files = {
+      "waybar/style.css".source = ./style.css;
+      "waybar/config.jsonc".source = jsonFormat.generate "waybar-config.jsonc" config;
+    };
   };
 }

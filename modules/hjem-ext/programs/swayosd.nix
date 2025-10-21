@@ -30,9 +30,11 @@ in
   config = lib.mkIf cfg.enable {
     packages = [ cfg.package ];
 
-    files.".config/swayosd/config.toml".source = lib.mkIf (cfg.settings != { }) (
-      format.generate "swayosd-config.toml" cfg.settings
-    );
-    files.".config/swayosd/style.css".source = lib.mkIf (cfg.style != null) cfg.style;
+    xdg.config.files = {
+      "swayosd/config.toml".source = lib.mkIf (cfg.settings != { }) (
+        format.generate "swayosd-config.toml" cfg.settings
+      );
+      "swayosd/style.css".source = lib.mkIf (cfg.style != null) cfg.style;
+    };
   };
 }

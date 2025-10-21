@@ -23,7 +23,7 @@ in
 
   config = lib.mkIf cfg.enable {
     packages = [ cfg.package ];
-    files.".config/jj/config.toml".source = lib.mkIf (cfg.settings != { }) (
+    xdg.config.files."jj/config.toml".source = lib.mkIf (cfg.settings != { }) (
       format.generate "jj-config.toml" cfg.settings
     );
   };

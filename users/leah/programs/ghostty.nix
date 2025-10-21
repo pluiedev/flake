@@ -9,7 +9,7 @@
 
   hjem.users.leah.rum.programs.ghostty = {
     enable = true;
-    package = inputs.ghostty.packages.${pkgs.system}.default;
+    package = inputs.ghostty.packages.${pkgs.system}.ghostty;
 
     settings = {
       font-family = "Iosevka";

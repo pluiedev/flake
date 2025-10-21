@@ -34,10 +34,11 @@
       resources
     ];
 
-    files.".config/niri/config.kdl".source = ./config.kdl;
-
-    files.".config/swaync/style.css".source = ./swaync/style.css;
-    files.".config/swaync/config.json".source = ./swaync/config.json;
+    xdg.config.files = {
+      "niri/config.kdl".source = ./config.kdl;
+      "swaync/style.css".source = ./swaync/style.css;
+      "swaync/config.json".source = ./swaync/config.json;
+    };
   };
 
   hjem.users.leah.rum.programs.fuzzel = {
