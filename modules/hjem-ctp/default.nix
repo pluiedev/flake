@@ -16,10 +16,10 @@ in
   imports = [
     global
 
+    ./eza.nix
     ./fcitx5.nix
     ./fish.nix
     ./fuzzel.nix
-    # ./plasma.nix
     ./vencord.nix
     ./wleave.nix
   ];

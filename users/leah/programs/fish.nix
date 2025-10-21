@@ -13,8 +13,6 @@
     enable = true;
     inherit (config.programs.fish) package;
 
-    functions.eza = "command eza --git --icons=auto";
-
     abbrs = {
       ls = "eza";
       ll = "eza -l";
@@ -25,6 +23,12 @@
 
     earlyConfigFiles.starship = ''
       ${lib.getExe pkgs.starship} init fish | source
+    '';
+
+    config = ''
+      function eza --wraps eza
+        command eza --git --icons=auto $argv
+      end
     '';
   };
 
