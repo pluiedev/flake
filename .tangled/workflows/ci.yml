@@ -17,7 +17,7 @@ dependencies:
 
 environment:
   CACHE_NAME: "pluiedev"
-  FLAKE_ATTR: ".#nixosConfiguations.pappardelle.config.system.build.toplevel"
+  FLAKE_ATTR: ".#nixosConfigurations.pappardelle.config.system.build.toplevel"
 
 steps:
   - name: "Evaluate pappardelle"
