@@ -186,7 +186,7 @@ map (v: common // v) [
     };
     "custom/wleave" = {
       format = "";
-      on-click = "wleave";
+      on-click = "wleave -x";
     };
   }
   {

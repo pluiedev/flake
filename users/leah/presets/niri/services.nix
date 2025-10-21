@@ -9,7 +9,7 @@ let
     name = "swaybg";
     runtimeInputs = [ pkgs.swaybg ];
     text = ''
-      swaybg -i ${../../wallpaper.jpg}
+      exec swaybg -i "${../../wallpaper.jpg}" "$@"
     '';
   };
 
@@ -39,6 +39,21 @@ in
     swayidle'
     swaybg'
   ];
+
+  hjem.users.leah.systemd.services = {
+    swaybg = {
+      after = [ "graphical-session.target" ];
+      wantedBy = [ "graphical-session.target" ];
+      serviceConfig.ExecStart = lib.getExe swaybg';
+      restartTriggers = [ swaybg' ];
+    };
+    swayidle = {
+      after = [ "graphical-session.target" ];
+      wantedBy = [ "graphical-session.target" ];
+      serviceConfig.ExecStart = lib.getExe swayidle';
+      restartTriggers = [ swayidle' ];
+    };
+  };
 
   security = {
     polkit.enable = true;

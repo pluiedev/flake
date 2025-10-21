@@ -1,6 +1,7 @@
 {
   hjem.users.leah.ext.programs.vesktop = {
     enable = true;
+    autostart = true;
 
     settings = {
       minimizeToTray = "on";

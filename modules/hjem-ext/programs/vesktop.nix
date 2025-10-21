@@ -11,8 +11,8 @@ in
 {
   options.ext.programs.vesktop = {
     enable = lib.mkEnableOption "Vesktop";
-
     package = lib.mkPackageOption pkgs "vesktop" { };
+    autostart = lib.mkEnableOption "autostarting Vesktop";
 
     settings = lib.mkOption {
       inherit (format) type;
@@ -50,21 +50,29 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    packages = [
-      (cfg.package.override {
-        withSystemVencord = cfg.vencord.useSystemPackage;
-      })
+    packages = lib.mkMerge [
+      [
+        (cfg.package.override {
+          withSystemVencord = cfg.vencord.useSystemPackage;
+        })
+      ]
+      (lib.mkIf cfg.autostart [
+        (pkgs.makeAutostartItem {
+          name = "vesktop";
+          package = pkgs.vesktop;
+          prependExtraArgs = [ "--wayland-text-input-version=3" ];
+        })
+      ])
     ];
 
-    xdg.config.files =
-      {
-        "vesktop/settings.json".source = format.generate "vesktop-settings.json" cfg.settings;
-      }
-      // lib.optionalAttrs cfg.vencord.enable {
-        "vesktop/settings/settings.json".source =
-          format.generate "vencord-settings.json" cfg.vencord.settings;
+    xdg.config.files = {
+      "vesktop/settings.json".source = format.generate "vesktop-settings.json" cfg.settings;
+    }
+    // lib.optionalAttrs cfg.vencord.enable {
+      "vesktop/settings/settings.json".source =
+        format.generate "vencord-settings.json" cfg.vencord.settings;
 
-        "vesktop/settings/quickCss.css".text = cfg.vencord.css;
-      };
+      "vesktop/settings/quickCss.css".text = cfg.vencord.css;
+    };
   };
 }

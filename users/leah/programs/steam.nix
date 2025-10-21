@@ -29,4 +29,11 @@
     protontricks.enable = true;
     remotePlay.openFirewall = true;
   };
+
+  hjem.users.leah.packages = [
+    (pkgs.makeAutostartItem {
+      name = "steam";
+      package = pkgs.steam;
+    })
+  ];
 }

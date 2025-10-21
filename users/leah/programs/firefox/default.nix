@@ -59,5 +59,11 @@ let
   # I've seen how HM does it, and I don't think it's worth it at all...
 in
 {
-  hjem.users.leah.packages = [ wrappedFirefox ];
+  hjem.users.leah.packages = [
+    wrappedFirefox
+    (pkgs.makeAutostartItem {
+      name = "firefox";
+      package = wrappedFirefox;
+    })
+  ];
 }

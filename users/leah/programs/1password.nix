@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }:
 {
@@ -18,6 +17,13 @@
 
   # Add 1Pass as SSH agent
   hjem.users.leah = {
+    packages = [
+      (pkgs.makeAutostartItem {
+        name = "1password";
+        inherit (config.programs._1password-gui) package;
+      })
+    ];
+
     environment.sessionVariables.SSH_AUTH_SOCK = "${config.hjem.users.leah.directory}/.1password/agent.sock";
   };
 }

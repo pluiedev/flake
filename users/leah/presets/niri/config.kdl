@@ -343,20 +343,6 @@ workspace "dev" {
 }
 workspace "gaming"
 
-spawn-at-startup "waybar"
-spawn-at-startup "swaync"
-spawn-at-startup "fcitx5"
-spawn-at-startup "swayidle"
-spawn-at-startup "swaybg"
-spawn-at-startup "swayosd-server"
-
-// TODO: I do not know why 1Pass doesn't work on Wayland
-spawn-at-startup "env" "ELECTRON_OZONE_PLATFORM_HINT=x11" "1password"
-spawn-at-startup "ghostty" "--launched-from=desktop"
-spawn-at-startup "firefox"
-spawn-at-startup "vesktop" "--wayland-text-input-version=3"
-spawn-at-startup "steam"
-
 window-rule {
     match at-startup=true app-id="vesktop"
     open-on-workspace "chat"
