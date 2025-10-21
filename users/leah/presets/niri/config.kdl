@@ -167,7 +167,6 @@ window-rule {
 
 window-rule {
     match app-id="1Password"
-
     block-out-from "screen-capture"
 }
 
@@ -333,7 +332,6 @@ hotkey-overlay {
 }
 
 environment {
-    DISPLAY ":0"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
 }
 
@@ -347,7 +345,6 @@ workspace "gaming"
 
 spawn-at-startup "waybar"
 spawn-at-startup "swaync"
-spawn-at-startup "xwayland-satellite"
 spawn-at-startup "fcitx5"
 spawn-at-startup "swayidle"
 spawn-at-startup "swaybg"
