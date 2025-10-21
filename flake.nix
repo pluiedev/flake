@@ -1,6 +1,15 @@
 {
   description = "Leah's NixOS configurations + more";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://pluiedev.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "pluiedev.cachix.org-1:tW7LdIlB2UV3DM/DOVlgxg0ON+8YJRIW1aKxPKFOwzI="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
 

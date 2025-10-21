@@ -56,6 +56,16 @@
   # Use dbus-broker for higher D-Bus performance
   services.dbus.implementation = "broker";
 
+  # This is very bizarre.
+  # 
+  # Within the Tangled CI environment there's no user information at all,
+  # and the builder is ran with ID 0. This is a problem because logrotate's
+  # check script apparently assumes the `id` binary will always succeed.
+  # Given that I don't want to mess with logrotate at all beyond what is
+  # already given to me as a default, I think it's saner to just disable
+  # config validation to make CI pass.
+  services.logrotate.checkConfig = false;
+
   zramSwap = {
     enable = true;
     algorithm = "zstd";
