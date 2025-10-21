@@ -17,8 +17,11 @@ dependencies:
 
 environment:
   CACHE_NAME: "pluiedev"
+  USER: "builder"
 
 steps:
+  - name: "whoami"
+    command: "whoami"
   - name: "Evaluate pappardelle"
     command: "nix eval .#nixosConfigurations.pappardelle.config.system.build.toplevel"
   - name: "Build pappardelle"
