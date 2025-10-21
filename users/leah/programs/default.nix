@@ -35,6 +35,9 @@
       thunderbird
       telegram-desktop
       inkscape
+      fractal
+      papers
+      wechat
 
       # Command-line apps
       just
@@ -42,6 +45,8 @@
       ripgrep
       starship
       wl-clipboard
+      gamescope
+      xdg-terminal-exec
       eza
     ];
 
