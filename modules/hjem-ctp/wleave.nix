@@ -11,9 +11,9 @@ let
 
   src = pkgs.fetchFromGitHub {
     owner = "catppuccin";
-    repo = "wleave";
-    rev = "b690cee13b944890e43a5fb629ccdff86cffbbb3";
-    hash = "sha256-QUSDx5M+BG7YqI4MBsOKFPxvZHQtCa8ibT0Ln4FPQ7I=";
+    repo = "wlogout";
+    rev = "b51d7189efb414fc76cb6c08f27c0c69706b9f78";
+    hash = "sha256-0VCk+7t/cSEmcnfvKdxUDwwrtK0VLhZrVpw4enoBEbc=";
   };
 in
 {
