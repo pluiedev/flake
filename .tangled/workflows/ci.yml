@@ -22,4 +22,4 @@ steps:
   - name: "Evaluate pappardelle"
     command: "nix eval .#nixosConfigurations.pappardelle.config.system.build.toplevel"
   - name: "Build pappardelle"
-    command: "USER=root cachix watch-exec $CACHE_NAME -- nix eval .#nixosConfigurations.pappardelle.config.system.build.toplevel"
+    command: "USER=root cachix watch-exec $CACHE_NAME -- nix build .#nixosConfigurations.pappardelle.config.system.build.toplevel"
