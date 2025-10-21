@@ -50,14 +50,18 @@
       eza
     ];
 
-    rum.programs.obs-studio.enable = true;
-
-    ext.programs = {
+    rum.programs = {
       direnv = {
         enable = true;
-        nix-direnv.enable = true;
+        integrations = {
+          fish.enable = true;
+          nix-direnv.enable = true;
+        };
       };
+      obs-studio.enable = true;
+    };
 
+    ext.programs = {
       hyfetch = {
         enable = true;
         settings = {
