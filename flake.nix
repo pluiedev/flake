@@ -17,7 +17,7 @@
     };
 
     hjem = {
-      url = "github:feel-co/hjem";
+      url = "github:feel-co/hjem?rev=a1e391395fee2f2ddbb8e9efd5da68cf60406835";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
