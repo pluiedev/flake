@@ -1,0 +1,25 @@
+when:
+  - event: ["push", "pull_request", "manual"]
+    branch: ["main"]
+
+engine: "nixery"
+
+# using the default values
+clone:
+  skip: false
+  depth: 1
+  submodules: false
+
+dependencies:
+  nixpkgs:
+    - nix
+    - cachix
+
+environment:
+  CACHE_NAME: "pluiedev"
+
+steps:
+  - name: "Evaluate pappardelle"
+    command: "nix eval .#nixosConfigurations.pappardelle.config.system.build.toplevel"
+  - name: "Build pappardelle"
+    command: "cachix watch-exec $CACHE_NAME -- nix eval .#nixosConfigurations.pappardelle.config.system.build.toplevel"
