@@ -51,12 +51,11 @@
     ];
 
     rum.programs = {
-      direnv = {
+      direnv.enable = true;
+      starship = {
         enable = true;
-        integrations = {
-          fish.enable = true;
-          nix-direnv.enable = true;
-        };
+        settings = builtins.fromTOML ./starship.toml;
+        transcience.enable = true;
       };
       obs-studio.enable = true;
     };
