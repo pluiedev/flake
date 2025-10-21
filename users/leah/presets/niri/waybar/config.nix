@@ -120,6 +120,8 @@ map (v: common // v) [
       actions = {
         on-scroll-up = "tz_up";
         on-scroll-down = "tz_down";
+        on-click = "tz_up";
+        on-click-right = "tz_down";
       };
     };
     bluetooth = {
