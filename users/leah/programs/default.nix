@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -54,8 +55,8 @@
       direnv.enable = true;
       starship = {
         enable = true;
-        settings = builtins.fromTOML ./starship.toml;
-        transcience.enable = true;
+        settings = lib.importTOML ./starship.toml;
+        transience.enable = true;
       };
       obs-studio.enable = true;
     };
