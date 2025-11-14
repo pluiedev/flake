@@ -63,7 +63,7 @@ output "Samsung Display Corp. ATNA40HQ01-0  Unknown" {
 
 // External display
 output "PNP(AOC) Q32G2WG4 0x00000BCC" {
-    mode "2560x1440@143.912"
+    mode "2560x1440@143.999"
     // Main monitor is to the left of the laptop monitor
     position x=0 y=0
 }
