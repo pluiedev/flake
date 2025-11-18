@@ -95,7 +95,7 @@
         {
           packages = packages' pkgs;
 
-          devShells.default = pkgs.mkShell {
+          devShells.default = pkgs.mkShellNoCC {
             packages = with pkgs; [
               nil
               nixfmt-rfc-style
