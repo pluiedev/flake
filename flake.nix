@@ -58,14 +58,13 @@
           inherit (pkgs') callPackage;
           directory = ./packages;
         };
-
       specialArgs = { inherit inputs; };
     in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = lib.systems.flakeExposed;
 
       flake = {
-        overlays.default = _: packages';
+        overlays.default = final: prev: packages' prev // import ./overlay.nix final prev;
 
         # Personal computers
         nixosConfigurations.fettuccine = lib.nixosSystem {
