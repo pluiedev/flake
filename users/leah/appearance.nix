@@ -38,7 +38,7 @@ in
       adwaita-icon-theme
     ];
 
-    ext.programs.moar.settings.style = "catppuccin-${flavor}";
+    ext.programs.moor.settings.style = "catppuccin-${flavor}";
   };
 
   programs.vivid = {

@@ -60,7 +60,7 @@
       ui = {
         default-command = [ "log" ];
         diff-formatter = "difft";
-        pager = "${lib.getExe pkgs.moar} -no-linenumbers";
+        pager = "${lib.getExe pkgs.moor} -no-linenumbers";
         log-word-wrap = true;
       };
 

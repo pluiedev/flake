@@ -22,7 +22,7 @@
   programs = {
     localsend.enable = true;
     nix-index-database.comma.enable = true;
-    nekoray = {
+    throne = {
       enable = true;
       tunMode.enable = true;
     };
@@ -67,13 +67,18 @@
         settings = {
           preset = "lesbian";
           mode = "rgb";
+          auto_detect_light_dark = true;
+          light_dark = "dark";
+          pride_month_disable = false;
           lightness = 0.6;
           color_align.mode = "horizontal";
+          args = null;
+          distro = null;
           backend = "fastfetch";
         };
       };
 
-      moar = {
+      moor = {
         enable = true;
         settings = {
           no-statusbar = true;

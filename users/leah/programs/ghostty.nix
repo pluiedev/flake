@@ -13,7 +13,7 @@
 
     rum.programs.ghostty = {
       enable = true;
-      package = inputs.ghostty.packages.${pkgs.system}.ghostty;
+      package = inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.ghostty;
 
       settings = {
         font-family = "Iosevka";

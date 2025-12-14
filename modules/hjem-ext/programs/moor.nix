@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.ext.programs.moar;
+  cfg = config.ext.programs.moor;
 
   toFlag =
     k: v:
@@ -18,10 +18,10 @@ let
 
 in
 {
-  options.ext.programs.moar = {
-    enable = lib.mkEnableOption "Moar";
+  options.ext.programs.moor = {
+    enable = lib.mkEnableOption "Moor";
 
-    package = lib.mkPackageOption pkgs "moar" { };
+    package = lib.mkPackageOption pkgs "moor" { };
 
     settings = lib.mkOption {
       type = lib.types.submodule {
@@ -39,8 +39,8 @@ in
   config = lib.mkIf cfg.enable {
     packages = [ cfg.package ];
     environment.sessionVariables = {
-      PAGER = "moar";
-      MOAR = lib.concatStringsSep " " (lib.mapAttrsToList toFlag cfg.settings);
+      PAGER = "moor";
+      moor = lib.concatStringsSep " " (lib.mapAttrsToList toFlag cfg.settings);
     };
   };
 }
