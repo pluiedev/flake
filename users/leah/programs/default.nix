@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   pkgs,
   lib,
@@ -39,6 +40,11 @@
       fractal
       papers
       wechat
+
+      (pkgs.makeAutostartItem {
+        name = "throne";
+        inherit (config.programs.throne) package;
+      })
 
       # Command-line apps
       just

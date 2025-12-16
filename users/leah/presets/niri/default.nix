@@ -71,31 +71,19 @@
       };
     };
 
-    rum.programs.fuzzel = {
+    ext.programs.vicinae = {
       enable = true;
-
-      settings.main = {
-        font = "Sans:size=14";
-        use-bold = true;
-        show-actions = true;
-        match-counter = true;
-
-        # Make Fuzzel take on-demand focus
-        keyboard-focus = "on-demand";
-
-        lines = 8;
-        width = 35;
-        y-margin = 8;
-        horizontal-pad = 20;
-        vertical-pad = 16;
-        inner-pad = 8;
-        anchor = "bottom";
-        layer = "top";
-      };
-
-      settings.border = {
-        radius = 8;
-        width = 2;
+      settings = {
+        closeOnFocusLoss = false;
+        considerPreedit = true;
+        font.size = 12;
+        keybinding = "default";
+        popToRootOnClose = true;
+        window = {
+          csd = true;
+          opacity = 0.85;
+          rounding = 16;
+        };
       };
     };
   };

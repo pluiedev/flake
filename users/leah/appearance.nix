@@ -39,6 +39,7 @@ in
     ];
 
     ext.programs.moor.settings.style = "catppuccin-${flavor}";
+    ext.programs.vicinae.settings.theme = "catppuccin-${flavor}";
   };
 
   programs.vivid = {

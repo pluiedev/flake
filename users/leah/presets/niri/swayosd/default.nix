@@ -27,8 +27,12 @@ in
     systemd.services.swayosd-server = {
       after = [ "graphical-session.target" ];
       wantedBy = [ "graphical-session.target" ];
-      serviceConfig.ExecStart = lib.getExe' swayosd "swayosd-server";
       restartTriggers = [ swayosd ];
+      serviceConfig = {
+        ExecStart = lib.getExe' swayosd "swayosd-server";
+        Restart = "always";
+        RestartSec = 60;
+      };
     };
   };
 }

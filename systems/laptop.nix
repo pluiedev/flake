@@ -15,7 +15,7 @@
   nix.settings.extra-platforms = [ "aarch64-linux" ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    kernelPackages = pkgs.linuxPackages_xanmod;
 
     loader = {
       limine = {

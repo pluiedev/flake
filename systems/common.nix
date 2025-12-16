@@ -71,14 +71,5 @@
     algorithm = "zstd";
   };
 
-  system = {
-    # thanks to @getchoo
-    autoUpgrade = {
-      enable = true;
-      flake = "git+https://tangled.sh/@pluie.me/flake#${config.networking.hostName}";
-      flags = [ "--refresh" ];
-    };
-
-    configurationRevision = inputs.self.rev or inputs.self.dirtyRev or "unknown-dirty";
-  };
+  system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or "unknown-dirty";
 }

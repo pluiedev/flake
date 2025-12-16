@@ -65,14 +65,20 @@ in
       ])
     ];
 
-    xdg.config.files = {
-      "vesktop/settings.json".source = format.generate "vesktop-settings.json" cfg.settings;
-    }
-    // lib.optionalAttrs cfg.vencord.enable {
-      "vesktop/settings/settings.json".source =
-        format.generate "vencord-settings.json" cfg.vencord.settings;
-
-      "vesktop/settings/quickCss.css".text = cfg.vencord.css;
-    };
+    xdg.config.files = lib.mkMerge [
+      {
+        "vesktop/settings.json" = lib.mkIf (cfg.settings != { }) {
+          generator = format.generate "vesktop-settings.json";
+          value = cfg.settings;
+        };
+      }
+      (lib.mkIf cfg.vencord.enable {
+        "vesktop/settings/settings.json" = lib.mkIf (cfg.vencord.settings != { }) {
+          generator = format.generate "vencord-settings.json";
+          value = cfg.vencord.settings;
+        };
+        "vesktop/settings/quickCss.css".text = lib.mkIf (cfg.vencord.css != "") cfg.vencord.css;
+      })
+    ];
   };
 }

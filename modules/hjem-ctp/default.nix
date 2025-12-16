@@ -19,7 +19,6 @@ in
     ./eza.nix
     ./fcitx5.nix
     ./fish.nix
-    ./fuzzel.nix
     ./vencord.nix
     ./wleave.nix
   ];

@@ -6,5 +6,6 @@
     ./programs/swaylock.nix
     ./programs/swayosd.nix
     ./programs/vesktop.nix
+    ./programs/vicinae.nix
   ];
 }

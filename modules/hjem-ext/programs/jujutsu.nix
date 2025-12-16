@@ -12,7 +12,6 @@ in
   options.ext.programs.jujutsu = {
     enable = lib.mkEnableOption "Jujutsu";
     package = lib.mkPackageOption pkgs "jujutsu" { };
-
     settings = lib.mkOption {
       type = lib.types.submodule {
         freeformType = format.type;
@@ -23,8 +22,9 @@ in
 
   config = lib.mkIf cfg.enable {
     packages = [ cfg.package ];
-    xdg.config.files."jj/config.toml".source = lib.mkIf (cfg.settings != { }) (
-      format.generate "jj-config.toml" cfg.settings
-    );
+    xdg.config.files."jj/config.toml" = lib.mkIf (cfg.settings != { }) {
+      generator = format.generate "jj-config.toml";
+      value = cfg.settings;
+    };
   };
 }

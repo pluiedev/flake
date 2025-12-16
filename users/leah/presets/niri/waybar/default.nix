@@ -5,7 +5,6 @@
 let
   jsonFormat = pkgs.formats.json { };
   config = import ./config.nix args;
-  configFile = jsonFormat.generate "waybar-config.jsonc" config;
 in
 {
   hjem.users.leah = {
@@ -14,7 +13,7 @@ in
 
     xdg.config.files = {
       "waybar/style.css".source = ./style.css;
-      "waybar/config.jsonc".source = configFile;
+      "waybar/config.jsonc".source = jsonFormat.generate "waybar-config.jsonc" config;
     };
   };
 }

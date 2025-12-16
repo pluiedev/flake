@@ -1,5 +1,4 @@
-
-# Catppuccin theme for Fuzzel
+# Catppuccin theme for Eza
 {
   config,
   ctp-lib,
@@ -8,7 +7,7 @@
   ...
 }:
 let
-  cfg = config.ctp.fuzzel;
+  cfg = config.ctp.eza;
 
   src = pkgs.fetchFromGitHub {
     owner = "catppuccin";
