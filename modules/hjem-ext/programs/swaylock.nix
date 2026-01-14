@@ -11,7 +11,7 @@ let
     name = "swaylock";
     runtimeInputs = [ cfg.package ];
     text = ''
-      exec swaylock ${lib.cli.toGNUCommandLineShell { } cfg.settings} "$@"
+      exec swaylock ${lib.cli.toCommandLineShellGNU { } cfg.settings} "$@"
     '';
   };
 in
