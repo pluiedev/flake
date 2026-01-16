@@ -74,10 +74,13 @@
           hjem-ctp = import ./modules/hjem-ctp;
         };
 
-        # This is highly advised, and will prevent many possible mistakes
-        checks = builtins.mapAttrs (
-          _: deployLib: deployLib.deployChecks inputs.self.deploy
-        ) inputs.deploy-rs.lib;
+        checks =
+          let
+            deployChecks = builtins.mapAttrs (
+              _: deployLib: deployLib.deployChecks inputs.self.deploy
+            ) inputs.deploy-rs.lib;
+          in
+          deployChecks // inputs.self.packages;
       };
 
       perSystem =

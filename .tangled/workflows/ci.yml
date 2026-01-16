@@ -17,10 +17,7 @@ dependencies:
 
 environment:
   CACHE_NAME: "pluiedev"
-  FLAKE_ATTR: ".#nixosConfigurations.pappardelle.config.system.build.toplevel"
 
 steps:
-  - name: "Evaluate pappardelle"
-    command: "nix eval --accept-flake-config $FLAKE_ATTR"
-  - name: "Build pappardelle"
-    command: "USER=root cachix watch-exec $CACHE_NAME -- nix build --accept-flake-config $FLAKE_ATTR"
+  - name: "Check and cache Flake outputs"
+    command: "USER=root cachix watch-exec $CACHE_NAME -- nix flake check --accept-flake-config $FLAKE_ATTR"
