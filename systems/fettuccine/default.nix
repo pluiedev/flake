@@ -6,7 +6,7 @@
 }:
 {
   imports = with inputs.nixos-hardware.nixosModules; [
-    ../common.nix
+    ../laptop.nix
     ./hardware-configuration.nix
     asus-zephyrus-gu603h
   ];

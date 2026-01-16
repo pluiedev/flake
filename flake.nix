@@ -15,6 +15,11 @@
 
     # NOTE: please keep this in alphabetical order.
 
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -87,17 +92,46 @@
           hjem-ext = import ./modules/hjem-ext;
           hjem-ctp = import ./modules/hjem-ctp;
         };
+
+        # deploy-rs Nodes
+        deploy.nodes.focaccia = {
+          sshOpts = [
+            "-p"
+            "42069"
+          ];
+          hostname = "focaccia.pluie.me";
+          profiles = {
+            system = {
+              path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.focaccia;
+              user = "root";
+              sshUser = "root";
+            };
+          };
+        };
+
+        # This is highly advised, and will prevent many possible mistakes
+        checks = builtins.mapAttrs (
+          _: deployLib: deployLib.deployChecks inputs.self.deploy
+        ) inputs.deploy-rs.lib;
       };
 
       perSystem =
-        { pkgs, ... }:
+        { system, ... }:
+        let
+          # Allow Flake checks to pass
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        in
         {
           packages = packages' pkgs;
 
           devShells.default = pkgs.mkShellNoCC {
             packages = with pkgs; [
-              nil
-              nixfmt-rfc-style
+              nixd
+              nixfmt
+              deploy-rs
             ];
           };
         };
