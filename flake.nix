@@ -116,15 +116,18 @@
       };
 
       perSystem =
-        { system, ... }:
-        let
+        {
+          pkgs,
+          system,
+          ...
+        }:
+        {
           # Allow Flake checks to pass
-          pkgs = import inputs.nixpkgs {
+          _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
             config.allowUnfree = true;
           };
-        in
-        {
+
           packages = packages' pkgs;
 
           devShells.default = pkgs.mkShellNoCC {
