@@ -55,58 +55,23 @@
 
   outputs =
     inputs:
-    let
-      inherit (inputs.nixpkgs) lib;
-      packages' =
-        pkgs':
-        pkgs'.lib.packagesFromDirectoryRecursive {
-          inherit (pkgs') callPackage;
-          directory = ./packages;
-        };
-      specialArgs = { inherit inputs; };
-    in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = lib.systems.flakeExposed;
+      systems = [
+        "x86_64-linux"
+        "x86_64-darwin"
+      ];
+
+      imports = [
+        ./overlay.nix
+        ./systems/fettuccine
+        ./systems/pappardelle
+        ./systems/focaccia
+      ];
 
       flake = {
-        overlays.default = final: prev: packages' prev // import ./overlay.nix final prev;
-
-        # Personal computers
-        nixosConfigurations.fettuccine = lib.nixosSystem {
-          modules = [ ./systems/fettuccine ];
-          inherit specialArgs;
-        };
-
-        nixosConfigurations.pappardelle = lib.nixosSystem {
-          modules = [ ./systems/pappardelle ];
-          inherit specialArgs;
-        };
-
-        # Servers
-        nixosConfigurations.focaccia = lib.nixosSystem {
-          modules = [ ./systems/focaccia ];
-          inherit specialArgs;
-        };
-
         hjemModules = {
           hjem-ext = import ./modules/hjem-ext;
           hjem-ctp = import ./modules/hjem-ctp;
-        };
-
-        # deploy-rs Nodes
-        deploy.nodes.focaccia = {
-          sshOpts = [
-            "-p"
-            "42069"
-          ];
-          hostname = "focaccia.pluie.me";
-          profiles = {
-            system = {
-              path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.focaccia;
-              user = "root";
-              sshUser = "root";
-            };
-          };
         };
 
         # This is highly advised, and will prevent many possible mistakes
@@ -118,6 +83,7 @@
       perSystem =
         {
           pkgs,
+          lib,
           system,
           ...
         }:
@@ -128,7 +94,10 @@
             config.allowUnfree = true;
           };
 
-          packages = packages' pkgs;
+          packages = lib.packagesFromDirectoryRecursive {
+            inherit (pkgs) callPackage;
+            directory = ./packages;
+          };
 
           devShells.default = pkgs.mkShellNoCC {
             packages = with pkgs; [
