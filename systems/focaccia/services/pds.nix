@@ -1,14 +1,14 @@
 {
-  # inputs,
   config,
-  # lib,
-  # pkgs,
   ...
 }:
+let
+  cfg = config.services.bluesky-pds.settings;
+in
 {
-  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.secrets.bluesky-pds = {
-    sopsFile = ./secrets/bluesky-pds.env;
+    # Has to be a separate file since it's a .env file
+    sopsFile = ../secrets/bluesky-pds.env;
     format = "dotenv";
   };
 
@@ -21,6 +21,10 @@
       PDS_PORT = 11037;
     };
   };
+
+  services.caddy.virtualHosts.${cfg.PDS_HOSTNAME}.extraConfig = ''
+    reverse_proxy :${toString cfg.PDS_PORT}
+  '';
 
   # services.postgresql = {
   #   enable = true;
