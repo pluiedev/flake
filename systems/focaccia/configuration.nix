@@ -9,6 +9,8 @@
     ./networking.nix
     ../../modules/nixos/hysteria.nix
     inputs.tangled.nixosModules.knot
+    inputs.sops-nix.nixosModules.sops
+    ./pds.nix
   ];
 
   networking = {
@@ -33,7 +35,7 @@
     home = "/home/leah";
 
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKbsavGX9rGRx5R+7ovLn+r7D/w3zkbqCik4bS31moSz"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINcpWY17MNJBx56APRSvLOfUjHllXn9gY/cV51JaLoh6"
     ];
   };
 
@@ -83,7 +85,12 @@
   services.caddy = {
     enable = true;
     email = "srv@acc.pluie.me";
-    virtualHosts."focaccia.pluie.me" = {
+    virtualHosts."pds.pluie.me" = {
+      extraConfig = ''
+        reverse_proxy :11037
+      '';
+    };
+    virtualHosts."knot.pluie.me" = {
       extraConfig = ''
         reverse_proxy :8964
       '';
@@ -99,7 +106,8 @@
       listenAddr = "0.0.0.0:8964";
       internalListenAddr = "127.0.0.1:4698";
       owner = "did:plc:e4f33w5yt2m54tq6vsagpwiu";
-      hostname = "focaccia.pluie.me";
+      hostname = "knot.pluie.me";
     };
   };
+ 
 }

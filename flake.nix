@@ -12,7 +12,6 @@
 
   inputs = {
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
-    empty.url = "github:MidAutumnMoon/empty-flake";
 
     # NOTE: please keep this in alphabetical order.
 
@@ -53,21 +52,31 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     tangled = {
       url = "git+https://tangled.org/tangled.org/core?shallow=1";
       inputs = {
         nixpkgs.follows = "nixpkgs";
 
         # We don't need any of these
-        flake-compat.follows = "empty";
-        indigo.follows = "empty";
-        htmx-src.follows = "empty";
-        htmx-ws-src.follows = "empty";
-        lucide-src.follows = "empty";
-        inter-fonts-src.follows = "empty";
-        actor-typeahead-src.follows = "empty";
-        ibm-plex-mono-src.follows = "empty";
+        flake-compat.follows = "";
+        indigo.follows = "";
+        htmx-src.follows = "";
+        htmx-ws-src.follows = "";
+        lucide-src.follows = "";
+        inter-fonts-src.follows = "";
+        actor-typeahead-src.follows = "";
+        ibm-plex-mono-src.follows = "";
       };
+    };
+
+    tranquil-pds = {
+      url = "git+https://tangled.org/lewis.moe/bspds-sandbox?rev=32fee7a7fff8493b78ca078a840b5819718f297d";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

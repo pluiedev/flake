@@ -22,21 +22,6 @@
         "type": "github"
       }
     },
-    "empty": {
-      "locked": {
-        "lastModified": 1759502707,
-        "narHash": "sha256-ML60zVlqK+R0R6EH2aWhWJh9CYPj2XuaRya9AuMl/GY=",
-        "owner": "MidAutumnMoon",
-        "repo": "empty-flake",
-        "rev": "3b830d637cf569096d7442e57fd221ecb887feda",
-        "type": "github"
-      },
-      "original": {
-        "owner": "MidAutumnMoon",
-        "repo": "empty-flake",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -456,7 +441,6 @@
     "root": {
       "inputs": {
         "deploy-rs": "deploy-rs",
-        "empty": "empty",
         "flake-parts": "flake-parts",
         "ghostty": "ghostty",
         "hjem": "hjem",
@@ -465,7 +449,9 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
-        "tangled": "tangled"
+        "sops-nix": "sops-nix",
+        "tangled": "tangled",
+        "tranquil-pds": "tranquil-pds"
       }
     },
     "rust-overlay": {
@@ -560,6 +546,26 @@
         "type": "github"
       }
     },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768481291,
+        "narHash": "sha256-NjKtkJraCZEnLHAJxLTI+BfdU//9coAz9p5TqveZwPU=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "e085e303dfcce21adcb5fec535d65aacb066f101",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
+      }
+    },
     "sqlite-lib-src": {
       "flake": false,
       "locked": {
@@ -650,31 +656,15 @@
     },
     "tangled": {
       "inputs": {
-        "actor-typeahead-src": [
-          "empty"
-        ],
-        "flake-compat": [
-          "empty"
-        ],
+        "actor-typeahead-src": [],
+        "flake-compat": [],
         "gomod2nix": "gomod2nix",
-        "htmx-src": [
-          "empty"
-        ],
-        "htmx-ws-src": [
-          "empty"
-        ],
-        "ibm-plex-mono-src": [
-          "empty"
-        ],
-        "indigo": [
-          "empty"
-        ],
-        "inter-fonts-src": [
-          "empty"
-        ],
-        "lucide-src": [
-          "empty"
-        ],
+        "htmx-src": [],
+        "htmx-ws-src": [],
+        "ibm-plex-mono-src": [],
+        "indigo": [],
+        "inter-fonts-src": [],
+        "lucide-src": [],
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -693,6 +683,27 @@
         "shallow": true,
         "type": "git",
         "url": "https://tangled.org/tangled.org/core"
+      }
+    },
+    "tranquil-pds": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768063083,
+        "narHash": "sha256-n4wojr8uD3FgNRUfvUZzLw8w3K5UA7zq/T13c7h7ANs=",
+        "ref": "refs/heads/main",
+        "rev": "32fee7a7fff8493b78ca078a840b5819718f297d",
+        "revCount": 133,
+        "type": "git",
+        "url": "https://tangled.org/lewis.moe/bspds-sandbox"
+      },
+      "original": {
+        "rev": "32fee7a7fff8493b78ca078a840b5819718f297d",
+        "type": "git",
+        "url": "https://tangled.org/lewis.moe/bspds-sandbox"
       }
     },
     "treefmt-nix": {
