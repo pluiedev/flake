@@ -68,7 +68,7 @@ in
           "LXGW NeoZhiSong"
         ];
         sansSerif = [
-          "Manrope"
+          "Manrope V5"
           "LXGW Neo XiHei"
         ];
         emoji = [ "Noto Color Emoji" ];
@@ -77,6 +77,20 @@ in
           "LXGW Neo XiHei"
         ];
       };
+
+      # Alias Manrope (v4, open source) to Manrope V5 (closed source)
+      # I really don't know why the font designer decided to rename the
+      # font altogether which really caused quite a bit of breakage
+      localConf = ''
+        <?xml version="1.0"?>
+        <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+        <fontconfig>
+          <alias>
+            <family>Manrope</family>
+            <prefer><family>Manrope V5</family></prefer>
+          </alias>
+        </fontconfig>
+      '';
     };
   };
 }
