@@ -1,9 +1,14 @@
 {
+  inputs,
+  ...
+}:
+{
   imports = [
     ../common.nix
     ./hardware-configuration.nix
     ./networking.nix
     ../../modules/nixos/hysteria.nix
+    inputs.tangled.nixosModules.knot
   ];
 
   networking = {
@@ -44,7 +49,7 @@
   };
 
   users.users.root.openssh.authorizedKeys.keys = [
-    ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKbsavGX9rGRx5R+7ovLn+r7D/w3zkbqCik4bS31moSz''
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKbsavGX9rGRx5R+7ovLn+r7D/w3zkbqCik4bS31moSz"
   ];
 
   boot.kernel.sysctl = {
@@ -71,6 +76,30 @@
           rewriteHost = true;
         };
       };
+    };
+  };
+
+  # Reverse proxy
+  services.caddy = {
+    enable = true;
+    email = "srv@acc.pluie.me";
+    virtualHosts."focaccia.pluie.me" = {
+      extraConfig = ''
+        reverse_proxy :8964
+      '';
+    };
+  };
+
+  services.tangled.knot = {
+    enable = true;
+    openFirewall = false;
+
+    stateDir = "/var/lib/tangled-knot";
+    server = {
+      listenAddr = "0.0.0.0:8964";
+      internalListenAddr = "127.0.0.1:4698";
+      owner = "did:plc:e4f33w5yt2m54tq6vsagpwiu";
+      hostname = "focaccia.pluie.me";
     };
   };
 }

@@ -122,7 +122,10 @@
 
     # Redirect all traffic through proxy
     networking.proxy.allProxy = "http://127.0.0.1:2080";
-    nix.settings.impure-env = [ "all_proxy=http://127.0.0.1:2080" ];
+    nix.settings.impure-env = [
+      "all_proxy=http://127.0.0.1:2080"
+      "GOPROXY=https://goproxy.cn"
+    ];
 
     # Make the auto upgrade mechanism upgrade to the correct specialization
     # so that proxies don't just randomly break the next day
