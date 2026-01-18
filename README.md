@@ -24,7 +24,7 @@ big wigs barking about how they will "hard pivot" into providing a
 quality AI platform, they have completely lost the ability to run
 a good code hosting service.
 
-Now, don't get me wrong. I don't think that developmenting AI is
+Now, don't get me wrong. I don't think that developing AI is
 necessarily contradictory with providing a good service — au contraire.
 AI is only the *symptom*. A quality service should not have to resort
 to increase its surface value with techno-optimist-sounding catchphrases,
