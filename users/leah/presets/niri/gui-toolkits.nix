@@ -40,7 +40,7 @@
           accent-color = "pink";
           gtk-theme = "Adwaita";
           color-scheme = "prefer-dark";
-          font-name = "Manrope 13";
+          font-name = "Manrope V5 13";
         };
       };
     }

@@ -71,7 +71,7 @@ in
     };
     cursorTheme.name = "BreezeX-Black";
     font = {
-      name = "Manrope";
+      name = "Manrope V5";
       size = 14;
     };
   };

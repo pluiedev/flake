@@ -6,7 +6,7 @@
 @define-color separator rgba(255, 255, 255, 0.1);
 
 * {
-  font-family: "Manrope", "Font Awesome 6 Free";
+  font-family: "Manrope V5", "Font Awesome 6 Free";
   color: @fg;
 }
 
