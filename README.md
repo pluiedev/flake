@@ -33,7 +33,7 @@ is a **trendsetter**, something that shows the entire industry how it
 *should* and *ought* to be done.
 
 When I first joined GitHub, it *was* that trendsetter. It is the way
-how code *should* to be hosted, and it defined online open-source
+how code *should* to be hosted, and it defined how online open-source
 collaboration of the decade *ought* be conducted. Every modern Git forge
 in existence that has a pull request-like feature owes their fundamental
 design to GitHub. Somewhere in the process, that status is lost.
